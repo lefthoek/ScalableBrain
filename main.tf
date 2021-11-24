@@ -1,3 +1,8 @@
+variable "TFC_WORKSPACE_NAME" {
+  type    = string
+  default = ""
+}
+
 locals {
   project_name                = "scalable_brain"
   lambda_basic_execution_role = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
