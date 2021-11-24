@@ -6,10 +6,6 @@ variable "environment_name" {
   type = string
 }
 
-variable "policies" {
-  type = list
-}
-
 locals {
   module_name       = "shared"
   resources_prefix  = "${var.project_name}-${var.environment_name}-${local.module_name}"
