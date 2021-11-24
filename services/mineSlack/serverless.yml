@@ -1,0 +1,90 @@
+service: lefthoek-prototype-upstream
+frameworkVersion: "2"
+variablesResolutionMode: "20210326"
+configValidationMode: error
+useDotenv: true
+plugins:
+  - serverless-plugin-monorepo
+custom:
+  parameter_prefix: lefthoek-prototypes
+  datalake_bucket: ${ssm:/${self:custom.parameter_prefix}/buckets/datalake}
+  auth_lookup_table: ${ssm:/${self:custom.parameter_prefix}/tables/auth_lookup}
+  event_bus: ${ssm:/${self:custom.parameter_prefix}/event_bus}
+  function_prefix: lefthoek-prototype-upstream-${opt:stage}
+  oauth: ${self:custom.function_prefix}-oauth
+  init_team: ${self:custom.function_prefix}-init-team
+  init_channels: ${self:custom.function_prefix}-init-channels
+  mine_channel: ${self:custom.function_prefix}-mine-channel
+  function_role: ${ssm:/${self:custom.parameter_prefix}/roles/function}
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  eventBridge:
+    useCloudFormation: true
+  iam:
+    role: ${self:custom.function_role}
+  region: eu-west-1
+
+functions:
+  oauth:
+    handler: dist/index.slack
+    events:
+      - httpApi:
+          path: /integrations/slack
+          method: get
+    environment:
+      SLACK_CLIENT_ID: ${env:SLACK_CLIENT_ID}
+      SLACK_CLIENT_SECRET: ${env:SLACK_CLIENT_SECRET}
+      AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
+      EVENT_BUS_NAME: ${self:custom.event_bus}
+      HANDLER_NAME: ${self:custom.oauth}
+  initTeam:
+    handler: dist/index.initTeam
+    events:
+      - eventBridge:
+          eventBus: ${self:custom.event_bus}
+          pattern:
+            source:
+              - ${self:custom.oauth}
+            detail-type:
+              - TEAM_ADDED
+    environment:
+      DATALAKE_BUCKET: ${self:custom.datalake_bucket}
+      HANDLER_NAME: ${self:custom.init_team}
+      EVENT_BUS_NAME: ${self:custom.event_bus}
+  initChannels:
+    handler: dist/index.initChannels
+    timeout: 60
+    events:
+      - eventBridge:
+          eventBus: ${self:custom.event_bus}
+          pattern:
+            source:
+              - ${self:custom.init_team}
+            detail-type:
+              - TEAM_REPO_INITIATED
+    environment:
+      DATALAKE_BUCKET: ${self:custom.datalake_bucket}
+      HANDLER_NAME: ${self:custom.init_channels}
+      SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET}
+      AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
+      EVENT_BUS_NAME: ${self:custom.event_bus}
+  mineChannel:
+    handler: dist/index.mineChannel
+    timeout: 60
+    events:
+      - eventBridge:
+          eventBus: ${self:custom.event_bus}
+          pattern:
+            source:
+              - ${self:custom.init_channels}
+            detail-type:
+              - CHANNEL_REPO_INITIATED
+    environment:
+      HANDLER_NAME: ${self:custom.mine_channel}
+      EVENT_BUS_NAME: ${self:custom.event_bus}
+      AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
+      SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET}
+      DATALAKE_BUCKET: ${self:custom.datalake_bucket}
