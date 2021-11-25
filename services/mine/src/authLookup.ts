@@ -1,8 +1,8 @@
 import AWS from "aws-sdk";
 
 import type { TeamRepoMetaData } from "./types/models";
-export type Credentials = { access_token: string };
-export type AuthTeam = Credentials & TeamRepoMetaData;
+type Credentials = { access_token: string };
+type AuthTeam = Credentials & TeamRepoMetaData;
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 

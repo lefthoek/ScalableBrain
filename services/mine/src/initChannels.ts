@@ -7,15 +7,17 @@ import { LefthoekEventType } from "./types/enums";
 
 import type { TeamRepoInitiatedEvent } from "./types/events";
 
+const {
+  DATALAKE_BUCKET: bucket_name,
+  SLACK_SIGNING_SECRET: signing_secret,
+  AUTH_LOOKUP_TABLE: table_name,
+} = process.env;
+
 const initChannels = async (event: TeamRepoInitiatedEvent) => {
-  const {
-    DATALAKE_BUCKET: bucket_name,
-    SLACK_SIGNING_SECRET: signing_secret,
-    AUTH_LOOKUP_TABLE: table_name,
-  } = process.env;
   const { team_id, platform_type } = event.detail;
   const adapter = new S3Adapter({ bucket_name });
   const authLookup = new AuthLookup({ table_name });
+
   const { access_token } = await authLookup.get({ team_id, platform_type });
 
   const slack = new Slack({

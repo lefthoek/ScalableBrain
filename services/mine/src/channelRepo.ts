@@ -47,14 +47,11 @@ class ChannelRepo {
           data,
         });
       }
-      const s1 = await this.dehydrateState();
-      console.log("STATE1", s1);
-      if (!s1.is_updating) {
+      const { is_updating } = await this.dehydrateState();
+      if (!is_updating) {
         await this.deleteLatestIncompleteChunk();
       }
-      const s2 = await this.getMetaData();
-      console.log("STATE2", s2);
-      return s2;
+      return await this.getMetaData();
     } catch (e) {
       throw new Error(`could not initialize channel repo ${this.channel_id}`);
     }
@@ -113,9 +110,7 @@ class ChannelRepo {
     await this.adapter.writeJSON({ path, data: this.buffer });
     this.buffer = [];
     const newChunks = [chunk, ...this.chunks].sort((a, b) => b - a);
-    console.log("CHUNKS1", newChunks);
     this.chunks = newChunks;
-    console.log("CHUNKS2", this.chunks);
     return await this.writeMetaData();
   }
 

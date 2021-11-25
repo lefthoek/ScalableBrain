@@ -94,7 +94,7 @@ class Slack {
       return;
     }
 
-    const { messages, has_more, response_metadata, ...rest } = response;
+    const { messages, has_more, response_metadata } = response;
 
     if (!latest_chunk) {
       const iterator = messages;

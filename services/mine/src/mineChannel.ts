@@ -7,13 +7,13 @@ import { LefthoekEventType } from "./types/enums";
 
 import type { ChannelRepoInitiatedEvent } from "./types/events";
 
-const mineChannel = async (event: ChannelRepoInitiatedEvent) => {
-  const {
-    DATALAKE_BUCKET: bucket_name,
-    SLACK_SIGNING_SECRET: signing_secret,
-    AUTH_LOOKUP_TABLE: table_name,
-  } = process.env;
+const {
+  DATALAKE_BUCKET: bucket_name,
+  SLACK_SIGNING_SECRET: signing_secret,
+  AUTH_LOOKUP_TABLE: table_name,
+} = process.env;
 
+const mineChannel = async (event: ChannelRepoInitiatedEvent) => {
   const { team_id, platform_type, channel_id } = event.detail;
   const authLookup = new AuthLookup({ table_name });
   const { access_token } = await authLookup.get({ team_id, platform_type });

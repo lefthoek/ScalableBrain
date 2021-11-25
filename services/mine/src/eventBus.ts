@@ -2,12 +2,12 @@ import AWS from "aws-sdk";
 
 import type { LefthoekEventBus } from "./types/adapters";
 
+const { HANDLER_NAME, EVENT_BUS_NAME } = process.env;
+
 const eventBridge = new AWS.EventBridge();
 
 const eventBus: LefthoekEventBus = {
   put: async ({ detailType, detail }) => {
-    const { HANDLER_NAME, EVENT_BUS_NAME } = process.env;
-
     if (!HANDLER_NAME) {
       throw new Error("The handler name must be set in your environment");
     }
