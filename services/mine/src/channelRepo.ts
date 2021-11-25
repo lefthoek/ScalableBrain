@@ -1,4 +1,6 @@
-import { SlackChannelData, PlatformType, FSAdapter } from "./types";
+import type { SlackChannelData } from "./types/models";
+import type { PlatformType } from "./types/enums";
+import type { FSAdapter } from "./types/adapters";
 
 class ChannelRepo {
   buffer: Record<string, any>[];
@@ -109,7 +111,6 @@ class ChannelRepo {
     const chunk = this.buffer[0] && this.buffer[0].ts;
     const path = `${this.path}/${chunk}.json`;
     await this.adapter.writeJSON({ path, data: this.buffer });
-    const number_of_records = this.buffer.length;
     this.buffer = [];
     const newChunks = [chunk, ...this.chunks].sort((a, b) => b - a);
     console.log("CHUNKS1", newChunks);

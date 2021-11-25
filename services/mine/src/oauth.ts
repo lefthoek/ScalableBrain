@@ -1,12 +1,9 @@
-import {
-  SlackOAuthQueryString,
-  SlackOAuthData,
-  PlatformType,
-  LefthoekEventType,
-} from "./types";
+import fetch from "node-fetch";
 import AuthLookup from "./authLookup";
 import eventBus from "./eventBus";
-import fetch from "node-fetch";
+import { PlatformType, LefthoekEventType } from "./types/enums";
+
+import type { SlackOAuthQueryString, SlackOAuthData } from "./types/models";
 
 export const slack = async (event: SlackOAuthQueryString) => {
   const {
@@ -19,11 +16,13 @@ export const slack = async (event: SlackOAuthQueryString) => {
   const { code } = event.queryStringParameters;
   const oauthURL = `${baseURL}?client_id=${SLACK_CLIENT_ID}&client_secret=${SLACK_CLIENT_SECRET}&code=${code}`;
   const response = await fetch(oauthURL);
-  const { access_token, ...slackData }: SlackOAuthData = await response.json();
+  const { access_token, ...slackData } =
+    (await response.json()) as SlackOAuthData;
   const { team } = slackData;
   const authLookup = new AuthLookup({ table_name });
   const platform_type = PlatformType.SLACK;
-  const detail = await authLookup.write({
+
+  await authLookup.write({
     team_id: team.id,
     team_name: team.name,
     platform_type,

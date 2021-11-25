@@ -1,5 +1,6 @@
-import { StatusCodes, FSAdapter } from "./types";
 import AWS from "aws-sdk";
+
+import type { FSAdapter } from "./types/adapters";
 
 const s3 = new AWS.S3();
 

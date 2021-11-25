@@ -1,5 +1,8 @@
 import AWS from "aws-sdk";
-import { TeamRepoMetaData } from "./types";
+
+import type { TeamRepoMetaData } from "./types/models";
+export type Credentials = { access_token: string };
+export type AuthTeam = Credentials & TeamRepoMetaData;
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 
@@ -22,17 +25,17 @@ class AuthLookup {
     if (!Item && !Item!.access_token) {
       throw new Error("this team does not exist");
     }
-    return Item as { access_token: string };
+    return Item as AuthTeam;
   }
 
-  async write({ access_token, ...team }: TeamRepoMetaData) {
+  async write({ access_token, ...team }: AuthTeam) {
     try {
       const Item = { ...team, access_token };
-      const res = await ddb.put({ TableName: this.table_name, Item }).promise();
+      await ddb.put({ TableName: this.table_name, Item }).promise();
       return team;
     } catch (e) {
       console.log(e);
-      throw new Error("The table name must be set in your environment");
+      throw new Error(e);
     }
   }
 }

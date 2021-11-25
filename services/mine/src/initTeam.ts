@@ -1,12 +1,9 @@
 import TeamRepo from "./teamRepo";
 import S3Adapter from "./s3Adapter";
-import {
-  TeamAddedEvent,
-  LefthoekEventType,
-  StatusCodes,
-  FSAdapter,
-} from "./types";
 import eventBus from "./eventBus";
+import { LefthoekEventType } from "./types/enums";
+
+import type { TeamAddedEvent } from "./types/events";
 
 const initTeam = async (event: TeamAddedEvent) => {
   const { DATALAKE_BUCKET: bucket_name } = process.env;

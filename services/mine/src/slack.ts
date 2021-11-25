@@ -1,5 +1,6 @@
 import { App } from "@slack/bolt";
-import { SlackChannelData } from "./types";
+
+import type { SlackChannelData } from "./types/models";
 
 class Slack {
   app: InstanceType<typeof App>;

@@ -1,13 +1,6 @@
-import {
-  StatusCodes,
-  SlackChannelData,
-  FSAdapter,
-  PlatformType,
-  SlackOAuthData,
-  TeamRepoMetaData,
-} from "./types";
-
-import ChannelRepo from "./channelRepo";
+import type { PlatformType } from "./types/enums";
+import type { SlackOAuthData } from "./types/models";
+import type { FSAdapter } from "./types/adapters";
 
 class TeamRepo {
   team_id: string;

@@ -2,12 +2,10 @@ import Slack from "./slack";
 import ChannelRepo from "./channelRepo";
 import AuthLookup from "./authLookup";
 import S3Adapter from "./s3Adapter";
-import {
-  ChannelRepoInitiatedEvent,
-  StatusCodes,
-  LefthoekEventType,
-} from "./types";
 import eventBus from "./eventBus";
+import { LefthoekEventType } from "./types/enums";
+
+import type { ChannelRepoInitiatedEvent } from "./types/events";
 
 const mineChannel = async (event: ChannelRepoInitiatedEvent) => {
   const {
@@ -15,6 +13,7 @@ const mineChannel = async (event: ChannelRepoInitiatedEvent) => {
     SLACK_SIGNING_SECRET: signing_secret,
     AUTH_LOOKUP_TABLE: table_name,
   } = process.env;
+
   const { team_id, platform_type, channel_id } = event.detail;
   const authLookup = new AuthLookup({ table_name });
   const { access_token } = await authLookup.get({ team_id, platform_type });
@@ -28,6 +27,7 @@ const mineChannel = async (event: ChannelRepoInitiatedEvent) => {
   });
 
   const { latest_chunk, is_updating } = await channelRepo.init();
+
   if (is_updating) {
     return await eventBus.put({
       detailType: LefthoekEventType.CHANNEL_REPO_ALREADY_UPDATING,
@@ -37,6 +37,7 @@ const mineChannel = async (event: ChannelRepoInitiatedEvent) => {
 
   const messageIterator = await slack.update({ channel_id, latest_chunk });
   const detail = await channelRepo.update({ messageIterator });
+
   return await eventBus.put({
     detailType: LefthoekEventType.CHANNEL_RAW_DATA_UPDATED,
     detail,

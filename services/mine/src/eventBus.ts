@@ -1,5 +1,6 @@
 import AWS from "aws-sdk";
-import { LefthoekEventBus } from "./types";
+
+import type { LefthoekEventBus } from "./types/adapters";
 
 const eventBridge = new AWS.EventBridge();
 
@@ -17,11 +18,10 @@ const eventBus: LefthoekEventBus = {
 
     const DetailType = detailType;
     const Detail = JSON.stringify(detail, null, 2);
-    const EventBusName = process.env.EVENT_BUS_NAME;
     const event = {
       Source: HANDLER_NAME,
       DetailType,
-      EventBusName,
+      EventBusName: EVENT_BUS_NAME,
       Detail,
     };
     console.log(event);

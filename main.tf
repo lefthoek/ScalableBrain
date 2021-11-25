@@ -39,7 +39,7 @@ module "shared" {
 }
 
 module "infra" {
-  source           = "./infra/mineSlack"
+  source           = "./infra/mine"
   project_name     = local.project_name
   environment_name = local.environment_name
   policies = [

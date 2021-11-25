@@ -2,13 +2,10 @@ import ChannelRepo from "./channelRepo";
 import AuthLookup from "./authLookup";
 import Slack from "./slack";
 import S3Adapter from "./s3Adapter";
-import {
-  TeamRepoInitiatedEvent,
-  LefthoekEventType,
-  StatusCodes,
-  FSAdapter,
-} from "./types";
 import eventBus from "./eventBus";
+import { LefthoekEventType } from "./types/enums";
+
+import type { TeamRepoInitiatedEvent } from "./types/events";
 
 const initChannels = async (event: TeamRepoInitiatedEvent) => {
   const {
