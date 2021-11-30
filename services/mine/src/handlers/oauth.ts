@@ -1,9 +1,12 @@
 import fetch from "node-fetch";
-import AuthLookup from "./authLookup";
-import eventBus from "./eventBus";
-import { PlatformType, LefthoekEventType } from "./types/enums";
+import AuthLookup from "@stores/authLookup";
+import EventBus from "@adapters/eventBus";
+import { PlatformType, LefthoekEventType } from "@service_types/enums";
 
-import type { SlackOAuthQueryString, SlackOAuthData } from "./types/models";
+import type {
+  SlackOAuthQueryString,
+  SlackOAuthData,
+} from "@service_types/models";
 
 const {
   SLACK_CLIENT_SECRET,
@@ -11,7 +14,13 @@ const {
   SLACK_CLIENT_ID,
 } = process.env;
 
+const { HANDLER_NAME, EVENT_BUS_NAME } = process.env;
+
 export const slack = async (event: SlackOAuthQueryString) => {
+  const eventBus = new EventBus({
+    handler_name: HANDLER_NAME,
+    event_bus_name: EVENT_BUS_NAME,
+  });
   const baseURL = "https://slack.com/api/oauth.v2.access";
   const { code } = event.queryStringParameters;
   const oauthURL = `${baseURL}?client_id=${SLACK_CLIENT_ID}&client_secret=${SLACK_CLIENT_SECRET}&code=${code}`;

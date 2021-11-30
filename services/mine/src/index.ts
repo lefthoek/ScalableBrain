@@ -1,7 +1,6 @@
-import { slack } from "./oauth";
-import mineChannel from "./mineChannel";
-import initChannels from "./initChannels";
-import initTeam from "./initTeam";
-import echo from "./echo";
+export * from "./handlers";
+import { wrapServices } from "@adapters/handler";
+import * as functions from "./functions";
 
-export { initTeam, initChannels, echo, slack, mineChannel };
+export const { initTeam, initChannels, mineChannel, echo } =
+  wrapServices(functions);

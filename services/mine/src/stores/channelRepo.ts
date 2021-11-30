@@ -1,6 +1,6 @@
-import type { SlackChannelData } from "./types/models";
-import type { PlatformType } from "./types/enums";
-import type { FSAdapter } from "./types/adapters";
+import type { SlackChannelData } from "@service_types/models";
+import type { PlatformType } from "@service_types/enums";
+import type { FSAdapter } from "@service_types/adapters";
 
 class ChannelRepo {
   buffer: Record<string, any>[];

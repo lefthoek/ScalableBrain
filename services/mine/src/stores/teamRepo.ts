@@ -1,6 +1,6 @@
-import type { PlatformType } from "./types/enums";
-import type { SlackOAuthData } from "./types/models";
-import type { FSAdapter } from "./types/adapters";
+import type { PlatformType } from "@service_types/enums";
+import type { SlackOAuthData } from "@service_types/models";
+import type { FSAdapter } from "@service_types/adapters";
 
 class TeamRepo {
   team_id: string;

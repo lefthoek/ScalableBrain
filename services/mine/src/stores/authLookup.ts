@@ -1,6 +1,6 @@
 import AWS from "aws-sdk";
 
-import type { TeamRepoMetaData } from "./types/models";
+import type { TeamRepoMetaData } from "@service_types/models";
 type Credentials = { access_token: string };
 type AuthTeam = Credentials & TeamRepoMetaData;
 

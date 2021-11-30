@@ -1,7 +1,14 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./src",
     "rootDir": "./src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@service_types/*": ["types/*"],
+      "@adapters/*": ["adapters/*"],
+      "@providers/*": ["providers/*"],
+      "@stores/*": ["stores/*"]
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { App } from "@slack/bolt";
 
-import type { SlackChannelData } from "./types/models";
+import type { SlackChannelData } from "@service_types/models";
 
 class Slack {
   app: InstanceType<typeof App>;
@@ -109,7 +109,7 @@ class Slack {
     }
 
     if (has_more) {
-      yield* await this.update({
+      yield* this.update({
         channel_id,
         latest_chunk,
         first_page: false,
