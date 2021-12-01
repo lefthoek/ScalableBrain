@@ -7,5 +7,5 @@ output "datalake_bucket_write_access_policy" {
 }
 
 output "event_bus_write_access_policy" {
-  value = aws_iam_policy.event_bus_write_access.arn,
+  value = aws_iam_policy.event_bus_write_access.arn
 }
