@@ -13,7 +13,7 @@ terraform {
   backend "remote" {
     organization = "lefthoek"
     workspaces {
-      prefix = "scalable_brain-"
+      prefix = "scalable-brain-"
     }
   }
 
