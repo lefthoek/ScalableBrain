@@ -1,24 +1,26 @@
 {
-  "name": "lefthoek-prototypes-oauth",
+  "name": "@lefthoek/mine",
   "version": "0.0.1",
   "main": "index.js",
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "predeploy": "yarn build",
     "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
-    "@slack/bolt": "^3.6.0",
-    "node-fetch": "^2.6.1"
+    "@slack/bolt": "^3.8.1",
+    "node-fetch": "^3.1.0"
   },
   "devDependencies": {
-    "@types/node-fetch": "^2.5.12",
+    "@types/aws-lambda": "^8.10.85",
+    "@types/node-fetch": "^3.0.3",
     "rimraf": "^3.0.2",
-    "serverless": "^2.35.0",
+    "serverless": "^2.66.2",
     "serverless-plugin-monorepo": "^0.10.0",
-    "typescript": "^4.2.4"
+    "tsc-alias": "^1.4.2",
+    "typescript": "^4.5.2"
   }
 }

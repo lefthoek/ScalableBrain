@@ -1,5 +1,6 @@
 import { App } from "@slack/bolt";
-import { SlackChannelData } from "./types";
+
+import type { SlackChannelData } from "@service_types/models";
 
 class Slack {
   app: InstanceType<typeof App>;
@@ -93,7 +94,7 @@ class Slack {
       return;
     }
 
-    const { messages, has_more, response_metadata, ...rest } = response;
+    const { messages, has_more, response_metadata } = response;
 
     if (!latest_chunk) {
       const iterator = messages;
@@ -108,7 +109,7 @@ class Slack {
     }
 
     if (has_more) {
-      yield* await this.update({
+      yield* this.update({
         channel_id,
         latest_chunk,
         first_page: false,

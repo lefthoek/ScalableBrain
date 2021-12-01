@@ -1,4 +1,4 @@
-service: lefthoek-prototype-upstream
+service: scalable-brain-mine
 frameworkVersion: "2"
 variablesResolutionMode: "20210326"
 configValidationMode: error
@@ -6,7 +6,7 @@ useDotenv: true
 plugins:
   - serverless-plugin-monorepo
 custom:
-  parameter_prefix: lefthoek-prototypes
+  parameter_prefix: scalable-brain-mine
   datalake_bucket: ${ssm:/${self:custom.parameter_prefix}/buckets/datalake}
   auth_lookup_table: ${ssm:/${self:custom.parameter_prefix}/tables/auth_lookup}
   event_bus: ${ssm:/${self:custom.parameter_prefix}/event_bus}

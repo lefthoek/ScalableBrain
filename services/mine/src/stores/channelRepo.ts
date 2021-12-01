@@ -1,4 +1,6 @@
-import { SlackChannelData, PlatformType, FSAdapter } from "./types";
+import type { SlackChannelData } from "@service_types/models";
+import type { PlatformType } from "@service_types/enums";
+import type { FSAdapter } from "@service_types/adapters";
 
 class ChannelRepo {
   buffer: Record<string, any>[];
@@ -45,14 +47,11 @@ class ChannelRepo {
           data,
         });
       }
-      const s1 = await this.dehydrateState();
-      console.log("STATE1", s1);
-      if (!s1.is_updating) {
+      const { is_updating } = await this.dehydrateState();
+      if (!is_updating) {
         await this.deleteLatestIncompleteChunk();
       }
-      const s2 = await this.getMetaData();
-      console.log("STATE2", s2);
-      return s2;
+      return await this.getMetaData();
     } catch (e) {
       throw new Error(`could not initialize channel repo ${this.channel_id}`);
     }
@@ -109,12 +108,9 @@ class ChannelRepo {
     const chunk = this.buffer[0] && this.buffer[0].ts;
     const path = `${this.path}/${chunk}.json`;
     await this.adapter.writeJSON({ path, data: this.buffer });
-    const number_of_records = this.buffer.length;
     this.buffer = [];
     const newChunks = [chunk, ...this.chunks].sort((a, b) => b - a);
-    console.log("CHUNKS1", newChunks);
     this.chunks = newChunks;
-    console.log("CHUNKS2", this.chunks);
     return await this.writeMetaData();
   }
 
