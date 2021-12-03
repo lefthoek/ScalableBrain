@@ -36,7 +36,7 @@ jobs:
         if: github.event_name == 'pull_request' 
         run: terraform plan
       - name: Terraform Plan
-        if: github.ref != 'refs/heads/main' 
+        if: github.ref != 'refs/heads/main' && github.ref.event_name != 'pull_request'
         run: terraform plan
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
