@@ -1,9 +1,11 @@
 on:
   push:
+    tags: releases/[1-9]+.[0-9]+.[0-9]+
     branches:
-      - infra
-      - main
+      - "*"
   pull_request:
+    branches:
+      - main
 
 jobs:
   infra:
@@ -16,9 +18,8 @@ jobs:
       - uses: iamtheyammer/branch-env-vars@v1.0.3
         with:
           TF_WORKSPACE: |
-            stable:prod
-            main:dev
-            infra:dev
+            !tag:prod
+            !default:dev
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -32,8 +33,11 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
       - name: Terraform Plan
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.event_name == 'pull_request' || github.ref != 'refs/head/main'
         run: terraform plan
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/infra' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
+      - name: Terraform Apply
+        if: startsWith(github.ref, 'refs/tags/releases/')
         run: terraform apply -auto-approve

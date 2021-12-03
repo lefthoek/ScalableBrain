@@ -1,4 +1,5 @@
-service: scalable-brain-mine
+app: scalable-brain
+service: mine
 frameworkVersion: "2"
 variablesResolutionMode: "20210326"
 configValidationMode: error
@@ -40,51 +41,3 @@ functions:
       AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
       EVENT_BUS_NAME: ${self:custom.event_bus}
       HANDLER_NAME: ${self:custom.oauth}
-  initTeam:
-    handler: dist/index.initTeam
-    events:
-      - eventBridge:
-          eventBus: ${self:custom.event_bus}
-          pattern:
-            source:
-              - ${self:custom.oauth}
-            detail-type:
-              - TEAM_ADDED
-    environment:
-      DATALAKE_BUCKET: ${self:custom.datalake_bucket}
-      HANDLER_NAME: ${self:custom.init_team}
-      EVENT_BUS_NAME: ${self:custom.event_bus}
-  initChannels:
-    handler: dist/index.initChannels
-    timeout: 60
-    events:
-      - eventBridge:
-          eventBus: ${self:custom.event_bus}
-          pattern:
-            source:
-              - ${self:custom.init_team}
-            detail-type:
-              - TEAM_REPO_INITIATED
-    environment:
-      DATALAKE_BUCKET: ${self:custom.datalake_bucket}
-      HANDLER_NAME: ${self:custom.init_channels}
-      SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET}
-      AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
-      EVENT_BUS_NAME: ${self:custom.event_bus}
-  mineChannel:
-    handler: dist/index.mineChannel
-    timeout: 60
-    events:
-      - eventBridge:
-          eventBus: ${self:custom.event_bus}
-          pattern:
-            source:
-              - ${self:custom.init_channels}
-            detail-type:
-              - CHANNEL_REPO_INITIATED
-    environment:
-      HANDLER_NAME: ${self:custom.mine_channel}
-      EVENT_BUS_NAME: ${self:custom.event_bus}
-      AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
-      SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET}
-      DATALAKE_BUCKET: ${self:custom.datalake_bucket}
