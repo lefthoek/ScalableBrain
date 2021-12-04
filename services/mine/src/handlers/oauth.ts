@@ -31,6 +31,13 @@ export const slack = async (event: SlackOAuthQueryString) => {
   const authLookup = new AuthLookup({ table_name });
   const platform_type = PlatformType.SLACK;
 
+  if (!access_token) {
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ access_token, ...slackData }, null, 2),
+    };
+  }
+
   await authLookup.write({
     team_id: team.id,
     team_name: team.name,

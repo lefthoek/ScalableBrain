@@ -1,6 +1,7 @@
-export * from "./handlers";
+import { slack } from "./handlers";
 import { wrapServices } from "@adapters/handler";
 import * as functions from "./functions";
 
-export const { initTeam, initChannels, mineChannel, echo } =
-  wrapServices(functions);
+const { initTeam, initChannels, mineChannel, echo } = wrapServices(functions);
+
+export { slack, initTeam, initChannels, mineChannel, echo };

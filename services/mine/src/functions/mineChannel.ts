@@ -37,10 +37,10 @@ const mineChannel = async (event: ChannelRepoInitiatedEvent, services: any) => {
   const messageIterator = slack.update({ channel_id, latest_chunk });
   const detail = await channelRepo.update({ messageIterator });
 
-  return await services.eventBus.put({
+  return {
     detailType: LefthoekEventType.CHANNEL_RAW_DATA_UPDATED,
     detail,
-  });
+  };
 };
 
 export default mineChannel;

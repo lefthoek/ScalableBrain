@@ -1,6 +1,7 @@
 import { EventBridge } from "aws-sdk";
 
 import type { LefthoekEventBus } from "@service_types/adapters";
+import { LefthoekEvent } from "@service_types/events";
 
 class eventBus implements LefthoekEventBus {
   handler_name: string;
@@ -27,7 +28,7 @@ class eventBus implements LefthoekEventBus {
     this.event_bridge = new EventBridge();
   }
 
-  async put({ detailType, detail }) {
+  async put({ detailType, detail }: LefthoekEvent) {
     const DetailType = detailType;
     const Detail = JSON.stringify(detail, null, 2);
     const event = {

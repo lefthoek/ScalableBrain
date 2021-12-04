@@ -1,10 +1,9 @@
 import EventBus from "./eventBus";
 import { Handler as AWSHandler } from "aws-lambda";
 import type { LefthoekEventBus } from "@service_types/adapters";
-import type { LefthoekEvent } from "@service_types/events";
 
 type Services = { eventBus: LefthoekEventBus };
-type Handler<U> = (event: LefthoekEvent, services?: Services) => Promise<U>;
+type Handler<U> = (event: U, services?: Services) => Promise<U>;
 
 const { HANDLER_NAME, EVENT_BUS_NAME } = process.env;
 

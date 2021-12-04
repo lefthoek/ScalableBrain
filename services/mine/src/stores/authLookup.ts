@@ -35,7 +35,7 @@ class AuthLookup {
       return team;
     } catch (e) {
       console.log(e);
-      throw new Error(e);
+      throw new Error(JSON.stringify(e));
     }
   }
 }
