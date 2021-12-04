@@ -1,5 +1,8 @@
 name: "Deploy Services"
 on:
+  push:
+    branches:
+      - services
   workflow_run:
     workflows: ["Deploy Infra"]
     branches: [main]
