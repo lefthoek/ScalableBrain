@@ -3,7 +3,7 @@ name: "deploy all"
 on:
   push:
     branches:
-      - stable
+      - main
 
 jobs:
   services:

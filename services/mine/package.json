@@ -8,7 +8,7 @@
     "prebuild": "rimraf dist",
     "build": "tsc && tsc-alias",
     "predeploy": "yarn build",
-    "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}"
+    "deploy": "serverless deploy --noDeploy -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
     "@slack/bolt": "^3.8.1",

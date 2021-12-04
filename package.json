@@ -13,6 +13,7 @@
     "codegen": "graphql-codegen --config codegen.yml",
     "docs": "docsify serve docs",
     "prebuild:packages": "yarn codegen",
+    "build:packages": "echo \"coming soon\"",
     "build:mine": "yarn workspace @lefthoek/mine build",
     "build:services": "yarn build:mine",
     "deploy:mine": "yarn workspace @lefthoek/mine deploy",
