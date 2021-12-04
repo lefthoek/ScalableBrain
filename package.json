@@ -17,7 +17,9 @@
     "build:mine": "yarn workspace @lefthoek/mine build",
     "build:services": "yarn build:mine",
     "deploy:mine": "yarn workspace @lefthoek/mine deploy",
-    "deploy:services": "yarn deploy:mine"
+    "dryrun:mine": "yarn workspace @lefthoek/mine dryrun",
+    "deploy:services": "yarn deploy:mine",
+    "dryrun:services": "yarn dryrun:mine"
   },
   "author": "Jan Hein Hoogstad",
   "license": "MIT",

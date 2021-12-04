@@ -32,5 +32,5 @@ jobs:
         run: yarn build:packages
       - name: Build Services code
         run: yarn build:services
-      - name: Deploy Services Code
-        run: yarn deploy:services
+      - name: Dryrun Services Code
+        run: yarn dryrun:services

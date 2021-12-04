@@ -7,10 +7,11 @@ useDotenv: true
 plugins:
   - serverless-plugin-monorepo
 custom:
-  parameter_prefix: scalable-brain-mine
-  datalake_bucket: ${ssm:/${self:custom.parameter_prefix}/buckets/datalake}
-  auth_lookup_table: ${ssm:/${self:custom.parameter_prefix}/tables/auth_lookup}
-  event_bus: ${ssm:/${self:custom.parameter_prefix}/event_bus}
+  service_parameter_prefix: scalable-brain/${opt:stage}/mine
+  shared_parameter_prefix: scalable-brain/${opt:stage}/shared
+  datalake_bucket: ${ssm:/${self:custom.shared_parameter_prefix}/buckets/datalake}
+  auth_lookup_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/auth_lookup}
+  event_bus: ${ssm:/${self:custom.shared_parameter_prefix}/event_bus}
   function_prefix: lefthoek-prototype-upstream-${opt:stage}
   oauth: ${self:custom.function_prefix}-oauth
   init_team: ${self:custom.function_prefix}-init-team
