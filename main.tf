@@ -6,7 +6,7 @@ variable "TFC_WORKSPACE_NAME" {
 locals {
   project_name                = "scalable-brain"
   lambda_basic_execution_role = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  environment_name            = var.TFC_WORKSPACE_NAME != "" ? trimprefix(var.TFC_WORKSPACE_NAME, "scalable_brain-") : terraform.workspace
+  environment_name            = var.TFC_WORKSPACE_NAME != "" ? trimprefix(var.TFC_WORKSPACE_NAME, "scalable-brain-") : terraform.workspace
 }
 
 terraform {

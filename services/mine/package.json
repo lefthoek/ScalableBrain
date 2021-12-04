@@ -9,7 +9,7 @@
     "build": "tsc && tsc-alias",
     "predeploy": "yarn build",
     "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",
-    "dryrun": "yarn deploy -- --noDeploy"
+    "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
     "@slack/bolt": "^3.8.1",
