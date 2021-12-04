@@ -1,5 +1,5 @@
 resource "aws_ssm_parameter" "function_role" {
-  name  = "${local.parameter_prefix}/function_roles/mine"
+  name  = "${local.parameter_prefix}/roles/function"
   type  = "SecureString"
   value = aws_iam_role.function_role.arn
 }
