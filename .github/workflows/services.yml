@@ -1,8 +1,6 @@
-name: "deploy all"
-
 on:
   workflow_run:
-    workflows: [infra]
+    workflows: ["Deploy Infra"]
     branches: [main]
     types:
       - completed
