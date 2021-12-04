@@ -17,7 +17,7 @@ custom:
   init_team: ${self:custom.function_prefix}-init-team
   init_channels: ${self:custom.function_prefix}-init-channels
   mine_channel: ${self:custom.function_prefix}-mine-channel
-  function_role: ${ssm:/${self:custom.parameter_prefix}/roles/function}
+  function_role: ${ssm:/${self:custom.service_parameter_prefix}/roles/function}
 
 provider:
   name: aws
