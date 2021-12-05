@@ -44,5 +44,5 @@
     "remark-cli": "^10.0.0",
     "remark-html": "^15.0.0"
   },
-  "workspaces": ["services/mine"]
+  "workspaces": ["services/mine", "sites/dashboard"]
 }
