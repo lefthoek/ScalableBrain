@@ -3,6 +3,18 @@ variable "TFC_WORKSPACE_NAME" {
   default = ""
 }
 
+variable "SLACK_CLIENT_ID" {
+  type      = string
+  default   = ""
+  sensitive = true
+}
+
+variable "SLACK_CLIENT_SECRET" {
+  type      = string
+  default   = ""
+  sensitive = true
+}
+
 locals {
   project_name                = "scalable-brain"
   lambda_basic_execution_role = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
@@ -38,7 +50,7 @@ module "shared" {
   environment_name = local.environment_name
 }
 
-module "infra" {
+module "mine" {
   source           = "./infra/mine"
   project_name     = local.project_name
   environment_name = local.environment_name
