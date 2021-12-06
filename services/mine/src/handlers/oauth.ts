@@ -50,9 +50,15 @@ export const slack = async (event: SlackOAuthQueryString) => {
     detail: { ...slackData, platform_type },
   });
 
+  console.log(reply);
+
+  const params = new URLSearchParams(slackData.team);
+
   return {
-    statusCode: 200,
-    body: JSON.stringify(reply, null, 2),
+    statusCode: 302,
+    headers: {
+      Location: `https://lefthoek.com?${params.toString()}`,
+    },
   };
 };
 
