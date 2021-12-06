@@ -51,7 +51,7 @@ module "mine" {
   project_name     = local.project_name
   environment_name = "dev"
   providers        = {
-    slack = slack_config
+    slack = local.slack_config
   }
   policies = [
     local.lambda_basic_execution_role,
