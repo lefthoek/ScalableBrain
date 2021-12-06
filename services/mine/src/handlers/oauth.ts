@@ -50,15 +50,15 @@ export const slack = async (event: SlackOAuthQueryString) => {
     detail: { ...slackData, platform_type },
   });
 
-  console.log(reply);
-
   const params = new URLSearchParams(slackData.team);
-  console.log(params.toString());
+  const location = `https://lefthoek.com?${params.toString()}`;
+  console.log(reply);
+  console.log(location);
 
   return {
     statusCode: 302,
     headers: {
-      Location: `https://lefthoek.com?${params.toString()}`,
+      Location: location,
     },
   };
 };
