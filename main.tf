@@ -47,7 +47,7 @@ module "mine" {
   project_name     = local.project_name
   environment_name = "dev"
   slack_config = {
-    client_id = var.SLACK_CLIENT_ID
+    client_id     = var.SLACK_CLIENT_ID
     client_secret = var.SLACK_CLIENT_SECRET
   }
   policies = [
