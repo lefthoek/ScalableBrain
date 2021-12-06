@@ -1,5 +1,4 @@
-app: scalable-brain
-service: mine
+service: scalable-brain-mine
 frameworkVersion: "2"
 variablesResolutionMode: "20210326"
 configValidationMode: error
