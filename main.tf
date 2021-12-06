@@ -1,8 +1,3 @@
-variable "TFC_WORKSPACE_NAME" {
-  type    = string
-  default = ""
-}
-
 variable "SLACK_CLIENT_ID" {
   type      = string
   default   = ""
@@ -18,14 +13,13 @@ variable "SLACK_CLIENT_SECRET" {
 locals {
   project_name                = "scalable-brain"
   lambda_basic_execution_role = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  environment_name            = var.TFC_WORKSPACE_NAME != "" ? trimprefix(var.TFC_WORKSPACE_NAME, "scalable-brain-") : terraform.workspace
 }
 
 terraform {
   backend "remote" {
     organization = "lefthoek"
     workspaces {
-      prefix = "scalable-brain-"
+      name = "scalable-brain"
     }
   }
 
@@ -47,13 +41,13 @@ provider "aws" {
 module "shared" {
   source           = "./infra/shared"
   project_name     = local.project_name
-  environment_name = local.environment_name
+  environment_name = "prod"
 }
 
 module "mine" {
   source           = "./infra/mine"
   project_name     = local.project_name
-  environment_name = local.environment_name
+  environment_name = "dev"
   policies = [
     local.lambda_basic_execution_role,
     module.shared.event_bus_write_access_policy,
