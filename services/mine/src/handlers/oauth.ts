@@ -56,7 +56,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
   console.log(location);
 
   return {
-    statusCode: 302,
+    statusCode: 301,
     headers: {
       Location: location,
     },
