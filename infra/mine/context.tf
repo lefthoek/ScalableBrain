@@ -10,6 +10,10 @@ variable "policies" {
   type = list
 }
 
+variable "slack_config" {
+  type = map
+}
+
 locals {
   module_name       = "mine"
   resources_prefix  = "${var.project_name}-${var.environment_name}-${local.module_name}"
