@@ -9,6 +9,7 @@ import type {
 } from "@service_types/models";
 
 const {
+  SLACK_CREDENTIALS,
   SLACK_CLIENT_SECRET,
   AUTH_LOOKUP_TABLE: table_name,
   SLACK_CLIENT_ID,
@@ -21,6 +22,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
     handler_name: HANDLER_NAME,
     event_bus_name: EVENT_BUS_NAME,
   });
+  console.log(SLACK_CREDENTIALS);
   const baseURL = "https://slack.com/api/oauth.v2.access";
   const { code } = event.queryStringParameters;
   const oauthURL = `${baseURL}?client_id=${SLACK_CLIENT_ID}&client_secret=${SLACK_CLIENT_SECRET}&code=${code}`;

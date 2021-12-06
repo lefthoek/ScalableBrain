@@ -18,6 +18,7 @@ custom:
   init_channels: ${self:custom.function_prefix}-init-channels
   mine_channel: ${self:custom.function_prefix}-mine-channel
   function_role: ${ssm:/${self:custom.service_parameter_prefix}/roles/function}
+  slack_credentials: ${ssm:/${self:custom.service_parameter_prefix}/credentials/slack}
 
 provider:
   name: aws
@@ -37,6 +38,7 @@ functions:
           path: /integrations/slack
           method: get
     environment:
+      SLACK_CREDENTIALS: ${self:custom.slack_credentials}
       SLACK_CLIENT_ID: ${env:SLACK_CLIENT_ID}
       SLACK_CLIENT_SECRET: ${env:SLACK_CLIENT_SECRET}
       AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
