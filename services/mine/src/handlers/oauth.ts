@@ -53,6 +53,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
   console.log(reply);
 
   const params = new URLSearchParams(slackData.team);
+  console.log(params.toString());
 
   return {
     statusCode: 302,
