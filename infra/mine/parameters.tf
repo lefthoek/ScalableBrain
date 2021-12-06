@@ -10,3 +10,9 @@ resource "aws_ssm_parameter" "auth_lookup_table" {
   type  = "SecureString"
   value = local.auth_lookup_table
 }
+
+resource "aws_ssm_parameter" "slack_credentials" {
+  name  = "${local.parameter_prefix}/credentials/slack"
+  type  = "SecureString"
+  value = jsonencode(var.slack_credentials)
+}

@@ -10,7 +10,7 @@ variable "policies" {
   type = list
 }
 
-variable "slack_config" {
+variable "slack_credentials" {
   type = map
 }
 

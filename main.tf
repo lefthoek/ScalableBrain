@@ -8,6 +8,11 @@ variable "SLACK_CLIENT_SECRET" {
   sensitive = true
 }
 
+variable "SLACK_SIGNING_SECRET" {
+  type      = string
+  sensitive = true
+}
+
 locals {
   project_name                = "scalable-brain"
   lambda_basic_execution_role = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
@@ -46,9 +51,10 @@ module "mine" {
   source           = "./infra/mine"
   project_name     = local.project_name
   environment_name = "dev"
-  slack_config = {
-    client_id     = var.SLACK_CLIENT_ID
-    client_secret = var.SLACK_CLIENT_SECRET
+  slack_credentials = {
+    client_id      = var.SLACK_CLIENT_ID
+    client_secret  = var.SLACK_CLIENT_SECRET
+    signing_secret = var.SLACK_SIGNING_SECRET
   }
   policies = [
     local.lambda_basic_execution_role,
