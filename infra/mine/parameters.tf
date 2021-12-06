@@ -11,8 +11,20 @@ resource "aws_ssm_parameter" "auth_lookup_table" {
   value = local.auth_lookup_table
 }
 
-resource "aws_ssm_parameter" "slack_credentials" {
-  name  = "${local.parameter_prefix}/credentials/slack"
+resource "aws_ssm_parameter" "slack_client_id" {
+  name  = "${local.parameter_prefix}/credentials/slack/client_id"
   type  = "SecureString"
-  value = jsonencode(var.slack_credentials)
+  value = var.slack_credentials.client_id
+}
+
+resource "aws_ssm_parameter" "slack_client_secret" {
+  name  = "${local.parameter_prefix}/credentials/slack/client_secret"
+  type  = "SecureString"
+  value = var.slack_credentials.client_secret
+}
+
+resource "aws_ssm_parameter" "slack_signing_secret" {
+  name  = "${local.parameter_prefix}/credentials/slack/signing_secret"
+  type  = "SecureString"
+  value = var.slack_credentials.signing_secret
 }
