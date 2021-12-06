@@ -1,18 +1,20 @@
 variable "SLACK_CLIENT_ID" {
   type      = string
-  default   = ""
   sensitive = true
 }
 
 variable "SLACK_CLIENT_SECRET" {
   type      = string
-  default   = ""
   sensitive = true
 }
 
 locals {
   project_name                = "scalable-brain"
   lambda_basic_execution_role = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  slack_config = {
+    client_id = var.SLACK_CLIENT_ID
+    client_secret = var.SLACK_CLIENT_SECRET
+  }
 }
 
 terraform {
@@ -48,6 +50,9 @@ module "mine" {
   source           = "./infra/mine"
   project_name     = local.project_name
   environment_name = "dev"
+  providers        = {
+    slack = slack_config
+  }
   policies = [
     local.lambda_basic_execution_role,
     module.shared.event_bus_write_access_policy,
