@@ -58,7 +58,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
     statusCode: 301,
     headers: {
       Location: "https://lefthoek.com",
-      path: `?${params}`,
+      path: `?${params.toString()}`,
     },
   };
 };
