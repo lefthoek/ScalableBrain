@@ -51,7 +51,6 @@ export const slack = async (event: SlackOAuthQueryString) => {
   });
 
   console.log(reply);
-  console.log(location);
 
   return {
     statusCode: 301,
