@@ -50,12 +50,14 @@ export const slack = async (event: SlackOAuthQueryString) => {
     detail: { ...slackData, platform_type },
   });
 
+  const location = `https://lefthoek.com/teams/${slackData.team.id}`;
   console.log(reply);
+  console.log(location);
 
   return {
     statusCode: 301,
     headers: {
-      Location: "https://lefthoek.com",
+      Location: location,
       path: slackData.team.id,
     },
   };
