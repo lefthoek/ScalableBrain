@@ -51,12 +51,13 @@ export const slack = async (event: SlackOAuthQueryString) => {
   });
 
   console.log(reply);
+  console.log(location);
 
   return {
     statusCode: 301,
     headers: {
       Location: "https://lefthoek.com",
-      path: `/teams/${slackData.team.id}`,
+      path: slackData.team.id,
     },
   };
 };
