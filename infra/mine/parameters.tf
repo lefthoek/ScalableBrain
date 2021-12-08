@@ -28,3 +28,9 @@ resource "aws_ssm_parameter" "slack_signing_secret" {
   type  = "SecureString"
   value = var.slack_credentials.signing_secret
 }
+
+resource "aws_ssm_parameter" "raw_data_bucket_name" {
+  name  = "${local.parameter_prefix}/buckets/raw_data"
+  type  = "securestring"
+  value = local.raw_data_bucket
+}

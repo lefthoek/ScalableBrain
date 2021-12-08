@@ -10,6 +10,5 @@ locals {
   module_name       = "shared"
   resources_prefix  = "${var.project_name}-${var.environment_name}-${local.module_name}"
   parameter_prefix  ="/${var.project_name}/${var.environment_name}/${local.module_name}"
-  datalake_bucket   = "${local.resources_prefix}-datalake-bucket"
   event_bus         = "${local.resources_prefix}-event-bus"
 }

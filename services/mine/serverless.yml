@@ -9,7 +9,7 @@ custom:
   service_parameter_prefix: scalable-brain/${opt:stage}/mine
   shared_parameter_prefix: scalable-brain/prod/shared
   event_bus: ${ssm:/${self:custom.shared_parameter_prefix}/event_bus}
-  datalake_bucket: ${ssm:/${self:custom.shared_parameter_prefix}/buckets/datalake}
+  raw_data_bucket: ${ssm:/${self:custom.service_parameter_prefix}/buckets/raw_data}
   auth_lookup_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/auth_lookup}
   slack_client_id: ${ssm:/${self:custom.service_parameter_prefix}/credentials/slack/client_id}
   slack_client_secret: ${ssm:/${self:custom.service_parameter_prefix}/credentials/slack/client_secret}
