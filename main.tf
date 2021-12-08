@@ -41,6 +41,19 @@ provider "aws" {
   region  = "eu-west-1"
 }
 
+
+module "domain" {
+  source           = "./infra/domain"
+  root_domain_name = "zwarmer.com"
+}
+
+module "homepage" {
+  source           = "./infra/homepage"
+  root_domain_name = module.domain.domain_name
+  certificate_arn  = module.domain.certificate_arn
+  zone_id          = module.domain.zone_id
+}
+
 module "shared" {
   source           = "./infra/shared"
   project_name     = local.project_name
