@@ -59,7 +59,5 @@ module "mine" {
   policies = [
     local.lambda_basic_execution_role,
     module.shared.event_bus_write_access_policy,
-    module.shared.datalake_bucket_read_access_policy,
-    module.shared.datalake_bucket_write_access_policy
   ]
 }
