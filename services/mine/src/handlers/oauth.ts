@@ -58,7 +58,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
     statusCode: 301,
     headers: {
       Location: location,
-      path: slackData.team.id,
+      path: "",
     },
   };
 };
