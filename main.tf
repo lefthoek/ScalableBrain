@@ -43,8 +43,8 @@ provider "aws" {
 
 provider "aws" {
   profile = "default"
-  alias = "acm"
-  region = "us-east-1"
+  alias   = "acm"
+  region  = "us-east-1"
 }
 
 
