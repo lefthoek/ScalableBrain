@@ -52,7 +52,7 @@ module "domain" {
   source           = "./infra/domain"
   root_domain_name = "zwarmer.com"
   providers = {
-    aws.us = aw.acm
+    aws.us = aws.acm
   }
 }
 
