@@ -35,7 +35,7 @@ resource "aws_route53_record" "validation" {
 
 
 resource "aws_acm_certificate" "certificate" {
-  provider = aws.us
+  provider                  = aws.us
   domain_name               = var.root_domain_name
   validation_method         = "DNS"
   subject_alternative_names = ["*.${var.root_domain_name}"]
@@ -45,11 +45,11 @@ resource "aws_acm_certificate" "certificate" {
 }
 
 resource "aws_acm_certificate_validation" "default" {
-  provider = aws.us
-  certificate_arn = aws_acm_certificate.certificate.arn
+  provider                = aws.us
+  certificate_arn         = aws_acm_certificate.certificate.arn
   validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
   timeouts {
-    create = "60m"
+    create = "120m"
   }
 }
 
