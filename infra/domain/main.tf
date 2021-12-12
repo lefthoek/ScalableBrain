@@ -35,7 +35,7 @@ resource "aws_route53_record" "validation" {
 }
 
 
-resource "aws.us_certificate" "certificate" {
+resource "aws.acm_certificate" "certificate" {
   provider = aws.us
   domain_name               = var.root_domain_name
   validation_method         = "DNS"
@@ -45,7 +45,7 @@ resource "aws.us_certificate" "certificate" {
   }
 }
 
-resource "aws.us_certificate_validation" "default" {
+resource "aws.acm_certificate_validation" "default" {
   provider = aws.us
   certificate_arn = aws.us_certificate.certificate.arn
   validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
