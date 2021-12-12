@@ -1,11 +1,9 @@
-terraform {
-  required_providers {
-    aws = {
-      source                = "hashicorp/aws"
-      version               = ">= 3.54.0"
-      configuration_aliases = [aws.acm]
-    }
-  }
+provider "aws" {
+  alias = "aws"
+}
+
+provider "aws" {
+  alias   = "acm"
 }
 
 variable "root_domain_name" {}
@@ -16,7 +14,6 @@ resource "aws_route53_zone" "zone" {
 }
 
 resource "aws_route53_record" "validation" {
-  provider = aws.acm
   for_each = {
     for dvo in aws_acm_certificate.certificate.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
