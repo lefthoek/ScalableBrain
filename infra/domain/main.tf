@@ -45,7 +45,7 @@ resource "aws_acm_certificate" "certificate" {
 resource "aws_acm_certificate_validation" "default" {
   provider = aws.acm
   certificate_arn = aws_acm_certificate.certificate.arn
-  validation_record_fqdns = [for record in aws_route53_record.certificate : record.fqdn]
+  validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
 }
 
 output "domain_name" {
