@@ -51,7 +51,9 @@ provider "aws" {
 module "domain" {
   source           = "./infra/domain"
   root_domain_name = "zwarmer.com"
-  provider         = aws.acm
+  providers = {
+    aws.us = aw.acm
+  }
 }
 
 module "homepage" {
