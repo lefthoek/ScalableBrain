@@ -10,6 +10,11 @@ terraform {
 
 variable "root_domain_name" {}
 
+variable "subject_alternative_names" {
+  type = list(string)
+  default = []
+}
+
 resource "aws_route53_zone" "zone" {
   name = var.root_domain_name
 }
@@ -34,9 +39,9 @@ resource "aws_route53_record" "validation" {
 
 resource "aws_acm_certificate" "certificate" {
   provider = aws.acm
-  domain_name               = "*.${var.root_domain_name}"
+  domain_name               = var.root_domain_name
   validation_method         = "DNS"
-  subject_alternative_names = [var.root_domain_name]
+  subject_alternative_names = concat([var.root_domain_name, "www.${var.root_domain_name}"], var.subject_alternative_names)
   lifecycle {
     create_before_destroy = true
   }
