@@ -1,11 +1,3 @@
-provider "aws" {
-  alias = "aws"
-}
-
-provider "aws" {
-  alias   = "acm"
-}
-
 variable "root_domain_name" {}
 
 
