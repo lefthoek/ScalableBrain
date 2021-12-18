@@ -50,7 +50,7 @@ module "domain" {
   source           = "./infra/domain"
   root_domain_name = "zwarmer.com"
   providers = {
-    aws = "aws.us-east-1"
+    aws = aws.us-east-1
   }
 }
 
