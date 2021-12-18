@@ -26,11 +26,11 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - uses: "marvinpinto/action-inject-ssm-secrets@latest"
         with:
-          ssm_parameter: "/${{ env.PROJECT_NAME }}/${{ env.BUILD_STAGE }}/buckets/homepage"
+          ssm_parameter: "/${{ env.PROJECT_NAME }}/${{ env.BUILD_STAGE }}/homepage/buckets/homepage"
           env_variable_name: "LANDING_BUCKET"
       - uses: "marvinpinto/action-inject-ssm-secrets@latest"
         with:
-          ssm_parameter: "/${{ env.PROJECT_NAME }}/${{ env.BUILD_STAGE }}/distribution/id"
+          ssm_parameter: "/${{ env.PROJECT_NAME }}/${{ env.BUILD_STAGE }}/homepage/distribution/id"
           env_variable_name: "LANDING_DISTRIBUTION_ID"
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.2
