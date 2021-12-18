@@ -1,7 +1,20 @@
 resource "aws_s3_bucket" "root" {
   bucket = local.root_bucket
   acl    = "public-read"
-  policy = aws_iam_policy.root_bucket_public_read.policy
+  policy = <<POLICY
+{
+  "Version":"2012-10-17",
+  "Statement":[
+    {
+      "Sid":"AddPerm",
+      "Effect":"Allow",
+      "Principal": "*",
+      "Action":["s3:GetObject"],
+      "Resource":["arn:aws:s3:::${var.root_domain_name}/*"]
+    }
+  ]
+}
+POLICY
 
   website {
     redirect_all_requests_to = "https://${module.www.domain_name}"
