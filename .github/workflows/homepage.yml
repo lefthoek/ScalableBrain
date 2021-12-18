@@ -43,7 +43,6 @@ jobs:
       - name: Build Site
         run: yarn workspace @lefthoek/dashboard build
       - name: Deploy Site
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         uses: reggionick/s3-deploy@v1
         with:
           folder: sites/dashboard/build
