@@ -1,5 +1,4 @@
 import { EventBridge } from "aws-sdk";
-
 import type { LefthoekEventBus } from "@service_types/adapters";
 import { LefthoekEvent } from "@service_types/events";
 
@@ -37,7 +36,6 @@ class eventBus implements LefthoekEventBus {
       EventBusName: this.event_bus_name,
       Detail,
     };
-    console.log(event);
     const reply = await this.event_bridge
       .putEvents({
         Entries: [event],

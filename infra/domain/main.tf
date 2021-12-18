@@ -2,7 +2,8 @@ variable "root_domain_name" {}
 
 
 resource "aws_route53_zone" "zone" {
-  name = var.root_domain_name
+  name         = var.root_domain_name
+  private_zone = false
 }
 
 resource "aws_route53_record" "validation" {
@@ -17,27 +18,20 @@ resource "aws_route53_record" "validation" {
   allow_overwrite = true
   name            = each.value.name
   records         = [each.value.record]
-  ttl             = 300
+  ttl             = 60
   type            = each.value.type
   zone_id         = aws_route53_zone.zone.zone_id
 }
 
 
 resource "aws_acm_certificate" "certificate" {
-  domain_name               = var.root_domain_name
-  validation_method         = "DNS"
-  subject_alternative_names = ["*.${var.root_domain_name}"]
-  lifecycle {
-    create_before_destroy = true
-  }
+  domain_name       = var.root_domain_name
+  validation_method = "DNS"
 }
 
 resource "aws_acm_certificate_validation" "default" {
   certificate_arn         = aws_acm_certificate.certificate.arn
   validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
-  timeouts {
-    create = "120m"
-  }
 }
 
 output "domain_name" {

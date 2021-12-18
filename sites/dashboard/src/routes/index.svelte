@@ -1,6 +1,6 @@
 <div class="content">
 	<h1>Scalable Brain</h1>
-	<p class="my-8">
+	<p class="my-8 mx-4 p-8 border-8 border-yellow-500">
 		<a
 			target="__blank"
 			href="https://slack.com/oauth/v2/authorize?client_id=1648737748640.2152796719617&scope=channels:history,channels:read,groups:history,groups:read,im:history,im:read,mpim:history,mpim:read,channels:join&user_scope="
