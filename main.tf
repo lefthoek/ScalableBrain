@@ -56,6 +56,8 @@ module "domain" {
 
 module "homepage" {
   source           = "./infra/homepage"
+  project_name     = local.project_name
+  environment_name = "dev"
   root_domain_name = module.domain.domain_name
   certificate_arn  = module.domain.certificate_arn
   zone_id          = module.domain.zone_id
