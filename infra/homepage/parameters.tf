@@ -4,8 +4,8 @@ resource "aws_ssm_parameter" "homepage_bucket" {
   value = local.root_bucket
 }
 
-resource "aws_ssm_parameter" "homepage_distribution_d" {
+resource "aws_ssm_parameter" "homepage_distribution_Id" {
   name  = "${local.parameter_prefix}/distribution/id"
   type  = "SecureString"
-  value = aws.cloudfront_distribution.root_distribution.id
+  value = aws_cloudfront_distribution.root_distribution.id
 }

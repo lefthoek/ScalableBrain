@@ -22,11 +22,18 @@ jobs:
       FORMSPREE_DEPLOY_KEY: ${{ secrets.FORMSPREE_DEPLOY_KEY }}
 
     steps:
+      - uses: "marvinpinto/action-inject-ssm-secrets@latest"
+        with:
+          ssm_parameter: "/build-secrets/${{ env.BUILD_STAGE }}/cloudflare-account-id"
+          env_variable_name: "cloudflare_account_id"
+      - uses: "marvinpinto/action-inject-ssm-secrets@latest"
+        with:
+          ssm_parameter: "/build-secrets/${{ env.BUILD_STAGE }}/cloudflare-api-token"
+          env_variable_name: "cloudflare_api_token"
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.2
         with:
           node-version: "12"
-
       - name: Install Dependencies
         run: yarn install
       - name: Build Dependencies
