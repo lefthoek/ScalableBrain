@@ -1,0 +1,52 @@
+name: landing
+on:
+  push:
+    branches:
+      - homepage
+  pull_request:
+    branches:
+      - main
+  workflow_run:
+    workflows: ["Deploy Services"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      FORMSPREE_DEPLOY_KEY: ${{ secrets.FORMSPREE_DEPLOY_KEY }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.2
+        with:
+          node-version: "12"
+
+      - name: Install Dependencies
+        run: yarn install
+      - name: Build Dependencies
+        run: echo "yarn build"
+      - name: Build Site
+        run: yarn workspace @lefthoek/dashboard build
+      - name: Deploy Site
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        uses: reggionick/s3-deploy@v1
+        with:
+          folder: sites/dashboard/build
+          bucket: ${{ secrets.LANDING_BUCKET }}
+          dist-id: ${{ secrets.LANDING_DISTRIBUTION_ID }}
+      - name: Deploy Form
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: yarn workspace @lefthoek/landing deploy:form
+      - name: Deploy Development Env
+        if: github.ref == 'refs/heads/blog' && github.event_name == 'push'
+        uses: reggionick/s3-deploy@v1
+        with:
+          folder: sites/landing/public
+          bucket: ${{ secrets.DEV_BUCKET }}
+          dist-id: ${{ secrets.DEV_DISTRIBUTION_ID }}
