@@ -1,3 +1,11 @@
+variable "project_name" {
+  type = string
+}
+
+variable "environment_name" {
+  type = string
+}
+
 variable "root_domain_name" {}
 variable "certificate_arn" {}
 variable "zone_id" {}
