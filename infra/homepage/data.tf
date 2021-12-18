@@ -7,7 +7,8 @@ data "aws_iam_policy_document" "public_read" {
     ]
 
     principals {
-      type = "*"
+      type        = "*"
+      identifiers = ["*"]
     }
   }
 }
