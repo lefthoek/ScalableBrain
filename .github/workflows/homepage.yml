@@ -16,6 +16,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      PROJECT_NAME: "scalable-brain"
+      BUILD_STAGE: "dev"
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
@@ -24,12 +26,12 @@ jobs:
     steps:
       - uses: "marvinpinto/action-inject-ssm-secrets@latest"
         with:
-          ssm_parameter: "/build-secrets/${{ env.BUILD_STAGE }}/cloudflare-account-id"
-          env_variable_name: "cloudflare_account_id"
+          ssm_parameter: "/${{ env.PROJECT_NAME }}/${{ env.BUILD_STAGE }}/buckets/homepage"
+          env_variable_name: "LANDING_BUCKET"
       - uses: "marvinpinto/action-inject-ssm-secrets@latest"
         with:
-          ssm_parameter: "/build-secrets/${{ env.BUILD_STAGE }}/cloudflare-api-token"
-          env_variable_name: "cloudflare_api_token"
+          ssm_parameter: "/${{ env.PROJECT_NAME }}/${{ env.BUILD_STAGE }}/distribution/id"
+          env_variable_name: "LANDING_DISTRIBUTION_ID"
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.2
         with:
@@ -47,13 +49,3 @@ jobs:
           folder: sites/dashboard/build
           bucket: ${{ secrets.LANDING_BUCKET }}
           dist-id: ${{ secrets.LANDING_DISTRIBUTION_ID }}
-      - name: Deploy Form
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        run: yarn workspace @lefthoek/landing deploy:form
-      - name: Deploy Development Env
-        if: github.ref == 'refs/heads/blog' && github.event_name == 'push'
-        uses: reggionick/s3-deploy@v1
-        with:
-          folder: sites/landing/public
-          bucket: ${{ secrets.DEV_BUCKET }}
-          dist-id: ${{ secrets.DEV_DISTRIBUTION_ID }}
