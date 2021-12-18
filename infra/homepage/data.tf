@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "public_read" {
       "arn:aws:s3:::${var.root_domain_name}/*"
     ]
 
-    principals = {
+    principals {
       type = "*"
     }
   }
