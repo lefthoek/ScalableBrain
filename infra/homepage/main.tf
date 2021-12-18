@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "root" {
   bucket = local.root_bucket
   acl    = "public-read"
-  policy = aws_iam_policy.root_bucket_public_read.arn
+  policy = aws_iam_policy.root_bucket_public_read.policy
 
   website {
     redirect_all_requests_to = "https://${module.www.domain_name}"
