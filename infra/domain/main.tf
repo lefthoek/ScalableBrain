@@ -2,8 +2,7 @@ variable "root_domain_name" {}
 
 
 resource "aws_route53_zone" "zone" {
-  name         = var.root_domain_name
-  private_zone = false
+  name = var.root_domain_name
 }
 
 resource "aws_route53_record" "validation" {
