@@ -1,5 +1,14 @@
 variable "root_domain_name" {}
 
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 3.54.0"
+    }
+  }
+}
+
 
 resource "aws_route53_zone" "zone" {
   name = var.root_domain_name
