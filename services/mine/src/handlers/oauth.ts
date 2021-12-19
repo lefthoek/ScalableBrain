@@ -50,7 +50,8 @@ export const slack = async (event: SlackOAuthQueryString) => {
     detail: { ...slackData, platform_type },
   });
 
-  const location = `https://zwarmer.com/teams/${slackData.team.id}`;
+  const params = new URLSearchParams({ team_id: slackData.team.id });
+  const location = `https://zwarmer.com/teams?${params.toString()}`;
   console.log(reply);
   console.log(location);
 
@@ -58,7 +59,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
     statusCode: 301,
     headers: {
       Location: location,
-      path: "",
+      path: `?${params.toString()}`,
     },
   };
 };
