@@ -39,11 +39,11 @@ jobs:
       - name: Build Services code
         run: yarn build:services
       - name: Dryrun Services Code
-        if: github.ref != 'refs/heads/main' || github.ref != 'refs/heads/main' || github.ref.event_name == 'pull_request'
+        if: github.ref != 'refs/heads/main' || github.ref != 'refs/heads/services' || github.ref.event_name == 'pull_request'
         run: yarn dryrun:services
       - name: Deploy Services Code
         if: github.ref == 'refs/heads/main' && github.event.workflow_run.conclusion == 'success'
         run: yarn deploy:services
       - name: Deploy Services Code
-        if: github.ref == 'refs/heads/services' && github.ref.event_name == 'push'
+        if: github.ref == 'refs/heads/services'
         run: yarn deploy:services
