@@ -51,7 +51,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
   });
 
   const params = new URLSearchParams({ team_id: slackData.team.id });
-  const location = `https://zwarmer.com?${params.toString()}`;
+  const location = `https://zwarmer.com/teams?${params.toString()}`;
   console.log(reply);
   console.log(location);
 
