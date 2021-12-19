@@ -1,5 +1,6 @@
 <script>
-	import { page } from '$app/stores';
+	import { browser } from '$app/env';
+	const params = browser ? new URLSearchParams(window.location.search) : new URLSearchParams({});
 </script>
 
-<h1>{JSON.stringify($page.query.get('team_id'), null, 2)}</h1>
+<h1>{params.toString()}</h1>
