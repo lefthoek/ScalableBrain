@@ -32,17 +32,17 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "docsify": "^4.12.1",
-    "eslint": "^8.2.0",
+    "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.1",
-    "graphql": "^16.0.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "graphql": "^16.2.0",
     "husky": "^7.0.4",
     "lehre": "^1.5.0",
     "remark-cli": "^10.0.0",
-    "remark-html": "^15.0.0"
+    "remark-html": "^15.0.1"
   },
-  "workspaces": ["services/mine", "sites/dashboard"]
+  "workspaces": ["services/mine", "sites/homepage"]
 }
