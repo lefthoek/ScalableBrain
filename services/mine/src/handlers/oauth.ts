@@ -50,7 +50,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
     detail: { ...slackData, platform_type },
   });
 
-  const location = `https://zwarmer.com/teams/${slackData.team.id}`;
+  const location = `https://zwarmer.com/teams?team_id=${slackData.team.id}`;
   console.log(reply);
   console.log(location);
 
