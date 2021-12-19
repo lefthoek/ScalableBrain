@@ -39,13 +39,13 @@ jobs:
       - name: Install Dependencies
         run: yarn install
       - name: Build Dependencies
-        run: echo $LANDING_BUCKET
+        run: echo 'yarn build'
       - name: Build Site
         run: yarn workspace @lefthoek/dashboard build
       - name: Deploy Site
         uses: reggionick/s3-deploy@v3
         with:
           folder: sites/dashboard/build
-          bucket: ${{ secrets.LANDING_BUCKET }}
+          bucket: ${{ env.LANDING_BUCKET }}
           bucket-region: ${{ secrets.AWS_DEFAULT_REGION }}
-          dist-id: ${{ secrets.LANDING_DISTRIBUTION_ID }}
+          dist-id: ${{ env.LANDING_DISTRIBUTION_ID }}
