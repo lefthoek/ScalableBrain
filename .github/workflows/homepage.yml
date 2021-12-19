@@ -47,4 +47,5 @@ jobs:
         with:
           folder: sites/dashboard/build
           bucket: ${{ secrets.LANDING_BUCKET }}
+          bucket-region: ${{ secrets.AWS_DEFAULT_REGION }}
           dist-id: ${{ secrets.LANDING_DISTRIBUTION_ID }}
