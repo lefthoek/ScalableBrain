@@ -47,4 +47,3 @@ jobs:
         with:
           folder: sites/dashboard/build
           bucket: ${{ secrets.LANDING_BUCKET }}
-          dist-id: ${{ secrets.LANDING_DISTRIBUTION_ID }}
