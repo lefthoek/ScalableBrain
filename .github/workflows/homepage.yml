@@ -46,6 +46,6 @@ jobs:
         uses: reggionick/s3-deploy@v3
         with:
           folder: sites/dashboard/build
-          bucket: ${{ env.LANDING_BUCKET }}
+          bucket: www.zwarmer.com
           bucket-region: ${{ secrets.AWS_DEFAULT_REGION }}
           dist-id: ${{ env.LANDING_DISTRIBUTION_ID }}
