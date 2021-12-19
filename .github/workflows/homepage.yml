@@ -43,7 +43,8 @@ jobs:
       - name: Build Site
         run: yarn workspace @lefthoek/dashboard build
       - name: Deploy Site
-        uses: reggionick/s3-deploy@v1
+        uses: reggionick/s3-deploy@v3
         with:
           folder: sites/dashboard/build
           bucket: ${{ secrets.LANDING_BUCKET }}
+          dist-id: ${{ secrets.LANDING_DISTRIBUTION_ID }}
