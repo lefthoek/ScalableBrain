@@ -2,4 +2,4 @@
 	import { page } from '$app/stores';
 </script>
 
-<h1>{$page.query.get('team_id')}</h1>
+<h1>{JSON.stringify($page, null, 2)}</h1>
