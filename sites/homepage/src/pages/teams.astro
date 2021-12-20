@@ -1,6 +1,6 @@
 ---
 // Component Imports
-import Button from '../components/Button.astro';
+import TeamImportStats from '../components/TeamImportStats.svelte';
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -14,9 +14,6 @@ import Button from '../components/Button.astro';
   </head>
 
   <body>
-    <Button>I’m another Tailwind Button!</Button>
+    <TeamImportStats client:only/>
   </body>
-  <script>
-    console.log(window.location.search)
-  </script>
 </html>
