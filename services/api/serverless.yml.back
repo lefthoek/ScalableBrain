@@ -1,0 +1,41 @@
+service: scalable-brain-api
+frameworkVersion: "2"
+variablesResolutionMode: "20210326"
+configValidationMode: error
+useDotenv: true
+plugins:
+  - serverless-plugin-monorepo
+custom:
+  project_name: scalable-brain
+  service_name: api
+  service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/${self:custom.service_name}
+  shared_parameter_prefix: ${self:custom.project_name}/prod/shared
+  event_bus: ${ssm:/${self:custom.shared_parameter_prefix}/event_bus}
+  function_prefix: ${self:custom.project_name}-${self:custom.service_name}-${opt:stage}
+  grapqhl: ${self:custom.function_prefix}-oauth
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  eventBridge:
+    useCloudFormation: true
+  region: eu-west-1
+
+functions:
+  oauth:
+    handler: dist/index.graphql
+      - http:
+          path: graphql
+          method: post
+          cors: true
+      - http:
+          path: graphql
+          method: get
+          cors: true
+      - http:
+          path: playground
+          method: any
+          cors: true
+    environment:
+      HANDLER_NAME: ${self:custom.graphql}

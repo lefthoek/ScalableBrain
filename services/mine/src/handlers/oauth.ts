@@ -45,15 +45,13 @@ export const slack = async (event: SlackOAuthQueryString) => {
     access_token,
   });
 
-  const reply = await eventBus.put({
+  await eventBus.put({
     detailType: LefthoekEventType.TEAM_ADDED,
     detail: { ...slackData, platform_type },
   });
 
   const params = new URLSearchParams({ team_id: slackData.team.id });
   const location = `https://zwarmer.com/teams/?${params.toString()}`;
-  console.log(reply);
-  console.log(location);
 
   return {
     statusCode: 301,
