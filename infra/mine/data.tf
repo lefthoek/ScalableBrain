@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "auth_lookup_table_access" {
     ]
 
     resources = [
-     aws_dynamodb_table.auth_lookup_table.arn,
+      aws_dynamodb_table.auth_lookup_table.arn,
     ]
   }
 }
