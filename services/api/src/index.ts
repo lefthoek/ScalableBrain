@@ -10,7 +10,7 @@ const {
   WS_SUBSCRIPTIONS_TABLE: subscriptions,
 } = process.env;
 
-exports.websockets = () => {
+exports.websockets = async () => {
   console.log(connections, subscriptions);
   return {
     statusCode: 200,
