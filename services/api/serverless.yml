@@ -9,7 +9,10 @@ custom:
   project_name: scalable-brain
   service_name: api
   function_prefix: ${self:custom.project_name}-${self:custom.service_name}-${opt:stage}
+  function_role: ${ssm:/${self:custom.service_parameter_prefix}/roles/function}
   graphql: ${self:custom.function_prefix}-graphql
+  ws_connections_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/websockets_connections}
+  ws_subscriptions_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/websockets_subscriptions}
 
 provider:
   name: aws
@@ -17,6 +20,8 @@ provider:
   lambdaHashingVersion: 20201221
   eventBridge:
     useCloudFormation: true
+  iam:
+    role: ${self:custom.function_role}
   region: eu-west-1
 
 functions:
@@ -46,3 +51,5 @@ functions:
           route: $default
     environment:
       HANDLER_NAME: ${self:custom.graphql}
+      WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
+      WS_SUBSCRIPTIONS_TABLE: ${self:custom.ws_subscriptions_table}
