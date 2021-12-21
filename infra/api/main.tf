@@ -34,11 +34,11 @@ resource "aws_dynamodb_table" "websockets_subscriptions_table" {
   }
 
   global_secondary_index {
-    name           = "ConnectionIndex"
-    hash_key       = "connectionId"
-    write_capacity = 1
-    read_capacity  = 1
-    rojection_type = "ALL"
+    name            = "ConnectionIndex"
+    hash_key        = "connectionId"
+    write_capacity  = 1
+    read_capacity   = 1
+    projection_type = "ALL"
   }
 
   global_secondary_index {
