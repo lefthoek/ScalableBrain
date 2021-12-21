@@ -8,9 +8,10 @@ plugins:
 custom:
   project_name: scalable-brain
   service_name: api
+  service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/api
   function_prefix: ${self:custom.project_name}-${self:custom.service_name}-${opt:stage}
-  function_role: ${ssm:/${self:custom.service_parameter_prefix}/roles/function}
   graphql: ${self:custom.function_prefix}-graphql
+  function_role: ${ssm:/${self:custom.service_parameter_prefix}/roles/function}
   ws_connections_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/websockets_connections}
   ws_subscriptions_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/websockets_subscriptions}
 
