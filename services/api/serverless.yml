@@ -41,8 +41,8 @@ functions:
           path: graphiql
           method: any
           cors: true
-  subscriptions:
-    handler: dist/index.graphql
+  websockets:
+    handler: dist/index.websockets
     events:
       - websocket:
           route: $connect
