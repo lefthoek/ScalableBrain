@@ -35,5 +35,14 @@ functions:
           path: graphiql
           method: any
           cors: true
+  subscriptions:
+    handler: dist/index.graphql
+    events:
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $disconnect
+      - websocket:
+          route: $default
     environment:
       HANDLER_NAME: ${self:custom.graphql}
