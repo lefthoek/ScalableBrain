@@ -35,7 +35,6 @@ terraform {
 
   required_version = "~> 1.1.0"
 }
-
 provider "aws" {
   profile = "default"
   region  = "eu-west-1"
@@ -67,6 +66,16 @@ module "shared" {
   source           = "./infra/shared"
   project_name     = local.project_name
   environment_name = "prod"
+}
+
+module "api" {
+  source           = "./infra/api"
+  project_name     = local.project_name
+  environment_name = "dev"
+  policies = [
+    local.lambda_basic_execution_role,
+    module.shared.event_bus_write_access_policy,
+  ]
 }
 
 module "mine" {
