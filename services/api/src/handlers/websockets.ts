@@ -35,5 +35,12 @@ const subscriptionServer = makeServer({
   },
 });
 
+const testHandler = () => {
+  return subscriptionServer.publish({
+    topic: "MY_TOPIC",
+    payload: {},
+  });
+};
+
 const websockets = subscriptionServer.webSocketHandler;
-export { websockets };
+export { websockets, testHandler };

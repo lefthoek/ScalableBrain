@@ -5,6 +5,9 @@ const typeDefs = `
   type Mutation {
     increase: Int
   }
+  type Subscription {
+    count: Int
+  }
 `;
 
 export default typeDefs;

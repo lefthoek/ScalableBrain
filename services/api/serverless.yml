@@ -57,3 +57,8 @@ functions:
       HANDLER_NAME: ${self:custom.graphql}
       WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
       WS_SUBSCRIPTIONS_TABLE: ${self:custom.ws_subscriptions_table}
+  bridge:
+    handler: dist/index.testHandler
+    events:
+      - schedule:
+          rate: rate(1 minutes)
