@@ -7,7 +7,7 @@
 {#if href}
   <a {target} class="button" {href}><slot /></a>
 {:else}
-  <button class="button" {type}>
+  <button on:click class="button" {type}>
     <slot />
   </button>
 {/if}

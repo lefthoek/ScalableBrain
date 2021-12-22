@@ -7,12 +7,8 @@
 
   const client = createClient({
     url: "https://bdaey0v9lf.execute-api.eu-west-1.amazonaws.com/dev/graphql",
-    fetchOptions: () => {
-      return {};
-    },
   });
 
-  console.log(client);
   setClient(client);
 </script>
 

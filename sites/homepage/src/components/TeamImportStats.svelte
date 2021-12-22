@@ -1,10 +1,15 @@
 <script lang="ts">
   export let team_id: string;
+  import Button from "./Button.svelte";
   import { operationStore, query } from "@urql/svelte";
+  let value = 123;
+  const increaseValue = () => {
+    value = value + 1;
+  };
 
   const adder = operationStore(`
     query {
-      add(x:2, y:2)
+      add(x:2254, y:2)
     }
   `);
 
@@ -18,9 +23,8 @@
   <p>Oh no... {$adder.error.message}</p>
 {:else}
   <ul>
-    {#each $adder.data.add as add}
-      <li>{add}</li>
-    {/each}
+    {$adder.data.add}
+    <Button on:click={increaseValue}>{value}</Button>
   </ul>
 {/if}
 
