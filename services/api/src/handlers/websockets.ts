@@ -1,6 +1,8 @@
 import AWS from "aws-sdk";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { makeServer } from "graphql-lambda-subscriptions";
+import typeDefs from "../typeDefs";
+import resolvers from "../resolvers";
 
 const {
   WS_CONNECTIONS_TABLE: connections,
@@ -8,21 +10,6 @@ const {
 } = process.env;
 
 const ddb = new AWS.DynamoDB();
-
-const typeDefs = `
-  type Query {
-    add(x: Int, y: Int): Int
-  }
-`;
-
-const resolvers = {
-  Query: {
-    add: async (_: any, obj: { x: number; y: number }) => {
-      const { x, y } = obj;
-      return x * y;
-    },
-  },
-};
 
 const schema = makeExecutableSchema({
   typeDefs,
