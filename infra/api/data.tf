@@ -21,8 +21,8 @@ data "aws_iam_policy_document" "websockets_tables_access" {
     ]
 
     resources = [
-      aws_dynamodb_table.websockets_connections_table.arn,
-      aws_dynamodb_table.websockets_subscriptions_table.arn,
+      "${aws_dynamodb_table.websockets_connections_table.arn}*",
+      "${aws_dynamodb_table.websockets_subscriptions_table.arn}*"
     ]
   }
 }
