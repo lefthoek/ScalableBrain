@@ -1,31 +1,24 @@
 <script lang="ts">
   export let team_id: string;
   import Button from "./Button.svelte";
-  import { operationStore, query } from "@urql/svelte";
-  let value = 123;
-  const increaseValue = () => {
-    value = value + 1;
-  };
+  import { operationStore, mutation } from "@urql/svelte";
 
-  const adder = operationStore(`
-    query {
-      add(x:2254, y:2)
+  const updateCount = operationStore(`
+    mutation {
+      increase
     }
   `);
 
-  query(adder);
+  const updateCountMutation = mutation(updateCount);
+  const increaseValue = updateCountMutation;
 </script>
 
 <h1 class="team_id">Team ID: {team_id}</h1>
-{#if $adder.fetching}
-  <p>Loading...</p>
-{:else if $adder.error}
-  <p>Oh no... {$adder.error.message}</p>
+
+{#if $updateCount.data}
+  <Button on:click={increaseValue}>{$updateCount.data.increase}</Button>
 {:else}
-  <ul>
-    {$adder.data.add}
-    <Button on:click={increaseValue}>{value}</Button>
-  </ul>
+  <Button on:click={increaseValue}>Initialize Value</Button>
 {/if}
 
 <style lang="postcss">
