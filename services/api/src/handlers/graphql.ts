@@ -1,8 +1,14 @@
 import awsLambdaFastify from "aws-lambda-fastify";
-import Fastify from "fastify";
+import cors from "fastify-cors";
+
+import fastify from "fastify";
 import mercurius from "mercurius";
 
-const app = Fastify();
+const app = fastify();
+
+app.register(cors, {
+  origin: "*",
+});
 
 const schema = `
   type Query {
