@@ -1,0 +1,47 @@
+name: "Deploy API"
+on:
+  push:
+    branches:
+      - api
+  pull_request:
+    branches:
+      - main
+  workflow_run:
+    workflows: ["Deploy Infra"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  services:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: iamtheyammer/branch-env-vars@v1.0.3
+        with:
+          SLS_ENVIRONMENT: |
+            stable:prod
+            main:dev
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Install Dependencies
+        run: yarn install
+      - name: Use Husky
+        run: yarn prepare
+      - name: Build Packages Code
+        run: yarn build:packages
+      - name: Build Services code
+        run: yarn workspace @lefthoek/api build
+      - name: Dryrun Services Code
+        if: github.ref != 'refs/heads/main' || github.ref != 'refs/heads/api' || github.ref.event_name == 'pull_request'
+        run: yarn workspace @lefthoek/api dryrun
+      - name: Deploy Services Code
+        if: github.ref == 'refs/heads/main' && github.event.workflow_run.conclusion == 'success'
+        run: yarn workspace @lefthoek/api deploy
+      - name: Deploy Services Code
+        if: github.ref == 'refs/heads/api'
+        run: yarn workspace @lefthoek/api deploy

@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
   export let type = "button";
   export let href = "";
   export let target = "__blank";

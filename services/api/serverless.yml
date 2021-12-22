@@ -1,0 +1,59 @@
+service: scalable-brain-api
+frameworkVersion: "2"
+variablesResolutionMode: "20210326"
+configValidationMode: error
+useDotenv: true
+plugins:
+  - serverless-plugin-monorepo
+custom:
+  project_name: scalable-brain
+  service_name: api
+  service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/api
+  websockets_api_id: ${ssm:/${self:custom.service_parameter_prefix}/websockets_api/id}
+  function_prefix: ${self:custom.project_name}-${self:custom.service_name}-${opt:stage}
+  graphql: ${self:custom.function_prefix}-graphql
+  function_role: ${ssm:/${self:custom.service_parameter_prefix}/roles/function}
+  ws_connections_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/websockets_connections}
+  ws_subscriptions_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/websockets_subscriptions}
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  apiGateway:
+    websocketApiId: ${self:custom.websockets_api_id}
+  eventBridge:
+    useCloudFormation: true
+  iam:
+    role: ${self:custom.function_role}
+  region: eu-west-1
+
+functions:
+  graphql:
+    handler: dist/index.graphql
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+      - http:
+          path: graphql
+          method: get
+          cors: true
+      - http:
+          path: graphiql
+          method: any
+          cors: true
+  websockets:
+    handler: dist/index.websockets
+    events:
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $disconnect
+      - websocket:
+          route: $default
+    environment:
+      HANDLER_NAME: ${self:custom.graphql}
+      WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
+      WS_SUBSCRIPTIONS_TABLE: ${self:custom.ws_subscriptions_table}

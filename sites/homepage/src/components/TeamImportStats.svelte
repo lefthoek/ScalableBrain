@@ -1,26 +1,31 @@
-<script lang="typescript">
-  const type = "button";
-  const params = new URLSearchParams(window.location.search);
-  const team_id = params.get("team_id");
+<script lang="ts">
+  export let team_id: string;
+  import { operationStore, query } from "@urql/svelte";
 
-  import { createClient, setClient } from "@urql/svelte";
+  const adder = operationStore(`
+    query {
+      add(x:2, y:2)
+    }
+  `);
 
-  const client = createClient({
-    url: "https://bdaey0v9lf.execute-api.eu-west-1.amazonaws.com/dev/graphql",
-  });
-
-  setClient(client);
+  query(adder);
 </script>
 
-<div class="widget" {type}>
-  <h1 class="team_id">Team ID: {team_id}</h1>
-</div>
+<h1 class="team_id">Team ID: {team_id}</h1>
+{#if $adder.fetching}
+  <p>Loading...</p>
+{:else if $adder.error}
+  <p>Oh no... {$adder.error.message}</p>
+{:else}
+  <ul>
+    {#each $adder.data.add as add}
+      <li>{add}</li>
+    {/each}
+  </ul>
+{/if}
 
 <style lang="postcss">
   .team_id {
     @apply text-8xl;
-  }
-  .widget {
-    @apply p-8 bg-neutral-900 text-gray-100;
   }
 </style>
