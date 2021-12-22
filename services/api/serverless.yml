@@ -9,6 +9,7 @@ custom:
   project_name: scalable-brain
   service_name: api
   service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/api
+  websockets_api_id: ${ssm:/${self:custom.service_parameter_prefix}/websockets_api/id}
   function_prefix: ${self:custom.project_name}-${self:custom.service_name}-${opt:stage}
   graphql: ${self:custom.function_prefix}-graphql
   function_role: ${ssm:/${self:custom.service_parameter_prefix}/roles/function}
@@ -19,6 +20,8 @@ provider:
   name: aws
   runtime: nodejs14.x
   lambdaHashingVersion: 20201221
+  apiGateway:
+    websocketApiId: ${self:custom.websockets_api_id}
   eventBridge:
     useCloudFormation: true
   iam:
