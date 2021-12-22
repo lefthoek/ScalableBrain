@@ -1,3 +1,4 @@
+import awsLambdaFastify from "aws-lambda-fastify";
 import Fastify from "fastify";
 import mercurius from "mercurius";
 
@@ -28,4 +29,6 @@ app.get("/", async function (_req, reply) {
   return reply.graphql(query);
 });
 
-export default app;
+const graphql = awsLambdaFastify(app);
+
+export { graphql };
