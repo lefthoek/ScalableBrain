@@ -5810,6 +5810,14 @@ graphql-jit@^0.7.0:
     lodash.merge "4.6.2"
     lodash.mergewith "4.6.2"
 
+graphql-lambda-subscriptions@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.npmjs.org/graphql-lambda-subscriptions/-/graphql-lambda-subscriptions-5.2.0.tgz#9b2bd86626db5ced6791d09f16186c560d9bf5a0"
+  integrity sha512-hrvE/u87KQBMpj+HTPU//SkRBbIl0XT6FA2BbqNDrUcr1H0FwQRWbI6Xbnnmp8KJcTikoPOfg2DS5dta+L2KVQ==
+  dependencies:
+    debug "^4.3.2"
+    streaming-iterables "^6.0.0"
+
 graphql-request@^3.3.0:
   version "3.6.1"
   resolved "https://registry.npmjs.org/graphql-request/-/graphql-request-3.6.1.tgz#689cce1da990131b40b05651f9f32bff506a1d8e"
@@ -10260,6 +10268,11 @@ stream-shift@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/stream-shift/-/stream-shift-1.0.1.tgz#d7088281559ab2778424279b0877da3c392d5a3d"
   integrity sha512-AiisoFqQ0vbGcZgQPY1cdP2I76glaVA/RauYR4G4thNFgkTqr90yXTo4LYX60Jl+sIlPNHHdGSwo01AvbKUSVQ==
+
+streaming-iterables@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npmjs.org/streaming-iterables/-/streaming-iterables-6.0.0.tgz#317a315266fb956a2d4f9786a01410df8f78dc95"
+  integrity sha512-GYbJh0ife8PvryWSyFifY1m1uj6zO12d9duuP6xltiOolUz44eKasp5gbFhRbFbLy50ik6hcKn4Pbxl9AkxB+Q==
 
 string-env-interpolation@1.0.1, string-env-interpolation@^1.0.1:
   version "1.0.1"
