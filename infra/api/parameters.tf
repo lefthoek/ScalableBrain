@@ -15,3 +15,9 @@ resource "aws_ssm_parameter" "websockets_subscriptions_table" {
   type  = "SecureString"
   value = local.websockets_subscriptions_table
 }
+
+resource "aws_ssm_parameter" "websockets_api_id" {
+  name  = "${local.parameter_prefix}/websockets_api/id"
+  type  = "SecureString"
+  value = aws_apigatewayv2_api.websockets_api.id
+}

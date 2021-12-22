@@ -1,3 +1,9 @@
+resource "aws_apigatewayv2_api" "websockets_api" {
+  name                       = local.websockets_api
+  protocol_type              = "WEBSOCKET"
+  route_selection_expression = "$request.body.action"
+}
+
 resource "aws_dynamodb_table" "websockets_connections_table" {
   name           = local.websockets_connections_table
   billing_mode   = "PROVISIONED"

@@ -8,6 +8,7 @@ data "aws_iam_policy_document" "lambda_role_assume_role_policy" {
     }
   }
 }
+
 data "aws_iam_policy_document" "websockets_tables_access" {
   statement {
     actions = [
@@ -22,6 +23,19 @@ data "aws_iam_policy_document" "websockets_tables_access" {
     resources = [
       aws_dynamodb_table.websockets_connections_table.arn,
       aws_dynamodb_table.websockets_subscriptions_table.arn,
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "websockets_apigateway_access" {
+  statement {
+    actions = [
+      "execute-api:*"
+    ]
+
+    resources = [
+      aws_apigatewayv2_api.websockets_api.execution_arn,
+      "${aws_apigatewayv2_api.websockets_api.execution_arn}/*"
     ]
   }
 }
