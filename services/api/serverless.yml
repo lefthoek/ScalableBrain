@@ -9,6 +9,8 @@ custom:
   project_name: scalable-brain
   service_name: api
   service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/api
+  shared_parameter_prefix: ${self:custom.project_name}/prod/shared
+  event_bus: ${ssm:/${self:custom.shared_parameter_prefix}/event_bus}
   websockets_api_id: ${ssm:/${self:custom.service_parameter_prefix}/websockets_api/id}
   function_prefix: ${self:custom.project_name}-${self:custom.service_name}-${opt:stage}
   graphql: ${self:custom.function_prefix}-graphql
@@ -61,8 +63,11 @@ functions:
   bridge:
     handler: dist/index.testHandler
     events:
-      - schedule:
-          rate: rate(1 hour)
+      - eventBridge:
+          eventBus: ${self:custom.event_bus}
+          pattern:
+            detail-type:
+              - TEAM_ADDED
     environment:
       HANDLER_NAME: ${self:custom.bridge}
       WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
