@@ -12,6 +12,7 @@ custom:
   websockets_api_id: ${ssm:/${self:custom.service_parameter_prefix}/websockets_api/id}
   function_prefix: ${self:custom.project_name}-${self:custom.service_name}-${opt:stage}
   graphql: ${self:custom.function_prefix}-graphql
+  bridge: ${self:custom.function_prefix}-bridge
   function_role: ${ssm:/${self:custom.service_parameter_prefix}/roles/function}
   ws_connections_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/websockets_connections}
   ws_subscriptions_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/websockets_subscriptions}
@@ -62,3 +63,7 @@ functions:
     events:
       - schedule:
           rate: rate(1 minute)
+    environment:
+      HANDLER_NAME: ${self:custom.bridge}
+      WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
+      WS_SUBSCRIPTIONS_TABLE: ${self:custom.ws_subscriptions_table}
