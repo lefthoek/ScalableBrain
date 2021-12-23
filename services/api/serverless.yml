@@ -62,7 +62,7 @@ functions:
     handler: dist/index.testHandler
     events:
       - schedule:
-          rate: rate(1 minute)
+          rate: rate(1 hour)
     environment:
       HANDLER_NAME: ${self:custom.bridge}
       WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
