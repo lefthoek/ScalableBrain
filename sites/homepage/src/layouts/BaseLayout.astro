@@ -1,13 +1,15 @@
 ---
+import LefthoekLogo from "../components/LefthoekLogo.svelte"
 const { class: extendClasses } = Astro.props;
 ---
 <html lang="en" class="h-full" id="root">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>Astro + TailwindCSS</title>
+    <title>Lefthoek</title>
     <link rel="stylesheet" type="text/css" href={Astro.resolve("../styles/global.css")}>
   </head>
+  <LefthoekLogo isInverted={true} class="w-20 m-10"/>
 
   <body class={`h-full ${extendClasses}`}>
     <slot/>
