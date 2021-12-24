@@ -9,9 +9,10 @@ const { class: extendClasses } = Astro.props;
     <title>Lefthoek</title>
     <link rel="stylesheet" type="text/css" href={Astro.resolve("../styles/global.css")}>
   </head>
-  <LefthoekLogo isInverted={true} class="w-20 m-10"/>
 
-  <body class={`h-full ${extendClasses}`}>
+
+  <body class={`h-full bg-gradient-to-tl from-lobster-100 to-skyBlue-100 ${extendClasses}`}>
+    <LefthoekLogo isInverted={true} class="w-20 m-10"/>
     <slot/>
   </body>
 </html>
