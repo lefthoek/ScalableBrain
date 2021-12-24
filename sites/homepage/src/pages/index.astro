@@ -1,21 +1,9 @@
 ---
-// Component Imports
+import BaseLayout from "../layouts/BaseLayout.astro"
 import Button from '../components/Button.svelte';
 
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
+const redirectUrl = "https://slack.com/oauth/v2/authorize?client_id=1648737748640.2152796719617&scope=channels:history,channels:read,groups:history,groups:read,im:history,im:read,mpim:history,mpim:read,channels:join&user_scope="
 ---
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>Astro + TailwindCSS</title>
-    <link rel="stylesheet" type="text/css" href={Astro.resolve("../styles/global.css")}>
-  </head>
-
-  <body>
-		<Button
-			href="https://slack.com/oauth/v2/authorize?client_id=1648737748640.2152796719617&scope=channels:history,channels:read,groups:history,groups:read,im:history,im:read,mpim:history,mpim:read,channels:join&user_scope="
-			>Mine Team</Button>
-  </body>
-</html>
+<BaseLayout class="p-8 bg-midnight-100">
+  <Button href={redirectUrl}>Mine Team</Button>
+</BaseLayout>

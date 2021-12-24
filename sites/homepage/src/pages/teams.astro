@@ -1,19 +1,8 @@
 ---
-// Component Imports
+import BaseLayout from "../layouts/BaseLayout.astro"
 import Dashboard from '../components/Dashboard.svelte';
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
 ---
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>Astro + TailwindCSS</title>
-    <link rel="stylesheet" type="text/css" href={Astro.resolve("../styles/global.css")}>
-  </head>
-
-  <body>
-    <Dashboard client:only/>
-  </body>
-</html>
+<BaseLayout class="p-8 bg-midnight-100">
+HELLO
+  <Dashboard client:only/>
+</BaseLayout>

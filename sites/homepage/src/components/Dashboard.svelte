@@ -12,12 +12,4 @@
   setClient(client);
 </script>
 
-<div class="widget">
-  <TeamImportStats {team_id} />
-</div>
-
-<style lang="postcss">
-  .widget {
-    @apply p-8 bg-neutral-900 text-gray-100;
-  }
-</style>
+<TeamImportStats {team_id} />

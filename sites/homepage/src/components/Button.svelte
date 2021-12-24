@@ -2,24 +2,14 @@
   export let type = "button";
   export let href = "";
   export let target = "__blank";
+  let buttonClasses =
+    "border border-background px-4 p-2 hover:bg-background hover:text-dark text-background rounded-md text-center text-cipria";
 </script>
 
 {#if href}
-  <a {target} class="button" {href}><slot /></a>
+  <a {target} class={buttonClasses} {href}><slot /></a>
 {:else}
-  <button on:click class="button" {type}>
+  <button on:click class={buttonClasses} {type}>
     <slot />
   </button>
 {/if}
-
-<style lang="postcss">
-  .button {
-    @apply py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md;
-  }
-  .button:hover {
-    @apply bg-purple-700;
-  }
-  .button:focus {
-    @apply outline-none ring-2 ring-purple-400 ring-opacity-75;
-  }
-</style>

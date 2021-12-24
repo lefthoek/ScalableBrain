@@ -13,16 +13,11 @@
   const increaseValue = updateCountMutation;
 </script>
 
-<h1 class="team_id">Team ID: {team_id}</h1>
-
-{#if $updateCount.data}
-  <Button on:click={increaseValue}>{$updateCount.data.increase}</Button>
-{:else}
-  <Button on:click={increaseValue}>Initialize Value</Button>
-{/if}
-
-<style lang="postcss">
-  .team_id {
-    @apply text-8xl;
-  }
-</style>
+<div class="p-8 bg-skyBlue-100 text-cipria-100 h-full rounded-3xl">
+  <h1 class="text-8xl mb-8">Team ID: {team_id}</h1>
+  {#if $updateCount.data}
+    <Button on:click={increaseValue}>{$updateCount.data.increase}</Button>
+  {:else}
+    <Button on:click={increaseValue}>Initialize Value</Button>
+  {/if}
+</div>
