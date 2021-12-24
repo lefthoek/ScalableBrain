@@ -1,3 +1,4 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
 function withOpacityValue(variable) {
   return ({ opacityValue }) => {
     if (opacityValue === undefined) {
@@ -35,5 +36,12 @@ module.exports = {
   ],
   theme: {
     colors: gradients,
+    extend: {
+      fontFamily: {
+        sans: ["GT Walsheim Pro", ...defaultTheme.fontFamily.sans],
+        serif: ["GT Sectra Display", ...defaultTheme.fontFamily.serif],
+        mono: ["IBM Plex Mono", ...defaultTheme.fontFamily.mono],
+      },
+    },
   },
 };

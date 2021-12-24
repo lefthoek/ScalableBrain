@@ -2,6 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: "GT Sectra Display";
+    src: url("/fonts/GT Sectra/GT-Sectra-Display-Super-Italic.woff2")
+      format("woff2");
+    font-weight: 900;
+    font-style: super-italic;
+  }
+
+  @font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/fonts/GT Walsheim/GT-Walsheim-Pro-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: "normal";
+  }
+
+  @font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/fonts/GT Walsheim/GT-Walsheim-Pro-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: "normal";
+  }
+
+  @font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/fonts/GT Walsheim/GT-Walsheim-Pro-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: "normal";
+  }
+
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("/fonts/IBM Plex Mono/IBMPlexMono.woff2") format("woff2");
+    font-weight: 400;
+    font-style: "normal";
+  }
+
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("/fonts/IBM Plex Mono/IBMPlexMono-SemiBold.woff2") format("woff2");
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply border font-sans font-semibold border-cipria-100 px-4 p-2 text-cipria-100 rounded-md text-center;
+  }
+}
+
 .root,
 #root,
 #docs-root {
