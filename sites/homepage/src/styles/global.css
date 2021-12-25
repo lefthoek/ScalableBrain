@@ -3,6 +3,33 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --cipria-40: 253 249 251;
+    --cipria-60: 253 247 249;
+    --cipria-80: 252 244 247;
+    --cipria-100: 252 242 245;
+
+    --midnight-40: 173 173 184;
+    --midnight-60: 132 132 148;
+    --midnight-80: 91 91 113;
+    --midnight-100: 50 51 78;
+
+    --brightGreen-40: 210 255 234;
+    --brightGreen-60: 188 255 224;
+    --brightGreen-80: 166 255 214;
+    --brightGreen-100: 144 255 204;
+
+    --skyBlue-40: 201 183 253;
+    --skyBlue-60: 174 147 252;
+    --skyBlue-80: 147 111 251;
+    --skyBlue-100: 120 76 251;
+
+    --lobster-40: 236 189 163;
+    --lobster-60: 227 156 118;
+    --lobster-80: 218 123 72;
+    --lobster-100: 209 91 27;
+  }
+
   @font-face {
     font-family: "GT Sectra Display";
     src: url("/fonts/GT Sectra/GT-Sectra-Display-Super-Italic.woff2")
@@ -48,35 +75,70 @@
 
 @layer components {
   .btn {
-    @apply border font-sans font-semibold border-cipria-100 px-4 p-2 text-cipria-100 rounded-md text-center;
+    @apply inline-block leading-10 font-sans font-semibold text-xl rounded-3xl align-middle py-1 h-12 px-12 text-center;
   }
-}
 
-.root,
-#root,
-#docs-root {
-  --cipria-40: 253 249 251;
-  --cipria-60: 253 247 249;
-  --cipria-80: 252 244 247;
-  --cipria-100: 252 242 245;
+  .btn-midnight {
+    @apply bg-midnight text-cipria;
+  }
 
-  --midnight-40: 173 173 184;
-  --midnight-60: 132 132 148;
-  --midnight-80: 91 91 113;
-  --midnight-100: 50 51 78;
+  .btn-midnight:hover {
+    @apply bg-midnight-80;
+  }
 
-  --brightGreen-40: 210, 255, 234;
-  --brightGreen-60: 188, 255, 224;
-  --brightGreen-80: 166 255 214;
-  --brightGreen-100: 144 255 204;
+  .btn-midnight:disabled {
+    @apply bg-midnight-40 text-midnight-60;
+  }
 
-  --skyBlue-40: 201 183 253;
-  --skyBlue-60: 174 147 252;
-  --skyBlue-80: 147 111 251;
-  --skyBlue-100: 120 76 251;
+  .btn-cipria {
+    @apply bg-cipria text-lobster;
+  }
 
-  --lobster-40: 236 189 163;
-  --lobster-60: 227 156 118;
-  --lobster-80: 218 123 72;
-  --lobster-100: 209 91 27;
+  .btn-cipria:hover {
+    @apply bg-cipria-60;
+  }
+
+  .btn-cipria:disabled {
+    @apply bg-cipria text-lobster-60;
+  }
+
+  .btn-brightGreen {
+    @apply bg-brightGreen text-skyBlue;
+  }
+
+  .btn-brightGreen:hover {
+    @apply bg-brightGreen-60;
+  }
+
+  .btn-brightGreen:disabled {
+    @apply bg-brightGreen-40 text-brightGreen-60;
+  }
+
+  .btn-lobster {
+    @apply bg-lobster text-cipria;
+  }
+
+  .btn-lobster:hover {
+    @apply bg-lobster-60;
+  }
+
+  .btn-lobster:disabled {
+    @apply bg-lobster-40 text-lobster-60;
+  }
+
+  .btn-skyBlue {
+    @apply bg-skyBlue text-brightGreen;
+  }
+
+  .btn-skyBlue:hover {
+    @apply bg-skyBlue-60;
+  }
+
+  .btn-skyBlue:disabled {
+    @apply bg-skyBlue-40 text-skyBlue-60;
+  }
+
+  .btn-primary {
+    @apply btn-skyBlue;
+  }
 }

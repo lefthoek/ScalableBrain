@@ -1,7 +1,7 @@
 <script lang="ts">
   export let team_id: string;
-  import Button from "./Button.svelte";
   import { operationStore, mutation } from "@urql/svelte";
+  const disabled = true;
 
   const updateCount = operationStore(`
     mutation {
@@ -13,11 +13,16 @@
   const increaseValue = updateCountMutation;
 </script>
 
-<div class="p-8 font-serif bg-skyBlue-100 text-cipria-100 h-full rounded-3xl">
-  <h1 class="text-8xl mb-8">Team ID: {team_id}</h1>
-  {#if $updateCount.data}
-    <Button on:click={increaseValue}>{$updateCount.data.increase}</Button>
-  {:else}
-    <Button on:click={increaseValue}>Initialize Value</Button>
-  {/if}
-</div>
+<h1 class="text-8xl font-serif mb-8 text-brightGreen-100">
+  Team ID: {team_id}
+</h1>
+{#if $updateCount.data}
+  <button class="btn btn-primary" on:click={increaseValue}
+    >{$updateCount.data.increase}</button
+  >
+{:else}
+  <button class="btn btn-primary" on:click={increaseValue}
+    >Initialize Value</button
+  >
+{/if}
+<button class="btn btn-primary" disabled>DISABLED</button>

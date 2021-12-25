@@ -1,9 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro"
-import Button from '../components/Button.svelte';
-
 const redirectUrl = "https://slack.com/oauth/v2/authorize?client_id=1648737748640.2152796719617&scope=channels:history,channels:read,groups:history,groups:read,im:history,im:read,mpim:history,mpim:read,channels:join&user_scope="
 ---
 <BaseLayout class="p-8 bg-midnight-100">
-  <Button href={redirectUrl}>Mine Team</Button>
+  <a class="btn btn-primary" href={redirectUrl}>Mine Team</a>
 </BaseLayout>
