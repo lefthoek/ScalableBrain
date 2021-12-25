@@ -1,7 +1,6 @@
 <script lang="ts">
   export let team_id: string;
   import { operationStore, mutation } from "@urql/svelte";
-  const disabled = true;
 
   const updateCount = operationStore(`
     mutation {

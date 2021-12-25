@@ -139,6 +139,10 @@
   }
 
   .btn-primary {
+    @apply btn-lobster;
+  }
+
+  .theme-dark .btn-primary {
     @apply btn-skyBlue;
   }
 }
