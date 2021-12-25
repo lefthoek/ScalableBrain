@@ -2,7 +2,7 @@
 import LefthoekLogo from "../components/LefthoekLogo.svelte"
 const { class: extendClasses } = Astro.props;
 ---
-<html lang="en" class="h-full">
+<html lang="en" class="h-full max-h-screen">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -11,7 +11,7 @@ const { class: extendClasses } = Astro.props;
   </head>
 
 
-  <body class={`h-full theme-dark bg-gradient-to-tl from-skyBlue-100 to-midnight-100 ${extendClasses}`}>
+  <body class={`max-h-screen bg-gradient-to-r from-skin-base to-skin-tertiary ${extendClasses}`}>
     <a href="/">
       <LefthoekLogo isInverted={true} class="w-20 m-10"/>
     </a>

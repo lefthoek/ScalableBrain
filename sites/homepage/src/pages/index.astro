@@ -1,7 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro"
+import Button from "../components/Button/index.svelte"
 const redirectUrl = "https://slack.com/oauth/v2/authorize?client_id=1648737748640.2152796719617&scope=channels:history,channels:read,groups:history,groups:read,im:history,im:read,mpim:history,mpim:read,channels:join&user_scope="
+let theme = "theme-dark";
 ---
-<BaseLayout class="p-8 bg-midnight-100">
-  <a class="btn btn-primary" href={redirectUrl}>Mine Team</a>
+<BaseLayout class={`${theme}`}>
+<div class="px-8 my-1 flex justify-center" >
+   <h1 class="font-serif font-bold text-9xl text-skin-base/60 select-none">Scale Your</h1>
+ </div>
+<div class="px-8 bg-skin-inverted/10 my-1 flex justify-center" >
+   <h1 class="font-serif font-bold text-9xl text-skin-base select-none">Teams</h1>
+ </div>
+<div class="px-8 my-1 flex justify-center" >
+   <h1 class="font-serif font-bold text-9xl text-skin-primary select-none">Brain Power</h1>
+ </div>
+
+  <!-- <Button href={redirectUrl}>Mine Team</Button> -->
+
 </BaseLayout>
+

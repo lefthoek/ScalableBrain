@@ -30,6 +30,49 @@
     --lobster-100: 209 91 27;
   }
 
+  .theme-dark {
+    --color-primary: var(--brightGreen-100);
+    --color-secondary: var(--lobster-100);
+    --color-tertiary: var(--skyBlue-100);
+    --color-text-base: var(--cipria-100);
+    --color-text-inverted: var(--midnight-100);
+    --color-text-muted: var(--midnight-60);
+    --color-fill: var(--midnight-100);
+  }
+
+  .theme-light {
+    --color-primary: var(--skyBlue-100);
+    --color-secondary: var(--lobster-100);
+    --color-tertiary: var(--brightGreen-100);
+    --color-text-base: var(--midnight-100);
+    --color-text-inverted: var(--cipria-100);
+    --color-text-muted: var(--midnight-60);
+    --color-fill: var(--cipria-100);
+  }
+  .theme-lobster {
+    --color-text-accent: var(--cipria-100);
+    --color-fill: var(--midnight-100);
+    --color-accent: var(--skyBlue-100);
+    --color-button-accent: var(--lobster-100);
+    --color-button-accent-hover: var(--lobster-80);
+  }
+
+  .theme-cipria {
+    --color-text-accent: var(--lobster-100);
+    --color-fill: var(--midnight-100);
+    --color-accent: var(--cipria-100);
+    --color-button-accent: var(--color-accent);
+    --color-button-accent-hover: var(--cipria-60);
+  }
+
+  .theme-midnight {
+    --color-text-accent: var(--cipria-100);
+    --color-fill: var(--skyBlue-100);
+    --color-accent: var(--midnight-100);
+    --color-button-accent: var(--color-accent);
+    --color-button-accent-hover: var(--midnight-80);
+  }
+
   @font-face {
     font-family: "GT Sectra Display";
     src: url("/fonts/GT Sectra/GT-Sectra-Display-Super-Italic.woff2")
@@ -74,10 +117,6 @@
 }
 
 @layer components {
-  .btn {
-    @apply inline-block leading-10 font-sans font-semibold text-xl rounded-3xl align-middle py-1 h-12 px-12 text-center;
-  }
-
   .btn-midnight {
     @apply bg-midnight text-cipria;
   }
@@ -136,13 +175,5 @@
 
   .btn-skyBlue:disabled {
     @apply bg-skyBlue-40 text-skyBlue-60;
-  }
-
-  .btn-primary {
-    @apply btn-lobster;
-  }
-
-  .theme-dark .btn-primary {
-    @apply btn-skyBlue;
   }
 }

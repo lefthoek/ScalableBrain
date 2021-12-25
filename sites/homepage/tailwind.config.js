@@ -37,6 +37,39 @@ module.exports = {
   theme: {
     colors: gradients,
     extend: {
+      textColor: {
+        skin: {
+          base: withOpacityValue("--color-text-base"),
+          inverted: withOpacityValue("--color-text-inverted"),
+          muted: withOpacityValue("--color-text-muted"),
+          primary: withOpacityValue("--color-primary"),
+          secondary: withOpacityValue("--color-secondary"),
+          tertiary: withOpacityValue("--color-tertiary"),
+        },
+      },
+      borderColor: {
+        skin: {
+          base: withOpacityValue("--color-text-base"),
+          primary: withOpacityValue("--color-primary"),
+          secondary: withOpacityValue("--color-secondary"),
+        },
+      },
+      backgroundColor: {
+        skin: {
+          base: withOpacityValue("--color-fill"),
+          inverted: withOpacityValue("--color-text-base"),
+          primary: withOpacityValue("--color-primary"),
+          secondary: withOpacityValue("--color-secondary"),
+        },
+      },
+      gradientColorStops: {
+        skin: {
+          base: withOpacityValue("--color-fill"),
+          primary: withOpacityValue("--color-primary"),
+          secondary: withOpacityValue("--color-secondary"),
+          tertiary: withOpacityValue("--color-tertiary"),
+        },
+      },
       fontFamily: {
         sans: ["GT Walsheim Pro", ...defaultTheme.fontFamily.sans],
         serif: ["GT Sectra Display", ...defaultTheme.fontFamily.serif],
