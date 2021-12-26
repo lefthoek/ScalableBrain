@@ -1,21 +1,33 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro"
-import Button from "../components/Button/index.svelte"
-const redirectUrl = "https://slack.com/oauth/v2/authorize?client_id=1648737748640.2152796719617&scope=channels:history,channels:read,groups:history,groups:read,im:history,im:read,mpim:history,mpim:read,channels:join&user_scope="
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button/index.svelte";
+import DisplayText from "../components/DisplayText.svelte";
+const redirectUrl =
+  "https://slack.com/oauth/v2/authorize?client_id=1648737748640.2152796719617&scope=channels:history,channels:read,groups:history,groups:read,im:history,im:read,mpim:history,mpim:read,channels:join&user_scope=";
 let theme = "theme-dark";
 ---
+
 <BaseLayout class={`${theme}`}>
-<div class="px-8 my-1 flex justify-center" >
-   <h1 class="font-serif font-bold text-9xl text-skin-base/60 select-none">Scale Your</h1>
- </div>
-<div class="px-8 bg-skin-inverted/10 my-1 flex justify-center" >
-   <h1 class="font-serif font-bold text-9xl text-skin-base select-none">Teams</h1>
- </div>
-<div class="px-8 my-1 flex justify-center" >
-   <h1 class="font-serif font-bold text-9xl text-skin-primary select-none">Brain Power</h1>
- </div>
-
-  <!-- <Button href={redirectUrl}>Mine Team</Button> -->
-
+  <a
+    target="__blank"
+    href={redirectUrl}
+    class="grid group h-96 self-center -m-12 text-center"
+  >
+    <DisplayText>
+      <span class="block text-skin-base/60"
+        ><span
+          class="group-hover:text-skin-primary transition-colors duration-500"
+          >Scale</span
+        > Your</span
+      >
+      <span
+        class="block bg-skin-inverted/20 group-hover:text-skin-base/60 group-hover:bg-skin-inverted/10 transition-colors duration-500"
+        >Team's</span
+      >
+      <span
+        class="block group-hover:text-skin-base/60 text-skin-primary transition-colors duration-500"
+        >Brain Power</span
+      >
+    </DisplayText>
+  </a>
 </BaseLayout>
-
