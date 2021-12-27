@@ -30,6 +30,7 @@ const gradients = colorNames.reduce(
 );
 
 module.exports = {
+  darkMode: "class",
   content: [
     "./public/**/*.html",
     "./src/**/*.{astro,js,jsx,svelte,ts,tsx,vue}",
@@ -42,6 +43,7 @@ module.exports = {
           base: withOpacityValue("--color-text-base"),
           inverted: withOpacityValue("--color-text-inverted"),
           muted: withOpacityValue("--color-text-muted"),
+          "muted-inverted": withOpacityValue("--color-text-muted-inverted"),
           primary: withOpacityValue("--color-primary"),
           secondary: withOpacityValue("--color-secondary"),
           tertiary: withOpacityValue("--color-tertiary"),
@@ -49,7 +51,7 @@ module.exports = {
       },
       borderColor: {
         skin: {
-          base: withOpacityValue("--color-text-base"),
+          base: withOpacityValue("--color-fill"),
           primary: withOpacityValue("--color-primary"),
           secondary: withOpacityValue("--color-secondary"),
         },
@@ -57,14 +59,25 @@ module.exports = {
       backgroundColor: {
         skin: {
           base: withOpacityValue("--color-fill"),
-          inverted: withOpacityValue("--color-text-base"),
+          inverted: withOpacityValue("--color-fill-inverted"),
           primary: withOpacityValue("--color-primary"),
           secondary: withOpacityValue("--color-secondary"),
+        },
+      },
+      fill: {
+        skin: {
+          base: withOpacityValue("--color-fill"),
+          inverted: withOpacityValue("--color-fill-inverted"),
+          muted: withOpacityValue("--color-fill-muted"),
+          primary: withOpacityValue("--color-primary"),
+          secondary: withOpacityValue("--color-secondary"),
+          tertiary: withOpacityValue("--color-tertiary"),
         },
       },
       gradientColorStops: {
         skin: {
           base: withOpacityValue("--color-fill"),
+          inverted: withOpacityValue("--color-fill-inverted"),
           primary: withOpacityValue("--color-primary"),
           secondary: withOpacityValue("--color-secondary"),
           tertiary: withOpacityValue("--color-tertiary"),

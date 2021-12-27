@@ -28,16 +28,17 @@
     --lobster-60: 227 156 118;
     --lobster-80: 218 123 72;
     --lobster-100: 209 91 27;
-  }
 
-  .theme-dark {
     --color-primary: var(--brightGreen-100);
-    --color-secondary: var(--lobster-100);
-    --color-tertiary: var(--skyBlue-100);
-    --color-text-base: var(--cipria-100);
-    --color-text-inverted: var(--midnight-100);
+    --color-secondary: var(--skyBlue-100);
+    --color-tertiary: var(--lobster-100);
+    --color-text-base: var(--midnight-100);
+    --color-text-inverted: var(--cipria-100);
     --color-text-muted: var(--midnight-60);
-    --color-fill: var(--midnight-100);
+    --color-text-muted-inverted: var(--midnight-40);
+    --color-fill: var(--cipria-100);
+    --color-fill-muted: var(--cipria-40);
+    --color-fill-inverted: var(--midnight-100);
   }
 
   .theme-light {

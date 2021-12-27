@@ -1,23 +1,28 @@
 ---
-import LefthoekLogo from "../components/LefthoekLogo.svelte"
+import LefthoekLogo from "../components/LefthoekLogo.svelte";
 const { class: extendClasses } = Astro.props;
-let theme = "theme-dark";
 ---
-<html lang="en" class="grid h-screen">
+
+<html lang="en" class="grid h-screen dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>Lefthoek</title>
-    <link rel="stylesheet" type="text/css" href={Astro.resolve("../styles/global.css")}>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href={Astro.resolve("../styles/global.css")}
+    />
   </head>
 
-
-  <body class={`${theme} grid grid-rows-6 bg-gradient-to-r from-skin-base to-skin-tertiary p-12 ${extendClasses}`}>
-  <div class="grid row-span-5">
-    <slot />
+  <body
+    class={`grid grid-rows-6 bg-gradient-to-r from-skin-base dark:from-skin-inverted to-skin-secondary p-12 ${extendClasses}`}
+  >
+    <div class="grid row-span-5">
+      <slot />
     </div>
     <a class="self-end" ref="/">
-      <LefthoekLogo isInverted={true} class="w-20"/>
+      <LefthoekLogo isInverted={true} class="w-20" />
     </a>
   </body>
 </html>
