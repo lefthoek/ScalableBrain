@@ -1,5 +1,5 @@
 <svg
-  class={`group ${$$restProps.class} opacity-70 hover:opacity-100 transition-opacity`}
+  class={`group ${$$restProps.class} opacity-80 hover:opacity-100 transition-opacity`}
   viewBox="0 0 101 121"
   fill="none"
 >
