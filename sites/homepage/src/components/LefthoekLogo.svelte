@@ -1,4 +1,8 @@
-<svg class={`group ${$$restProps.class}`} viewBox="0 0 101 121" fill="none">
+<svg
+  class={`group ${$$restProps.class} opacity-70 hover:opacity-100 transition-opacity`}
+  viewBox="0 0 101 121"
+  fill="none"
+>
   <path
     d="M74.9187 47.3387L99.5453 56.4944L93.1029 97.0705L68.5803 117.463L62.8652 115.278L74.9187 47.3387Z"
     class="dark:fill-skin-secondary fill-skin-muted"
