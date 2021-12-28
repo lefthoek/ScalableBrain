@@ -33,14 +33,4 @@ provider:
 
 functions:
   oauth:
-    handler: dist/index.slack
-    events:
-      - httpApi:
-          path: /integrations/slack
-          method: get
-    environment:
-      SLACK_CLIENT_ID: ${self:custom.slack_client_id}
-      SLACK_CLIENT_SECRET: ${self:custom.slack_client_secret}
-      AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
-      EVENT_BUS_NAME: ${self:custom.event_bus}
-      HANDLER_NAME: ${self:custom.oauth}
+    handler: dist/index.echo
