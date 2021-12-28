@@ -4,7 +4,6 @@ resource "aws_ssm_parameter" "function_role" {
   value = aws_iam_role.function_role.arn
 }
 
-
 resource "aws_ssm_parameter" "auth_lookup_table" {
   name  = "${local.parameter_prefix}/tables/auth_lookup"
   type  = "SecureString"
