@@ -1,7 +1,11 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro"
-import Dashboard from '../components/Dashboard.svelte';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Dashboard from "../components/Dashboard.svelte";
+import WidgetFrame from "../components/WidgetFrame.svelte";
 ---
+
 <BaseLayout>
-  <Dashboard client:only/>
+  <WidgetFrame>
+    <Dashboard client:only />
+  </WidgetFrame>
 </BaseLayout>

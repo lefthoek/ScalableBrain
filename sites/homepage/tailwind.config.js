@@ -53,6 +53,7 @@ module.exports = {
         skin: {
           base: withOpacityValue("--color-fill"),
           primary: withOpacityValue("--color-primary"),
+          muted: withOpacityValue("--color-text-muted"),
           secondary: withOpacityValue("--color-secondary"),
         },
       },
