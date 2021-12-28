@@ -7,7 +7,11 @@ variable "environment_name" {
 }
 
 variable "policies" {
-  type = list(any)
+  type = list(string)
+}
+
+variable "slack_credentials" {
+  type = map(string)
 }
 
 locals {

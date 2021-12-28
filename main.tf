@@ -72,6 +72,10 @@ module "api" {
   source           = "./infra/api"
   project_name     = local.project_name
   environment_name = "dev"
+  slack_credentials = {
+    client_id     = var.SLACK_CLIENT_ID
+    client_secret = var.SLACK_CLIENT_SECRET
+  }
   policies = [
     local.lambda_basic_execution_role,
     module.shared.event_bus_write_access_policy,
@@ -85,8 +89,6 @@ module "mine" {
   project_name     = local.project_name
   environment_name = "dev"
   slack_credentials = {
-    client_id      = var.SLACK_CLIENT_ID
-    client_secret  = var.SLACK_CLIENT_SECRET
     signing_secret = var.SLACK_SIGNING_SECRET
   }
   policies = [

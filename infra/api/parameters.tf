@@ -21,3 +21,15 @@ resource "aws_ssm_parameter" "websockets_api_id" {
   type  = "SecureString"
   value = aws_apigatewayv2_api.websockets_api.id
 }
+
+resource "aws_ssm_parameter" "slack_client_id" {
+  name  = "${local.parameter_prefix}/credentials/slack/client_id"
+  type  = "SecureString"
+  value = var.slack_credentials.client_id
+}
+
+resource "aws_ssm_parameter" "slack_client_secret" {
+  name  = "${local.parameter_prefix}/credentials/slack/client_secret"
+  type  = "SecureString"
+  value = var.slack_credentials.client_secret
+}
