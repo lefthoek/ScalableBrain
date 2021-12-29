@@ -12,8 +12,9 @@
     "prepare": "husky install",
     "codegen": "graphql-codegen --config codegen.yml",
     "docs": "docsify serve docs",
-    "xprebuild:packages": "yarn codegen",
-    "build:packages": "echo \"coming soon\"",
+    "build:schema": "yarn workspace @lefthoek/graphql-schema build",
+    "build:types": "yarn workspace @lefthoek/types build",
+    "build:packages": "yarn build:schema && yarn build:types",
     "build:mine": "yarn workspace @lefthoek/mine build",
     "build:services": "yarn build:mine",
     "deploy:mine": "yarn workspace @lefthoek/mine deploy",
@@ -45,6 +46,8 @@
     "remark-html": "^15.0.1"
   },
   "workspaces": [
+    "packages/graphql-schema",
+    "packages/types",
     "services/api",
     "services/mine",
     "sites/homepage"

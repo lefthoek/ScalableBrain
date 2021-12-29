@@ -1,0 +1,4 @@
+scalar EmailAddress
+scalar JSON
+scalar GUID
+scalar URL

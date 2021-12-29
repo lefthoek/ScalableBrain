@@ -1,0 +1,20 @@
+schema { 
+  query: Query    
+}
+
+scalar EmailAddress
+
+scalar GUID
+
+scalar JSON
+
+type Query {
+  team(teamId: String): Team
+}
+
+type Team {
+  teamId: String!
+  name: String!
+}
+
+scalar URL

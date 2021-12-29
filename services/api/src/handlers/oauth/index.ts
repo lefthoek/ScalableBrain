@@ -1,20 +1,16 @@
 import fetch from "node-fetch";
 import AuthLookup from "@stores/authLookup";
 import EventBus from "@adapters/eventBus";
-import { PlatformType, LefthoekEventType } from "@service_types/enums";
+import { PlatformType, LefthoekEventType } from "./types";
 
-import type {
-  SlackOAuthQueryString,
-  SlackOAuthData,
-} from "@service_types/models";
-
+import type { SlackOAuthQueryString, SlackOAuthData } from "./types";
 const {
   SLACK_CLIENT_SECRET,
   AUTH_LOOKUP_TABLE: table_name,
   SLACK_CLIENT_ID,
+  HANDLER_NAME,
+  EVENT_BUS_NAME,
 } = process.env;
-
-const { HANDLER_NAME, EVENT_BUS_NAME } = process.env;
 
 export const slack = async (event: SlackOAuthQueryString) => {
   const eventBus = new EventBus({

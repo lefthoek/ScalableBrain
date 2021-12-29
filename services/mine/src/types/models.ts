@@ -1,11 +1,5 @@
 import { PlatformType } from "./enums";
 
-export type SlackOAuthQueryString = {
-  queryStringParameters: {
-    code: string;
-  };
-};
-
 export type SlackChannelData = {
   id: string;
   is_archived: boolean;

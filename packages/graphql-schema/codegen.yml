@@ -1,0 +1,22 @@
+overwrite: true
+schema: ./src/all.graphql
+config:
+  useIndexSignature: true
+documents: null
+require:
+  - ts-node/register
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+    scalars:
+      EmailAddress: string
+      JSON: string
+      UUID: string
+    config:
+      skipTypename: true
+      avoidOptionals: true
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
