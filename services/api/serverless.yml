@@ -71,7 +71,7 @@ functions:
       WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
       WS_SUBSCRIPTIONS_TABLE: ${self:custom.ws_subscriptions_table}
   bridge:
-    handler: dist/index.testHandler
+    handler: dist/index.bridge
     events:
       - eventBridge:
           eventBus: ${self:custom.event_bus}

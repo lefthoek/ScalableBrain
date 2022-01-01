@@ -35,12 +35,5 @@ const subscriptionServer = makeServer({
   },
 });
 
-const testHandler = () => {
-  return subscriptionServer.publish({
-    topic: "COUNT_UPDATED",
-    payload: {},
-  });
-};
-
 const websockets = subscriptionServer.webSocketHandler;
-export { websockets, testHandler };
+export { websockets, subscriptionServer };

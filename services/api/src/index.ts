@@ -1,1 +1,1 @@
-export { graphql, websockets, slack, testHandler } from "./handlers";
+export { graphql, websockets, slack, bridge } from "./handlers";
