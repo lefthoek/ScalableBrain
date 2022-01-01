@@ -13,7 +13,7 @@ const resolvers = {
     },
   },
   Subscription: {
-    count: {
+    addedTeam: {
       subscribe: subscribe("TEAM_ADDED"),
       resolve: () => {
         return "A NEW TEAM HAS REGISTERED TO LEFTHOEK";
