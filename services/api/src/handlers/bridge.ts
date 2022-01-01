@@ -1,10 +1,9 @@
-import { LefthoekEvent } from "@lefthoek/types/dist/events";
 import { subscriptionServer } from "./websockets";
 
-export const bridge = (event: LefthoekEvent) => {
+export const bridge = (event: any) => {
   console.log(event);
   return subscriptionServer.publish({
-    topic: event.detailType,
+    topic: event["detail-type"],
     payload: {},
   });
 };
