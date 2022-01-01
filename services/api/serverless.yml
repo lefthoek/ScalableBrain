@@ -32,6 +32,17 @@ provider:
   region: eu-west-1
 
 functions:
+  oauth:
+    handler: dist/index.slack
+    events:
+      - httpApi:
+          path: /integrations/slack
+          method: get
+    environment:
+      SLACK_CLIENT_ID: ${env:SLACK_CLIENT_ID}
+      SLACK_CLIENT_SECRET: ${env:SLACK_CLIENT_SECRET}
+      EVENT_BUS_NAME: ${self:custom.event_bus}
+      HANDLER_NAME: ${self:custom.oauth}
   graphql:
     handler: dist/index.graphql
     events:
