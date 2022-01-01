@@ -57,10 +57,6 @@ functions:
           path: graphql
           method: get
           cors: true
-      - http:
-          path: graphiql
-          method: any
-          cors: true
   websockets:
     handler: dist/index.websockets
     events:
