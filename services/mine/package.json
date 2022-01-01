@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc && tsc-alias",
-    "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-xev}",
+    "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
