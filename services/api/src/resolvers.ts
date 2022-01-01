@@ -1,7 +1,5 @@
 import { subscribe } from "graphql-lambda-subscriptions";
 
-let x = 0;
-
 const resolvers = {
   Query: {
     add: async (_: any, obj: { x: number; y: number }) => {
@@ -11,14 +9,14 @@ const resolvers = {
   },
   Mutation: {
     increase: async () => {
-      return (x += 1);
+      return 1;
     },
   },
   Subscription: {
     count: {
-      subscribe: subscribe("COUNT_UPDATED"),
+      subscribe: subscribe("TEAM_ADDED"),
       resolve: () => {
-        return (x += 1);
+        return "A NEW TEAM HAS REGISTERED TO LEFTHOEK";
       },
     },
   },

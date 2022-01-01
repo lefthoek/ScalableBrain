@@ -6,7 +6,7 @@ const typeDefs = `
     increase: Int
   }
   type Subscription {
-    count: Int
+    addedTeam: String
   }
 `;
 
