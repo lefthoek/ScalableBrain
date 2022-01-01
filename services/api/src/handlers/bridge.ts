@@ -4,6 +4,6 @@ export const bridge = (event: any) => {
   console.log(event);
   return subscriptionServer.publish({
     topic: event["detail-type"],
-    payload: {},
+    payload: event.detail.team,
   });
 };

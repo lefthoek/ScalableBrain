@@ -15,8 +15,8 @@ const resolvers = {
   Subscription: {
     addedTeam: {
       subscribe: subscribe("TEAM_ADDED"),
-      resolve: () => {
-        return "A NEW TEAM HAS REGISTERED TO LEFTHOEK";
+      resolve: ({ payload }: any) => {
+        return `${payload} NEW TEAM HAS REGISTERED TO LEFTHOEK`;
       },
     },
   },
