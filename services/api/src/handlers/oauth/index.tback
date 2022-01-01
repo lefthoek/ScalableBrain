@@ -1,25 +1,30 @@
 import fetch from "node-fetch";
-import { EventBus } from "@lefthoek/adapters";
-import { PlatformType, LefthoekEventType } from "@lefthoek/types/dist/enums";
-import type { SlackOAuthData } from "@lefthoek/types/dist/models";
-import type { SlackOAuthQueryString } from "./types";
+import AuthLookup from "@stores/authLookup";
+import EventBus from "@adapters/eventBus";
+import { PlatformType, LefthoekEventType } from "@lefthoek/types/enums";
 
+import type { SlackOAuthQueryString, SlackOAuthData } from "./types";
 const {
-  SLACK_CLIENT_SECRET: client_secret,
-  SLACK_CLIENT_ID: client_id,
-  HANDLER_NAME: handler_name,
-  EVENT_BUS_NAME: event_bus_name,
+  SLACK_CLIENT_SECRET,
+  AUTH_LOOKUP_TABLE: table_name,
+  SLACK_CLIENT_ID,
+  HANDLER_NAME,
+  EVENT_BUS_NAME,
 } = process.env;
 
 export const slack = async (event: SlackOAuthQueryString) => {
-  const eventBus = new EventBus({ handler_name, event_bus_name });
+  const eventBus = new EventBus({
+    handler_name: HANDLER_NAME,
+    event_bus_name: EVENT_BUS_NAME,
+  });
   const baseURL = "https://slack.com/api/oauth.v2.access";
   const { code } = event.queryStringParameters;
-  const oauthURL = `${baseURL}?client_id=${client_id}&client_secret=${client_secret}&code=${code}`;
+  const oauthURL = `${baseURL}?client_id=${SLACK_CLIENT_ID}&client_secret=${SLACK_CLIENT_SECRET}&code=${code}`;
   const response = await fetch(oauthURL);
   const { access_token, ...slackData } =
     (await response.json()) as SlackOAuthData;
   const { team } = slackData;
+  const authLookup = new AuthLookup({ table_name });
   const platform_type = PlatformType.SLACK;
 
   if (!access_token) {
@@ -29,12 +34,19 @@ export const slack = async (event: SlackOAuthQueryString) => {
     };
   }
 
+  await authLookup.write({
+    team_id: team.id,
+    team_name: team.name,
+    platform_type,
+    access_token,
+  });
+
   await eventBus.put({
     detailType: LefthoekEventType.TEAM_ADDED,
     detail: { ...slackData, platform_type },
   });
 
-  const params = new URLSearchParams({ team_id: team.id });
+  const params = new URLSearchParams({ team_id: slackData.team.id });
   const location = `https://zwarmer.com/teams/?${params.toString()}`;
 
   return {

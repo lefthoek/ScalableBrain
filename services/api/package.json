@@ -7,11 +7,12 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc && tsc-alias",
-    "predeploy": "yarn build",
-    "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",
+    "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-xev}",
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
+    "@lefthoek/types": "*",
+    "@lefthoek/adapters": "*",
     "@graphql-tools/schema": "^8.3.1",
     "aws-lambda-fastify": "^2.0.2",
     "fastify": "^3.25.0",

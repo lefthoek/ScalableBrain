@@ -7,8 +7,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc && tsc-alias",
-    "predeploy": "yarn build",
-    "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",
+    "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-xev}",
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
@@ -16,6 +15,8 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
+    "@lefthoek/types": "*",
+    "@lefthoek/adapters": "*",
     "@types/aws-lambda": "^8.10.85",
     "@types/node-fetch": "^2.5.12",
     "rimraf": "^3.0.2",

@@ -1,8 +1,3 @@
 type Query {
   team(teamId: String): Team
 }
-
-type Team {
-  teamId: String!
-  name: String!
-}

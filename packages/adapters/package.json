@@ -1,0 +1,21 @@
+{
+  "name": "@lefthoek/adapters",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prebuild": "rimraf dist"
+  },
+  "author": "Jan Hein Hoogstad",
+  "license": "MIT",
+  "devDependencies": {
+    "@lefthoek/types": "*",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.884.0"
+  }
+}

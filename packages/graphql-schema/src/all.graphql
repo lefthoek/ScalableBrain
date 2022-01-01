@@ -13,7 +13,7 @@ type Query {
 }
 
 type Team {
-  teamId: String!
+  id: String!
   name: String!
 }
 

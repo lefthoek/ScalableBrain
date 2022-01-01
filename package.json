@@ -7,20 +7,34 @@
   "directories": {
     "doc": "docs"
   },
+  "turbo": {
+    "baseBranch": "origin/main",
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ]
+      },
+      "dryrun": {
+        "dependsOn": [
+          "build"
+        ]
+      },
+      "deploy": {
+        "dependsOn": [
+          "build"
+        ]
+      }
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
     "codegen": "graphql-codegen --config codegen.yml",
     "docs": "docsify serve docs",
-    "build:schema": "yarn workspace @lefthoek/graphql-schema build",
-    "build:types": "yarn workspace @lefthoek/types build",
-    "build:packages": "yarn build:schema && yarn build:types",
-    "build:mine": "yarn workspace @lefthoek/mine build",
-    "build:services": "yarn build:mine",
-    "deploy:mine": "yarn workspace @lefthoek/mine deploy",
-    "dryrun:mine": "yarn workspace @lefthoek/mine dryrun",
-    "deploy:services": "yarn deploy:mine",
-    "dryrun:services": "yarn dryrun:mine"
+    "build": "turbo run build",
+    "deploy": "turbo run deploy",
+    "dryrun": "turbo run deploy"
   },
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
@@ -43,11 +57,13 @@
     "husky": "^7.0.4",
     "lehre": "^1.5.0",
     "remark-cli": "^10.0.0",
-    "remark-html": "^15.0.1"
+    "remark-html": "^15.0.1",
+    "turbo": "^1.0.23"
   },
   "workspaces": [
     "packages/graphql-schema",
     "packages/types",
+    "packages/adapters",
     "services/api",
     "services/mine",
     "sites/homepage"
