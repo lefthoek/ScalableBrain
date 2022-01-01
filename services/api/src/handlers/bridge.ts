@@ -2,7 +2,9 @@ import { LefthoekEvent } from "@lefthoek/types/dist/events";
 import { Handler as AWSHandler } from "aws-lambda";
 import { subscriptionServer } from "./websockets";
 
-const wrapper: (handler: any) => AWSHandler = (handler) => {
+type Handler<U> = (event: U, context?: any) => Promise<void>;
+
+const wrapper: (handler: Handler<LefthoekEvent>) => AWSHandler = (handler) => {
   return async (awsEvent, _context) => {
     const detail = awsEvent.detail;
     const detailType = awsEvent["detail-type"];
@@ -13,7 +15,7 @@ const wrapper: (handler: any) => AWSHandler = (handler) => {
   };
 };
 
-const _bridge = (event: LefthoekEvent) => {
+const _bridge = async (event: LefthoekEvent) => {
   console.log(event);
   return subscriptionServer.publish({
     topic: event.detailType,
