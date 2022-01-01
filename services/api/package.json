@@ -13,8 +13,8 @@
   "dependencies": {
     "@lefthoek/types": "*",
     "@lefthoek/adapters": "*",
-    "@graphql-tools/schema": "^8.3.1",
     "aws-lambda-fastify": "^2.0.2",
+    "node-fetch": "^2.6.1",
     "fastify": "^3.25.0",
     "fastify-cors": "^6.0.2",
     "graphql": "^16.2.0",
