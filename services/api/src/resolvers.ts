@@ -23,7 +23,7 @@ const resolvers: Resolvers = {
       },
     },
     updatedTeam: {
-      subscribe: subscribe("TEAM_UPDATED", {
+      subscribe: subscribe("TEAM_ADDED", {
         filter: (_, { id }: { id: string }) => ({
           id,
         }),
