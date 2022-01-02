@@ -15,9 +15,9 @@ const resolvers = {
   Subscription: {
     addedTeam: {
       subscribe: subscribe("TEAM_ADDED", {
-        filter: (...args) => {
+        filter: (_, args) => {
           console.log(JSON.stringify(args, null, 2));
-          return true;
+          return false;
         },
       }),
       resolve: ({ payload }: any) => {
