@@ -1,7 +1,7 @@
 import AWS from "aws-sdk";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { makeServer } from "graphql-lambda-subscriptions";
-import typeDefs from "../typeDefs";
+import typeDefs from "@lefthoek/graphql-schema";
 import resolvers from "../resolvers";
 
 const {

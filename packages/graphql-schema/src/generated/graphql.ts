@@ -27,6 +27,16 @@ export type QueryTeamArgs = {
   teamId: InputMaybe<Scalars['String']>;
 };
 
+export type Subscription = {
+  addedTeams: Team;
+  updatedTeam: Team;
+};
+
+
+export type SubscriptionUpdatedTeamArgs = {
+  id: Scalars['String'];
+};
+
 export type Team = {
   id: Scalars['String'];
   name: Scalars['String'];
@@ -108,6 +118,7 @@ export type ResolversTypes = ResolversObject<{
   JSON: ResolverTypeWrapper<Scalars['JSON']>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Subscription: ResolverTypeWrapper<{}>;
   Team: ResolverTypeWrapper<Team>;
   URL: ResolverTypeWrapper<Scalars['URL']>;
 }>;
@@ -120,6 +131,7 @@ export type ResolversParentTypes = ResolversObject<{
   JSON: Scalars['JSON'];
   Query: {};
   String: Scalars['String'];
+  Subscription: {};
   Team: Team;
   URL: Scalars['URL'];
 }>;
@@ -140,6 +152,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   team: Resolver<Maybe<ResolversTypes['Team']>, ParentType, ContextType, RequireFields<QueryTeamArgs, never>>;
 }>;
 
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
+  addedTeams: SubscriptionResolver<ResolversTypes['Team'], "addedTeams", ParentType, ContextType>;
+  updatedTeam: SubscriptionResolver<ResolversTypes['Team'], "updatedTeam", ParentType, ContextType, RequireFields<SubscriptionUpdatedTeamArgs, 'id'>>;
+}>;
+
 export type TeamResolvers<ContextType = any, ParentType extends ResolversParentTypes['Team'] = ResolversParentTypes['Team']> = ResolversObject<{
   id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -155,6 +172,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   GUID: GraphQLScalarType;
   JSON: GraphQLScalarType;
   Query: QueryResolvers<ContextType>;
+  Subscription: SubscriptionResolvers<ContextType>;
   Team: TeamResolvers<ContextType>;
   URL: GraphQLScalarType;
 }>;

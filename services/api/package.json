@@ -11,6 +11,7 @@
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
+    "@lefthoek/graphql-schema": "*",
     "@lefthoek/types": "*",
     "@lefthoek/adapters": "*",
     "@graphql-tools/schema": "^8.3.1",

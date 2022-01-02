@@ -6,7 +6,8 @@ const typeDefs = `
     increase: Int
   }
   type Subscription {
-    addedTeam(teamId: String!): String!
+    addedTeam: String!
+    updatedTeam(id: String!): String!
   }
 `;
 

@@ -8,8 +8,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "prebuild": "rimraf dist",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "prebuild": "rimraf dist"
   },
   "devDependencies": {
     "@lefthoek/graphql-schema": "*",
@@ -17,4 +16,3 @@
     "typescript": "^4.2.4"
   }
 }
-

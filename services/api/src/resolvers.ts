@@ -1,26 +1,30 @@
 import { subscribe } from "graphql-lambda-subscriptions";
+import { Team } from "@lefthoek/types/dist/models";
 
 const resolvers = {
   Query: {
-    add: async (_: any, obj: { x: number; y: number }) => {
-      const { x, y } = obj;
-      return x * y;
-    },
-  },
-  Mutation: {
-    increase: async () => {
-      return 1;
+    team: async (_: any) => {
+      return {
+        name: "offcourse",
+        id: "1233px",
+      };
     },
   },
   Subscription: {
-    addedTeam: {
-      subscribe: subscribe("TEAM_ADDED", {
-        filter: (_, args) => ({
-          id: args.teamId,
+    updatedTeam: {
+      subscribe: subscribe("TEAM_ADDED"),
+      resolve: ({ payload }: { payload: Team }) => {
+        return payload;
+      },
+    },
+    addedTeams: {
+      subscribe: subscribe("TEAM_UPDATED", {
+        filter: (_, { id }: { id: string }) => ({
+          id,
         }),
       }),
-      resolve: ({ payload }: any) => {
-        return `${payload.name} has registered to lefthoek`;
+      resolve: ({ payload }: { payload: Team }) => {
+        return payload;
       },
     },
   },

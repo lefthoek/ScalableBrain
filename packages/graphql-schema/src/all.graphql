@@ -1,5 +1,6 @@
 schema { 
-  query: Query    
+  query: Query  
+  subscription: Subscription  
 }
 
 scalar EmailAddress
@@ -10,6 +11,11 @@ scalar JSON
 
 type Query {
   team(teamId: String): Team
+}
+
+type Subscription {
+  addedTeams: Team!
+  updatedTeam(id: String!): Team!
 }
 
 type Team {
