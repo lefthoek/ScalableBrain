@@ -16,7 +16,7 @@ const resolvers = {
     addedTeam: {
       subscribe: subscribe("TEAM_ADDED", {
         filter: (_, args) => ({
-          teamId: args.teamId,
+          id: args.teamId,
         }),
       }),
       resolve: ({ payload }: any) => {
