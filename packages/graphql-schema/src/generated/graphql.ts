@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { GraphQLResolveInfo } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -12,10 +12,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  EmailAddress: any;
-  GUID: any;
-  JSON: any;
-  URL: any;
 };
 
 export type Query = {
@@ -113,40 +109,20 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']>;
-  GUID: ResolverTypeWrapper<Scalars['GUID']>;
-  JSON: ResolverTypeWrapper<Scalars['JSON']>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
   Team: ResolverTypeWrapper<Team>;
-  URL: ResolverTypeWrapper<Scalars['URL']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
-  EmailAddress: Scalars['EmailAddress'];
-  GUID: Scalars['GUID'];
-  JSON: Scalars['JSON'];
   Query: {};
   String: Scalars['String'];
   Subscription: {};
   Team: Team;
-  URL: Scalars['URL'];
 }>;
-
-export interface EmailAddressScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['EmailAddress'], any> {
-  name: 'EmailAddress';
-}
-
-export interface GuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['GUID'], any> {
-  name: 'GUID';
-}
-
-export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
-  name: 'JSON';
-}
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   team: Resolver<Maybe<ResolversTypes['Team']>, ParentType, ContextType, RequireFields<QueryTeamArgs, never>>;
@@ -163,17 +139,9 @@ export type TeamResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export interface UrlScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['URL'], any> {
-  name: 'URL';
-}
-
 export type Resolvers<ContextType = any> = ResolversObject<{
-  EmailAddress: GraphQLScalarType;
-  GUID: GraphQLScalarType;
-  JSON: GraphQLScalarType;
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
   Team: TeamResolvers<ContextType>;
-  URL: GraphQLScalarType;
 }>;
 

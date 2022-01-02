@@ -3,12 +3,6 @@ schema {
   subscription: Subscription  
 }
 
-scalar EmailAddress
-
-scalar GUID
-
-scalar JSON
-
 type Query {
   team(teamId: String): Team
 }
@@ -22,5 +16,3 @@ type Team {
   id: String!
   name: String!
 }
-
-scalar URL
