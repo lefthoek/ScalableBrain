@@ -15,10 +15,9 @@ const resolvers = {
   Subscription: {
     addedTeam: {
       subscribe: subscribe("TEAM_ADDED", {
-        filter: (_, args) => {
-          console.log(JSON.stringify(args, null, 2));
-          return false;
-        },
+        filter: (_, args) => ({
+          teamId: args.teamId,
+        }),
       }),
       resolve: ({ payload }: any) => {
         return `${payload.name} has registered to lefthoek`;
