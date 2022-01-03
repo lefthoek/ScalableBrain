@@ -1,6 +1,6 @@
 <script lang="ts">
   export let team_id: string;
-  import { operationStore, query } from "@urql/svelte";
+  import { operationStore, query, subscription } from "@urql/svelte";
 
   const teamData = operationStore(`
     query {
@@ -10,6 +10,21 @@
       }
     }
   `);
+
+  const messages = operationStore(`
+    subscription {
+      addedTeams {
+        id
+        name
+      }
+    }
+  `);
+
+  const handleSubscription = (messages = [], data: any) => {
+    return [data.addedTeams, ...messages];
+  };
+
+  subscription(messages, handleSubscription);
 
   query(teamData);
 </script>
@@ -21,3 +36,13 @@
     {team_id}
   {/if}
 </h1>
+
+{#if !$messages.data}
+  <p>No new messages</p>
+{:else}
+  <ul>
+    {#each $messages.data as message}
+      <li>{message.id}: "{message.name}"</li>
+    {/each}
+  </ul>
+{/if}
