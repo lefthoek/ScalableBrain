@@ -2,18 +2,22 @@ import { subscribe } from "graphql-lambda-subscriptions";
 import { Team } from "@lefthoek/types/dist/models";
 import { Resolvers } from "@lefthoek/graphql-schema";
 
+const teamStore = {
+  get: async () => {
+    return {
+      name: "Leftcourse",
+      id: "T01K2MPN0JU",
+    };
+  },
+};
+
 const resolvers: Resolvers = {
   Team: {
-    name: async ({ name }) => name.toUpperCase(),
+    name: async ({ name }) => name,
     id: async ({ id }) => id,
   },
   Query: {
-    team: async (_: any) => {
-      return {
-        name: "offcourse",
-        id: "1233px",
-      };
-    },
+    team: teamStore.get(),
   },
   Subscription: {
     addedTeams: {
