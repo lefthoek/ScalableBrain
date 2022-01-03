@@ -9,6 +9,7 @@
     subscriptionExchange,
     setClient,
   } from "@urql/svelte";
+
   import { createClient as createWSClient } from "graphql-ws";
 
   const wsClient = createWSClient({
