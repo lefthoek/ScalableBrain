@@ -1,6 +1,5 @@
 import { EventBridge } from "aws-sdk";
-import type { LefthoekEventBus } from "@lefthoek/types/dist/adapters";
-import { LefthoekEvent } from "@lefthoek/types/dist/events";
+import type { LefthoekEventBus, LefthoekEvent } from "@lefthoek/types";
 
 class EventBus implements LefthoekEventBus {
   handler_name: string;
@@ -15,11 +14,11 @@ class EventBus implements LefthoekEventBus {
     event_bus_name?: string;
   }) {
     if (!handler_name) {
-      throw new Error("The handler name must be set in your environment");
+      throw new Error("The handler name needs to be set in your environment");
     }
 
     if (!event_bus_name) {
-      throw new Error("The event bus name must be set in your environment");
+      throw new Error("The event bus name needs to be set in your environment");
     }
 
     this.handler_name = handler_name;

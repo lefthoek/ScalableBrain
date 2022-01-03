@@ -1,4 +1,16 @@
+enum PlatformType {
+  SLACK
+}
+
+type TeamProvider {
+  type: PlatformType
+  access_token: String
+  id: String
+  name: String
+}
+
 type Team {
   id: String!
   name: String!
+  providers: [TeamProvider]
 }

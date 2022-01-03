@@ -1,20 +1,34 @@
 import { subscribe } from "graphql-lambda-subscriptions";
-import { Team } from "@lefthoek/types/dist/models";
-import { Resolvers } from "@lefthoek/graphql-schema";
+import { Team, Resolvers, PlatformType } from "@lefthoek/types";
 
 const teamStore = {
   get: async () => {
     return {
       name: "Leftcourse",
       id: "T01K2MPN0JU",
+      providers: [
+        {
+          type: PlatformType.Slack,
+          name: "Leftcourse",
+          id: "T01K2MPN0JU",
+          access_token: "",
+        },
+      ],
     };
   },
 };
 
 const resolvers: Resolvers = {
+  TeamProvider: {
+    type: async ({ type }) => type,
+    name: async ({ name }) => name,
+    id: async ({ id }) => id,
+    access_token: async () => "NONE OF YOUR BUSINESS",
+  },
   Team: {
     name: async ({ name }) => name,
     id: async ({ id }) => id,
+    providers: async ({ providers }) => providers,
   },
   Query: {
     team: async () => await teamStore.get(),

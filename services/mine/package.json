@@ -1,6 +1,6 @@
 {
-  "name": "@lefthoek/mine",
-  "version": "0.0.1",
+  "name": "@lefthoek/services-mine",
+  "version": "0.0.0",
   "main": "index.js",
   "author": "Jan Hein Hoogstad",
   "license": "MIT",

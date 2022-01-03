@@ -3,6 +3,10 @@ schema {
   subscription: Subscription  
 }
 
+enum PlatformType {
+  SLACK
+}
+
 type Query {
   team(teamId: String): Team
 }
@@ -15,4 +19,12 @@ type Subscription {
 type Team {
   id: String!
   name: String!
+  providers: [TeamProvider]
+}
+
+type TeamProvider {
+  type: PlatformType
+  access_token: String
+  id: String
+  name: String
 }

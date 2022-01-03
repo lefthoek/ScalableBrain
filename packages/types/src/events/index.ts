@@ -1,12 +1,12 @@
-import { PlatformType, LefthoekEventType } from "../enums";
-import { SlackOAuthData } from "../models";
+import { LefthoekEventType } from "../enums";
+import { Team } from "../models";
 
 export interface Event {
   detailType: string;
   detail: any;
 }
 
-export type LefthoekEventPayload = SlackOAuthData;
+export type LefthoekEventPayload = Team;
 
 export interface LHEvent extends Event {
   detailType: LefthoekEventType;
@@ -15,7 +15,7 @@ export interface LHEvent extends Event {
 
 export interface TeamAddedEvent extends LHEvent {
   detailType: LefthoekEventType.TEAM_ADDED;
-  detail: SlackOAuthData & { platform_type: PlatformType };
+  detail: Team;
 }
 
 export type LefthoekEvent = TeamAddedEvent;

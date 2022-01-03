@@ -14,6 +14,10 @@ export type Scalars = {
   Float: number;
 };
 
+export enum PlatformType {
+  Slack = 'SLACK'
+}
+
 export type Query = {
   team: Maybe<Team>;
 };
@@ -36,6 +40,14 @@ export type SubscriptionUpdatedTeamArgs = {
 export type Team = {
   id: Scalars['String'];
   name: Scalars['String'];
+  providers: Maybe<Array<Maybe<TeamProvider>>>;
+};
+
+export type TeamProvider = {
+  access_token: Maybe<Scalars['String']>;
+  id: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+  type: Maybe<PlatformType>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -109,10 +121,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  PlatformType: PlatformType;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
   Team: ResolverTypeWrapper<Team>;
+  TeamProvider: ResolverTypeWrapper<TeamProvider>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -122,6 +136,7 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   Subscription: {};
   Team: Team;
+  TeamProvider: TeamProvider;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
@@ -136,6 +151,15 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
 export type TeamResolvers<ContextType = any, ParentType extends ResolversParentTypes['Team'] = ResolversParentTypes['Team']> = ResolversObject<{
   id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  providers: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamProvider']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TeamProviderResolvers<ContextType = any, ParentType extends ResolversParentTypes['TeamProvider'] = ResolversParentTypes['TeamProvider']> = ResolversObject<{
+  access_token: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type: Resolver<Maybe<ResolversTypes['PlatformType']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -143,5 +167,6 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
   Team: TeamResolvers<ContextType>;
+  TeamProvider: TeamProviderResolvers<ContextType>;
 }>;
 
