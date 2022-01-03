@@ -5,6 +5,9 @@ import fastify from "fastify";
 import mercurius from "mercurius";
 import typeDefs from "@lefthoek/graphql-schema";
 import resolvers from "../resolvers";
+import { TeamStore } from "@lefthoek/stores";
+
+const teamStore = new TeamStore();
 
 const app = fastify();
 
@@ -16,7 +19,11 @@ const schema = makeExecutableSchema({
   typeDefs,
 });
 
-app.register(mercurius, { schema, resolvers });
+const context = () => ({
+  teamStore,
+});
+
+app.register(mercurius, { schema, resolvers, context });
 
 const graphql = awsLambdaFastify(app);
 

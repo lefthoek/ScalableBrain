@@ -13,6 +13,7 @@
   "dependencies": {
     "@graphql-tools/schema": "^8.3.1",
     "@lefthoek/adapters": "*",
+    "@lefthoek/stores": "*",
     "@lefthoek/graphql-schema": "*",
     "@lefthoek/types": "*",
     "aws-lambda-fastify": "^2.0.2",
