@@ -4,14 +4,14 @@ import { PlatformType } from "@lefthoek/types";
 class TeamStore implements Store<Team> {
   async fetch() {
     return {
-      name: "Leftcourse",
+      name: "Lefthoek",
       id: "T01K2MPN0JU",
       providers: [
         {
           type: PlatformType.Slack,
-          name: "Leftcourse",
+          name: "Lefthoek",
           id: "T01K2MPN0JU",
-          access_token: "",
+          access_token: "fsfsdalkadf",
         },
       ],
     };
