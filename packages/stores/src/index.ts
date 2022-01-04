@@ -8,7 +8,7 @@ class TeamStore implements Store<Team> {
       team_id: "T01K2MPN0JU",
       providers: [
         {
-          type: PlatformType.Slack,
+          platform_type: PlatformType.Slack,
           name: "Lefthoek",
           provider_id: "T01K2MPN0JU",
           access_token: "fsfsdalkadf",

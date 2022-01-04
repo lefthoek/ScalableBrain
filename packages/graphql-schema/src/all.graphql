@@ -23,7 +23,7 @@ type Team {
 }
 
 type TeamProvider {
-  type: PlatformType
+  platform_type: PlatformType
   access_token: String
   provider_id: String
   name: String

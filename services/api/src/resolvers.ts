@@ -3,7 +3,7 @@ import { Team, Resolvers } from "@lefthoek/types";
 
 const resolvers: Resolvers = {
   TeamProvider: {
-    type: async ({ type }) => type,
+    platform_type: async ({ platform_type }) => platform_type,
     name: async ({ name }) => name,
     provider_id: async ({ provider_id }) => provider_id,
     access_token: async () => "NONE OF YOUR BUSINESS",

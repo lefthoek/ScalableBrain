@@ -46,8 +46,8 @@ export type Team = {
 export type TeamProvider = {
   access_token: Maybe<Scalars['String']>;
   name: Maybe<Scalars['String']>;
+  platform_type: Maybe<PlatformType>;
   provider_id: Maybe<Scalars['String']>;
-  type: Maybe<PlatformType>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -158,8 +158,8 @@ export type TeamResolvers<ContextType = any, ParentType extends ResolversParentT
 export type TeamProviderResolvers<ContextType = any, ParentType extends ResolversParentTypes['TeamProvider'] = ResolversParentTypes['TeamProvider']> = ResolversObject<{
   access_token: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  platform_type: Resolver<Maybe<ResolversTypes['PlatformType']>, ParentType, ContextType>;
   provider_id: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type: Resolver<Maybe<ResolversTypes['PlatformType']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
