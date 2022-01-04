@@ -6,7 +6,7 @@ import type { ServiceEvent } from "@service_types/events";
 export type Services = { eventBus: EventBridge<ServiceEvent> };
 const { HANDLER_NAME, EVENT_BUS_NAME } = process.env;
 
-const handler: (handler: Handler<any, Services>) => AWSHandler = (handler) => {
+const wrapper: (handler: Handler<any, Services>) => AWSHandler = (handler) => {
   return async (awsEvent, _context, callback) => {
     const detail = awsEvent.detail;
     const detailType = awsEvent["detail-type"];
@@ -36,8 +36,8 @@ const wrapServices: (
   serviceMap: Record<string, Handler<any, Services>>
 ) => Record<string, AWSHandler> = (serviceMap) => {
   let entries = Object.entries(serviceMap);
-  let wrappedEntries = entries.map(([key, handler]) => [key, handler(handler)]);
+  let wrappedEntries = entries.map(([key, handler]) => [key, wrapper(handler)]);
   return Object.fromEntries(wrappedEntries);
 };
 
-export { wrapServices, handler };
+export { wrapServices };
