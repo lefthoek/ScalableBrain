@@ -8,7 +8,7 @@ plugins:
 custom:
   project_name: scalable-brain
   service_name: mine
-  service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/api
+  service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/${self:custom.service_name}
   shared_parameter_prefix: ${self:custom.project_name}/prod/shared
   event_bus: ${ssm:/${self:custom.shared_parameter_prefix}/event_bus}
   raw_data_bucket: ${ssm:/${self:custom.service_parameter_prefix}/buckets/raw_data}
