@@ -11,12 +11,12 @@
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
+    "@lefthoek/types": "*",
+    "@lefthoek/adapters": "*",
     "@slack/bolt": "^3.8.1",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "@lefthoek/types": "*",
-    "@lefthoek/adapters": "*",
     "@types/aws-lambda": "^8.10.85",
     "@types/node-fetch": "^2.5.12",
     "rimraf": "^3.0.2",
