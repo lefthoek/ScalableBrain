@@ -24,7 +24,7 @@ export type Query = {
 
 
 export type QueryTeamArgs = {
-  teamId: InputMaybe<Scalars['String']>;
+  team_id: InputMaybe<Scalars['String']>;
 };
 
 export type Subscription = {
@@ -34,19 +34,19 @@ export type Subscription = {
 
 
 export type SubscriptionUpdatedTeamArgs = {
-  id: Scalars['String'];
+  team_id: Scalars['String'];
 };
 
 export type Team = {
-  id: Scalars['String'];
   name: Scalars['String'];
   providers: Maybe<Array<Maybe<TeamProvider>>>;
+  team_id: Scalars['String'];
 };
 
 export type TeamProvider = {
   access_token: Maybe<Scalars['String']>;
-  id: Maybe<Scalars['String']>;
   name: Maybe<Scalars['String']>;
+  provider_id: Maybe<Scalars['String']>;
   type: Maybe<PlatformType>;
 };
 
@@ -145,20 +145,20 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
   addedTeams: SubscriptionResolver<ResolversTypes['Team'], "addedTeams", ParentType, ContextType>;
-  updatedTeam: SubscriptionResolver<ResolversTypes['Team'], "updatedTeam", ParentType, ContextType, RequireFields<SubscriptionUpdatedTeamArgs, 'id'>>;
+  updatedTeam: SubscriptionResolver<ResolversTypes['Team'], "updatedTeam", ParentType, ContextType, RequireFields<SubscriptionUpdatedTeamArgs, 'team_id'>>;
 }>;
 
 export type TeamResolvers<ContextType = any, ParentType extends ResolversParentTypes['Team'] = ResolversParentTypes['Team']> = ResolversObject<{
-  id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   providers: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamProvider']>>>, ParentType, ContextType>;
+  team_id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type TeamProviderResolvers<ContextType = any, ParentType extends ResolversParentTypes['TeamProvider'] = ResolversParentTypes['TeamProvider']> = ResolversObject<{
   access_token: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  provider_id: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type: Resolver<Maybe<ResolversTypes['PlatformType']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

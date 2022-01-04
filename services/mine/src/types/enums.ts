@@ -1,8 +1,4 @@
-export enum PlatformType {
-  SLACK = "SLACK",
-}
-
-export enum LefthoekEventType {
+export enum ServiceEventType {
   TEAM_ADDED = "TEAM_ADDED",
   CHANNEL_RAW_DATA_UPDATED = "CHANNEL_RAW_DATA_UPDATED",
   TEAM_REPO_INITIATED = "TEAM_REPO_INITIATED",

@@ -5,12 +5,12 @@ enum PlatformType {
 type TeamProvider {
   type: PlatformType
   access_token: String
-  id: String
+  provider_id: String
   name: String
 }
 
 type Team {
-  id: String!
+  team_id: String!
   name: String!
   providers: [TeamProvider]
 }

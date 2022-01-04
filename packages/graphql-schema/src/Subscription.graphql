@@ -1,4 +1,4 @@
 type Subscription {
   addedTeams: Team!
-  updatedTeam(id: String!): Team!
+  updatedTeam(team_id: String!): Team!
 }

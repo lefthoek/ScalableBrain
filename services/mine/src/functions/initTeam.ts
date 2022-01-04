@@ -1,20 +1,18 @@
 import TeamRepo from "@stores/teamRepo";
-import S3Adapter from "@adapters/s3Adapter";
-import { LefthoekEventType } from "@service_types/enums";
-
-import type { TeamAddedEvent } from "@service_types/events";
+import { S3Adapter } from "@lefthoek/adapters";
+import type { TeamAddedEvent } from "@lefthoek/types";
+import { ServiceEventType } from "@service_types/enums";
 
 const { DATALAKE_BUCKET: bucket_name } = process.env;
 
 const initTeam = async (event: TeamAddedEvent) => {
-  const { team, platform_type } = event.detail;
+  const team = event.detail;
   const adapter = new S3Adapter({ bucket_name });
-  const teamRepo = new TeamRepo({ team_id: team.id, adapter, platform_type });
-
+  const teamRepo = new TeamRepo({ team, adapter });
   const detail = await teamRepo.init(event.detail);
 
   return {
-    detailType: LefthoekEventType.TEAM_REPO_INITIATED,
+    detailType: ServiceEventType.TEAM_REPO_INITIATED,
     detail,
   };
 };

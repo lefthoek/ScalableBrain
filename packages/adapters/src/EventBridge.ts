@@ -1,11 +1,10 @@
-import { EventBridge } from "aws-sdk";
-import type { LefthoekEventBus } from "@service_types/adapters";
-import { LefthoekEvent } from "@service_types/events";
+import { EventBridge as EB } from "aws-sdk";
+import type { EventBus, Event } from "@lefthoek/types";
 
-class eventBus implements LefthoekEventBus {
+class EventBridge<T extends Event> implements EventBus<T> {
   handler_name: string;
   event_bus_name: string;
-  event_bridge: AWS.EventBridge;
+  event_bridge: EB;
 
   constructor({
     handler_name,
@@ -15,19 +14,19 @@ class eventBus implements LefthoekEventBus {
     event_bus_name?: string;
   }) {
     if (!handler_name) {
-      throw new Error("The handler name must be set in your environment");
+      throw new Error("The handler name needs to be set in your environment");
     }
 
     if (!event_bus_name) {
-      throw new Error("The event bus name must be set in your environment");
+      throw new Error("The event bus name needs to be set in your environment");
     }
 
     this.handler_name = handler_name;
     this.event_bus_name = event_bus_name;
-    this.event_bridge = new EventBridge();
+    this.event_bridge = new EB();
   }
 
-  async put({ detailType, detail }: LefthoekEvent) {
+  async put({ detailType, detail }: T) {
     const DetailType = detailType;
     const Detail = JSON.stringify(detail, null, 2);
     const event = {
@@ -46,4 +45,4 @@ class eventBus implements LefthoekEventBus {
   }
 }
 
-export default eventBus;
+export { EventBridge };

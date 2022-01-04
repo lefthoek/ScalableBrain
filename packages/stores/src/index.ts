@@ -5,12 +5,12 @@ class TeamStore implements Store<Team> {
   async fetch() {
     return {
       name: "Lefthoek",
-      id: "T01K2MPN0JU",
+      team_id: "T01K2MPN0JU",
       providers: [
         {
           type: PlatformType.Slack,
           name: "Lefthoek",
-          id: "T01K2MPN0JU",
+          provider_id: "T01K2MPN0JU",
           access_token: "fsfsdalkadf",
         },
       ],

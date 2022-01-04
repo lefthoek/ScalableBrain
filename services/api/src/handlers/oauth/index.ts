@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { EventBus } from "@lefthoek/adapters";
+import { EventBridge } from "@lefthoek/adapters";
 import { PlatformType, LefthoekEventType } from "@lefthoek/types";
 import type { SlackOAuthData } from "@lefthoek/types";
 import type { SlackOAuthQueryString } from "./types";
@@ -13,7 +13,7 @@ const {
 } = process.env;
 
 export const slack = async (event: SlackOAuthQueryString) => {
-  const eventBus = new EventBus({ handler_name, event_bus_name });
+  const eventBus = new EventBridge({ handler_name, event_bus_name });
   const baseURL = "https://slack.com/api/oauth.v2.access";
   const { code } = event.queryStringParameters;
   try {
@@ -23,8 +23,15 @@ export const slack = async (event: SlackOAuthQueryString) => {
 
     const detail = {
       name: team.name,
-      id: uuid(),
-      providers: [{ type: PlatformType.Slack, access_token, ...team }],
+      team_id: uuid(),
+      providers: [
+        {
+          type: PlatformType.Slack,
+          access_token,
+          provider_id: team.id,
+          name: team.name,
+        },
+      ],
     };
 
     await eventBus.put({

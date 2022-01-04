@@ -1,59 +1,45 @@
-import { PlatformType, LefthoekEventType } from "./enums";
+import { ServiceEventType } from "./enums";
+import { PlatformType } from "@lefthoek/types";
+import type { Event, Team } from "@lefthoek/types";
 
-import {
-  SlackOAuthData,
-  TeamRepoMetaData,
-  ChannelRepoMetaData,
-} from "./models";
+import { TeamRepoMetaData, ChannelRepoMetaData } from "./models";
 
-export interface Event {
-  detailType: string;
-  detail: any;
-}
-
-export type LefthoekEventPayload =
-  | SlackOAuthData
+export type ServiceEventPayload =
+  | Team
   | TeamRepoMetaData
   | ChannelRepoMetaData
   | {};
 
-export interface LHEvent extends Event {
-  detailType: LefthoekEventType;
-  detail: LefthoekEventPayload;
+export interface SEvent extends Event {
+  detailType: ServiceEventType;
+  detail: ServiceEventPayload;
 }
 
-export interface TeamAddedEvent extends LHEvent {
-  detailType: LefthoekEventType.TEAM_ADDED;
-  detail: SlackOAuthData & { platform_type: PlatformType };
+export interface TeamRepoInitiatedEvent extends SEvent {
+  detailType: ServiceEventType.TEAM_REPO_INITIATED;
+  detail: Team;
 }
-
-export interface ChannelRawDataUpdatedEvent extends LHEvent {
-  detailType: LefthoekEventType.CHANNEL_RAW_DATA_UPDATED;
+export interface ChannelRawDataUpdatedEvent extends SEvent {
+  detailType: ServiceEventType.CHANNEL_RAW_DATA_UPDATED;
   detail: ChannelRepoMetaData;
 }
 
-export interface TeamRepoInitiatedEvent extends LHEvent {
-  detailType: LefthoekEventType.TEAM_REPO_INITIATED;
-  detail: TeamRepoMetaData;
-}
-
-export interface ChannelRepoAlreadyUpdatingEvent extends LHEvent {
-  detailType: LefthoekEventType.CHANNEL_REPO_ALREADY_UPDATING;
+export interface ChannelRepoAlreadyUpdatingEvent extends SEvent {
+  detailType: ServiceEventType.CHANNEL_REPO_ALREADY_UPDATING;
   detail: {};
 }
 
-export interface ChannelReposInitiatedEvent extends LHEvent {
-  detailType: LefthoekEventType.CHANNEL_REPOS_INITIATED;
+export interface ChannelReposInitiatedEvent extends SEvent {
+  detailType: ServiceEventType.CHANNEL_REPOS_INITIATED;
   detail: {};
 }
 
-export interface ChannelRepoInitiatedEvent extends LHEvent {
-  detailType: LefthoekEventType.CHANNEL_REPO_INITIATED;
+export interface ChannelRepoInitiatedEvent extends SEvent {
+  detailType: ServiceEventType.CHANNEL_REPO_INITIATED;
   detail: ChannelRepoMetaData;
 }
 
-export type LefthoekEvent =
-  | TeamAddedEvent
+export type ServiceEvent =
   | TeamRepoInitiatedEvent
   | ChannelRepoInitiatedEvent
   | ChannelReposInitiatedEvent

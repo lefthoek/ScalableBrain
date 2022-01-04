@@ -8,16 +8,16 @@ enum PlatformType {
 }
 
 type Query {
-  team(teamId: String): Team
+  team(team_id: String): Team
 }
 
 type Subscription {
   addedTeams: Team!
-  updatedTeam(id: String!): Team!
+  updatedTeam(team_id: String!): Team!
 }
 
 type Team {
-  id: String!
+  team_id: String!
   name: String!
   providers: [TeamProvider]
 }
@@ -25,6 +25,6 @@ type Team {
 type TeamProvider {
   type: PlatformType
   access_token: String
-  id: String
+  provider_id: String
   name: String
 }
