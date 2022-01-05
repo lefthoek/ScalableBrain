@@ -3,7 +3,8 @@ import { S3Adapter } from "@lefthoek/adapters";
 import type { TeamAddedEvent } from "@lefthoek/types";
 import { ServiceEventType } from "@service_types/enums";
 
-const { DATALAKE_BUCKET: bucket_name } = process.env;
+const { RAW_DATA_BUCKET: bucket_name } = process.env;
+const { TEAM_REPO_INITIATED } = ServiceEventType;
 
 const initTeam = async (event: TeamAddedEvent) => {
   const team = event.detail;
@@ -12,7 +13,7 @@ const initTeam = async (event: TeamAddedEvent) => {
   const detail = await teamRepo.init(event.detail);
 
   return {
-    detailType: ServiceEventType.TEAM_REPO_INITIATED,
+    detailType: TEAM_REPO_INITIATED,
     detail,
   };
 };

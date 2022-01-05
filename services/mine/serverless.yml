@@ -32,7 +32,7 @@ provider:
 
 functions:
   initTeam:
-    handler: dist/index.echo
+    handler: dist/index.initTeam
     events:
       - eventBridge:
           eventBus: ${self:custom.event_bus}
@@ -40,6 +40,6 @@ functions:
             detail-type:
               - TEAM_ADDED
     environment:
-      DATALAKE_BUCKET: ${self:custom.raw_data_bucket}
+      RAW_DATA_BUCKET: ${self:custom.raw_data_bucket}
       HANDLER_NAME: ${self:custom.init_team}
       EVENT_BUS_NAME: ${self:custom.event_bus}
