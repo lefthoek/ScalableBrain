@@ -26,6 +26,8 @@ provider:
   lambdaHashingVersion: 20201221
   eventBridge:
     useCloudFormation: true
+  iam:
+    role: ${self:custom.function_role}
   region: eu-west-1
 
 functions:
