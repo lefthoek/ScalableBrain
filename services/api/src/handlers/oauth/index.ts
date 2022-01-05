@@ -1,10 +1,12 @@
 import fetch from "node-fetch";
 import { EventBridge } from "@lefthoek/adapters";
-import AuthLookup from "@stores/authLookup";
-import { PlatformType, LefthoekEventType } from "@lefthoek/types";
+import { AuthLookup } from "@lefthoek/stores";
+import { ProviderType, LefthoekEventType } from "@lefthoek/types";
 import type { SlackOAuthData, Team, TeamProvider } from "@lefthoek/types";
 import type { SlackOAuthQueryString } from "./types";
 import { v4 as uuid } from "uuid";
+
+const { TEAM_ADDED } = LefthoekEventType;
 
 const {
   SLACK_CLIENT_SECRET: client_secret,
@@ -15,6 +17,7 @@ const {
 
 export const slack = async (event: SlackOAuthQueryString) => {
   const eventBus = new EventBridge({ handler_name, event_bus_name });
+  const authLookup = new AuthLookup({ table_name });
   const baseURL = "https://slack.com/api/oauth.v2.access";
   const { code } = event.queryStringParameters;
   try {
@@ -22,31 +25,29 @@ export const slack = async (event: SlackOAuthQueryString) => {
     const response = await fetch(oauthURL);
     const { access_token, team } = (await response.json()) as SlackOAuthData;
     const id = uuid();
-    const name = team.name;
-    const platformType = PlatformType.Slack;
+    const { name, id: provider_id } = team;
+    const provider_type = ProviderType.Slack;
 
     await authLookup.write({
-      provider_id: team.id,
+      provider_id,
       team_id: id,
       name,
-      platform_type,
+      provider_type,
       access_token,
     });
 
     const detail: Team = {
       id,
       name: team.name,
-      providers: [
-        { platform_type: PlatformType.Slack, provider_id: team.id, name },
-      ],
+      providers: [{ type: provider_type, id: provider_id, name }],
     };
 
     await eventBus.put({
-      detailType: LefthoekEventType.TEAM_ADDED,
+      detailType: TEAM_ADDED,
       detail,
     });
 
-    const params = new URLSearchParams({ team_id: team.id });
+    const params = new URLSearchParams({ team_id: id });
     const location = `https://zwarmer.com/teams/?${params.toString()}`;
 
     return {

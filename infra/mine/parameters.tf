@@ -4,12 +4,6 @@ resource "aws_ssm_parameter" "function_role" {
   value = aws_iam_role.function_role.arn
 }
 
-resource "aws_ssm_parameter" "auth_lookup_table" {
-  name  = "${local.parameter_prefix}/tables/auth_lookup"
-  type  = "SecureString"
-  value = local.auth_lookup_table
-}
-
 resource "aws_ssm_parameter" "slack_signing_secret" {
   name  = "${local.parameter_prefix}/credentials/slack/signing_secret"
   type  = "SecureString"

@@ -3,7 +3,7 @@ schema {
   subscription: Subscription  
 }
 
-enum PlatformType {
+enum ProviderType {
   SLACK
 }
 
@@ -23,7 +23,7 @@ type Team {
 }
 
 type TeamProvider {
-  type: PlatformType
-  id: String
-  name: String
+  type: ProviderType!
+  id: String!
+  name: String!
 }
