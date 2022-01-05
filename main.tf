@@ -79,7 +79,7 @@ module "api" {
   policies = [
     local.lambda_basic_execution_role,
     module.shared.event_bus_write_access_policy,
-    module.mine.auth_lookup_table_write_access_policy,
+    module.shared.auth_lookup_table_write_access_policy,
 
   ]
 }
@@ -94,7 +94,7 @@ module "mine" {
   policies = [
     local.lambda_basic_execution_role,
     module.shared.event_bus_write_access_policy,
-    module.mine.auth_lookup_table_write_access_policy,
-    module.mine.auth_lookup_table_read_access_policy
+    module.shared.auth_lookup_table_write_access_policy,
+    module.shared.auth_lookup_table_read_access_policy
   ]
 }
