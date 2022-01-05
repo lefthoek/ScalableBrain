@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "raw_data_bucket" {
 resource "aws_dynamodb_table" "auth_lookup_table" {
   name           = local.auth_lookup_table
   hash_key       = "team_id"
-  range_key      = "platform_type"
+  range_key      = "provider_type"
   read_capacity  = 1
   write_capacity = 1
 
@@ -21,7 +21,7 @@ resource "aws_dynamodb_table" "auth_lookup_table" {
   }
 
   attribute {
-    name = "platform_type"
+    name = "provider_type"
     type = "S"
   }
 
