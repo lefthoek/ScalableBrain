@@ -1,6 +1,6 @@
 import AWS from "aws-sdk";
 
-import type { FSAdapter } from "@service_types/adapters";
+import type { FSAdapter } from "@lefthoek/types";
 
 const s3 = new AWS.S3();
 
@@ -52,4 +52,4 @@ class S3Adapter implements FSAdapter {
   }
 }
 
-export default S3Adapter;
+export { S3Adapter };

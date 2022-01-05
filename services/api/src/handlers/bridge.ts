@@ -1,6 +1,7 @@
-import { LefthoekEvent } from "@lefthoek/types/dist/events";
 import { Handler as AWSHandler } from "aws-lambda";
 import { subscriptionServer } from "./websockets";
+
+import type { LefthoekEvent } from "@lefthoek/types";
 
 type Handler<U> = (event: U, context?: any) => Promise<void>;
 
@@ -18,7 +19,7 @@ const wrapper: (handler: Handler<LefthoekEvent>) => AWSHandler = (handler) => {
 const _bridge = async (event: LefthoekEvent) => {
   return subscriptionServer.publish({
     topic: event.detailType,
-    payload: event.detail.team,
+    payload: event.detail,
   });
 };
 

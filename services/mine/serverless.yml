@@ -6,13 +6,15 @@ useDotenv: true
 plugins:
   - serverless-plugin-monorepo
 custom:
-  service_parameter_prefix: scalable-brain/${opt:stage}/mine
-  shared_parameter_prefix: scalable-brain/prod/shared
+  project_name: scalable-brain
+  service_name: mine
+  service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/${self:custom.service_name}
+  shared_parameter_prefix: ${self:custom.project_name}/prod/shared
   event_bus: ${ssm:/${self:custom.shared_parameter_prefix}/event_bus}
   raw_data_bucket: ${ssm:/${self:custom.service_parameter_prefix}/buckets/raw_data}
   auth_lookup_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/auth_lookup}
   slack_signing_secret: ${ssm:/${self:custom.service_parameter_prefix}/credentials/slack/signing_secret}
-  function_prefix: lefthoek-prototype-upstream-${opt:stage}
+  function_prefix: ${self:custom.project_name}-${self:custom.service_name}-${opt:stage}
   init_team: ${self:custom.function_prefix}-init-team
   init_channels: ${self:custom.function_prefix}-init-channels
   mine_channel: ${self:custom.function_prefix}-mine-channel
@@ -24,8 +26,20 @@ provider:
   lambdaHashingVersion: 20201221
   eventBridge:
     useCloudFormation: true
+  iam:
+    role: ${self:custom.function_role}
   region: eu-west-1
 
 functions:
-  oauth:
-    handler: dist/index.echo
+  initTeam:
+    handler: dist/index.initTeam
+    events:
+      - eventBridge:
+          eventBus: ${self:custom.event_bus}
+          pattern:
+            detail-type:
+              - TEAM_ADDED
+    environment:
+      RAW_DATA_BUCKET: ${self:custom.raw_data_bucket}
+      HANDLER_NAME: ${self:custom.init_team}
+      EVENT_BUS_NAME: ${self:custom.event_bus}

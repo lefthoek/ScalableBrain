@@ -1,6 +1,6 @@
 {
-  "name": "@lefthoek/api",
-  "version": "0.0.1",
+  "name": "@lefthoek/services-api",
+  "version": "0.0.0",
   "main": "index.js",
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
@@ -11,21 +11,24 @@
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
-    "graphql-import-node": "^0.0.4",
+    "@graphql-tools/schema": "^8.3.1",
+    "@lefthoek/adapters": "*",
+    "@lefthoek/stores": "*",
     "@lefthoek/graphql-schema": "*",
     "@lefthoek/types": "*",
-    "@lefthoek/adapters": "*",
-    "@graphql-tools/schema": "^8.3.1",
     "aws-lambda-fastify": "^2.0.2",
-    "node-fetch": "^2.6.1",
     "fastify": "^3.25.0",
     "fastify-cors": "^6.0.2",
     "graphql": "^16.2.0",
+    "graphql-import-node": "^0.0.4",
     "graphql-lambda-subscriptions": "^5.2.0",
-    "mercurius": "^9.0.0"
+    "mercurius": "^9.0.0",
+    "node-fetch": "^2.6.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.85",
+    "@types/uuid": "^8.3.3",
     "rimraf": "^3.0.2",
     "serverless": "^2.68.0",
     "serverless-plugin-monorepo": "^0.11.0",

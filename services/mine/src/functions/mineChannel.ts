@@ -1,8 +1,8 @@
 import Slack from "@providers/slack";
 import ChannelRepo from "@stores/channelRepo";
 import AuthLookup from "@stores/authLookup";
-import S3Adapter from "@adapters/s3Adapter";
-import { LefthoekEventType } from "@service_types/enums";
+import { S3Adapter } from "@lefthoek/adapters";
+import { ServiceEventType } from "@service_types/enums";
 
 import type { ChannelRepoInitiatedEvent } from "@service_types/events";
 
@@ -29,7 +29,7 @@ const mineChannel = async (event: ChannelRepoInitiatedEvent, services: any) => {
 
   if (is_updating) {
     return await services.eventBus.put({
-      detailType: LefthoekEventType.CHANNEL_REPO_ALREADY_UPDATING,
+      detailType: ServiceEventType.CHANNEL_REPO_ALREADY_UPDATING,
       detail: {},
     });
   }
@@ -38,7 +38,7 @@ const mineChannel = async (event: ChannelRepoInitiatedEvent, services: any) => {
   const detail = await channelRepo.update({ messageIterator });
 
   return {
-    detailType: LefthoekEventType.CHANNEL_RAW_DATA_UPDATED,
+    detailType: ServiceEventType.CHANNEL_RAW_DATA_UPDATED,
     detail,
   };
 };

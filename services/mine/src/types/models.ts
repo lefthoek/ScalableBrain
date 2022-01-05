@@ -1,16 +1,8 @@
-import { PlatformType } from "./enums";
+import { PlatformType } from "@lefthoek/types";
 
 export type SlackChannelData = {
   id: string;
   is_archived: boolean;
-};
-
-export type SlackOAuthData = {
-  access_token?: string;
-  team: {
-    id: string;
-    name: string;
-  };
 };
 
 export type TeamRepoMetaData = {

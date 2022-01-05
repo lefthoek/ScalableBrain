@@ -1,23 +1,20 @@
 import { subscribe } from "graphql-lambda-subscriptions";
-import { Team } from "@lefthoek/types/dist/models";
-import { Resolvers } from "@lefthoek/graphql-schema";
-
-const teamStore = {
-  get: async () => {
-    return {
-      name: "Leftcourse",
-      id: "T01K2MPN0JU",
-    };
-  },
-};
+import { Team, Resolvers } from "@lefthoek/types";
 
 const resolvers: Resolvers = {
+  TeamProvider: {
+    type: async ({ type }) => type,
+    name: async ({ name }) => name,
+    id: async ({ id }) => id,
+    access_token: async () => "NONE OF YOUR BUSINESS",
+  },
   Team: {
     name: async ({ name }) => name,
     id: async ({ id }) => id,
+    providers: async ({ providers }) => providers,
   },
   Query: {
-    team: async () => await teamStore.get(),
+    team: async (_, __, { teamStore }) => await teamStore.fetch(),
   },
   Subscription: {
     addedTeams: {
@@ -28,8 +25,8 @@ const resolvers: Resolvers = {
     },
     updatedTeam: {
       subscribe: subscribe("TEAM_ADDED", {
-        filter: (_, { id }: { id: string }) => ({
-          id,
+        filter: (_, { team_id }: { team_id: string }) => ({
+          team_id,
         }),
       }),
       resolve: ({ payload }: { payload: Team }) => {
