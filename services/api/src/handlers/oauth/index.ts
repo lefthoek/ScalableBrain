@@ -1,7 +1,8 @@
 import fetch from "node-fetch";
 import { EventBridge } from "@lefthoek/adapters";
+import AuthLookup from "@stores/authLookup";
 import { PlatformType, LefthoekEventType } from "@lefthoek/types";
-import type { SlackOAuthData } from "@lefthoek/types";
+import type { SlackOAuthData, Team, TeamProvider } from "@lefthoek/types";
 import type { SlackOAuthQueryString } from "./types";
 import { v4 as uuid } from "uuid";
 
@@ -20,17 +21,23 @@ export const slack = async (event: SlackOAuthQueryString) => {
     const oauthURL = `${baseURL}?client_id=${client_id}&client_secret=${client_secret}&code=${code}`;
     const response = await fetch(oauthURL);
     const { access_token, team } = (await response.json()) as SlackOAuthData;
+    const id = uuid();
+    const name = team.name;
+    const platformType = PlatformType.Slack;
 
-    const detail = {
+    await authLookup.write({
+      provider_id: team.id,
+      team_id: id,
+      name,
+      platform_type,
+      access_token,
+    });
+
+    const detail: Team = {
+      id,
       name: team.name,
-      team_id: uuid(),
       providers: [
-        {
-          type: PlatformType.Slack,
-          access_token,
-          provider_id: team.id,
-          name: team.name,
-        },
+        { platform_type: PlatformType.Slack, provider_id: team.id, name },
       ],
     };
 

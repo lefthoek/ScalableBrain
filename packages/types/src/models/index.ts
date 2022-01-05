@@ -1,4 +1,7 @@
-import { Team as TeamGen } from "@lefthoek/graphql-schema";
+import {
+  Team as TeamGen,
+  TeamProvider as TeamProviderGen,
+} from "@lefthoek/graphql-schema";
 
 export type SlackOAuthData = {
   access_token: string;
@@ -9,3 +12,4 @@ export type SlackOAuthData = {
 };
 
 export type Team = TeamGen;
+export type TeamProvider = TeamProviderGen;

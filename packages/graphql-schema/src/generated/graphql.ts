@@ -38,16 +38,15 @@ export type SubscriptionUpdatedTeamArgs = {
 };
 
 export type Team = {
+  id: Scalars['String'];
   name: Scalars['String'];
-  providers: Maybe<Array<Maybe<TeamProvider>>>;
-  team_id: Scalars['String'];
+  providers: Maybe<Array<TeamProvider>>;
 };
 
 export type TeamProvider = {
-  access_token: Maybe<Scalars['String']>;
+  id: Maybe<Scalars['String']>;
   name: Maybe<Scalars['String']>;
-  platform_type: Maybe<PlatformType>;
-  provider_id: Maybe<Scalars['String']>;
+  type: Maybe<PlatformType>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -149,17 +148,16 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
 }>;
 
 export type TeamResolvers<ContextType = any, ParentType extends ResolversParentTypes['Team'] = ResolversParentTypes['Team']> = ResolversObject<{
+  id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  providers: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamProvider']>>>, ParentType, ContextType>;
-  team_id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  providers: Resolver<Maybe<Array<ResolversTypes['TeamProvider']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type TeamProviderResolvers<ContextType = any, ParentType extends ResolversParentTypes['TeamProvider'] = ResolversParentTypes['TeamProvider']> = ResolversObject<{
-  access_token: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  platform_type: Resolver<Maybe<ResolversTypes['PlatformType']>, ParentType, ContextType>;
-  provider_id: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type: Resolver<Maybe<ResolversTypes['PlatformType']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

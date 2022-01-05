@@ -7,7 +7,7 @@ class TeamRepo {
 
   constructor({ adapter, team }: { team: Team; adapter: FSAdapter }) {
     this.adapter = adapter;
-    this.team_id = team.team_id;
+    this.team_id = team.id;
     this.team_meta_path = `${this.team_id}/meta.json`;
   }
 

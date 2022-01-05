@@ -4,6 +4,7 @@ import type { TeamAddedEvent } from "@lefthoek/types";
 import { ServiceEventType } from "@service_types/enums";
 
 const { RAW_DATA_BUCKET: bucket_name } = process.env;
+
 const { TEAM_REPO_INITIATED } = ServiceEventType;
 
 const initTeam = async (event: TeamAddedEvent) => {
