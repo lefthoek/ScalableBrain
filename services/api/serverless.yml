@@ -11,6 +11,7 @@ custom:
   service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/${self:custom.service_name}
   shared_parameter_prefix: ${self:custom.project_name}/prod/shared
   event_bus: ${ssm:/${self:custom.shared_parameter_prefix}/event_bus}
+  auth_lookup_table: ${ssm:/${self:custom.shared_parameter_prefix}/tables/auth_lookup}
   slack_client_id: ${ssm:/${self:custom.service_parameter_prefix}/credentials/slack/client_id}
   slack_client_secret: ${ssm:/${self:custom.service_parameter_prefix}/credentials/slack/client_secret}
   websockets_api_id: ${ssm:/${self:custom.service_parameter_prefix}/websockets_api/id}
@@ -44,6 +45,7 @@ functions:
     environment:
       SLACK_CLIENT_ID: ${self:custom.slack_client_id}
       SLACK_CLIENT_SECRET: ${self:custom.slack_client_secret}
+      AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
       EVENT_BUS_NAME: ${self:custom.event_bus}
       HANDLER_NAME: ${self:custom.oauth}
   graphql:
