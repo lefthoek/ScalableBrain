@@ -1,8 +1,5 @@
 import AWS from "aws-sdk";
-import type { TeamRepoMetaData } from "@service_types/models";
-
-type Credentials = { access_token: string };
-type AuthTeam = Credentials & TeamRepoMetaData;
+import type { AuthLookupData } from "@lefthoek/types";
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 
@@ -16,19 +13,22 @@ class AuthLookup {
     this.table_name = table_name;
   }
 
-  async get({ team_id, platform_type }: TeamRepoMetaData) {
+  async get({
+    team_id,
+    provider_type,
+  }: Pick<AuthLookupData, "team_id" | "provider_type">) {
     const params = {
       TableName: this.table_name,
-      Key: { team_id, platform_type },
+      Key: { team_id, provider_type },
     };
     const { Item } = await ddb.get(params).promise();
     if (!Item && !Item!.access_token) {
       throw new Error("this team does not exist");
     }
-    return Item as AuthTeam;
+    return Item as AuthLookupData;
   }
 
-  async write({ access_token, ...team }: AuthTeam) {
+  async write({ access_token, ...team }: AuthLookupData) {
     try {
       const Item = { ...team, access_token };
       await ddb.put({ TableName: this.table_name, Item }).promise();
@@ -39,4 +39,4 @@ class AuthLookup {
     }
   }
 }
-export default AuthLookup;
+export { AuthLookup };

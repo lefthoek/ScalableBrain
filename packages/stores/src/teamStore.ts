@@ -1,5 +1,5 @@
 import type { Team, Store } from "@lefthoek/types";
-import { PlatformType } from "@lefthoek/types";
+import { ProviderType } from "@lefthoek/types";
 
 class TeamStore implements Store<Team> {
   async fetch() {
@@ -8,7 +8,7 @@ class TeamStore implements Store<Team> {
       id: "T01K2MPN0JU",
       providers: [
         {
-          type: PlatformType.Slack,
+          type: ProviderType.Slack,
           name: "Lefthoek",
           id: "T01K2MPN0JU",
           access_token: "fsfsdalkadf",

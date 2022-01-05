@@ -1,4 +1,4 @@
-import { PlatformType } from "@lefthoek/types";
+import { ProviderType } from "@lefthoek/types";
 
 export type SlackChannelData = {
   id: string;
@@ -8,7 +8,7 @@ export type SlackChannelData = {
 export type TeamRepoMetaData = {
   team_id: string;
   team_name?: string;
-  platform_type: PlatformType;
+  provider_type: ProviderType;
 };
 
 export type ChannelRepoMetaData = TeamRepoMetaData & {
