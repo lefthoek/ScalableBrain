@@ -11,7 +11,7 @@ class TeamStore implements Store<Team> {
           type: ProviderType.Slack,
           name: "Lefthoek",
           id: "T01K2MPN0JU",
-          access_token: "fsfsdalkadf",
+          access_token: "ddddfsfsdalkadf",
         },
       ],
     };
