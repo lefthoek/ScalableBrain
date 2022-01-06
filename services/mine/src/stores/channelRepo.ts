@@ -1,11 +1,11 @@
 import type { SlackChannelData } from "@service_types/models";
-import type { PlatformType, FSAdapter } from "@lefthoek/types";
+import type { ProviderType, FSAdapter } from "@lefthoek/types";
 
 class ChannelRepo {
   buffer: Record<string, any>[];
-  team_id: string;
+  provider_id: string;
   channel_id: string;
-  platform_type: PlatformType;
+  provider_type: ProviderType;
   adapter: FSAdapter;
   path: string;
   cluster_length: number;
@@ -14,15 +14,15 @@ class ChannelRepo {
 
   constructor({
     adapter,
-    team_id,
-    platform_type,
+    provider_id,
+    provider_type,
     channel_id,
     is_updating,
     cluster_length = 100,
   }: {
     adapter: FSAdapter;
-    team_id: string;
-    platform_type: PlatformType;
+    provider_id: string;
+    provider_type: ProviderType;
     is_updating?: boolean;
     cluster_length?: number;
     channel_id: string;
@@ -31,10 +31,10 @@ class ChannelRepo {
     this.adapter = adapter;
     this.cluster_length = cluster_length;
     this.channel_id = channel_id;
-    this.platform_type = platform_type;
-    this.team_id = team_id;
+    this.provider_type = provider_type;
+    this.provider_id = provider_id;
     this.is_updating = is_updating;
-    this.path = `${this.team_id}/${this.channel_id}`;
+    this.path = `${this.provider_id}/${this.channel_id}`;
     this.buffer = [];
   }
 
@@ -87,10 +87,11 @@ class ChannelRepo {
   }
 
   async writeMetaData() {
-    const { platform_type, team_id, channel_id, chunks, is_updating } = this;
+    const { provider_type, provider_id, channel_id, chunks, is_updating } =
+      this;
     const data = {
-      team_id,
-      platform_type,
+      provider_id,
+      provider_type,
       is_updating,
       channel_id,
       chunks,
@@ -146,9 +147,16 @@ class ChannelRepo {
   }
 
   async getMetaData() {
-    const { platform_type, team_id, channel_id, chunks, is_updating } = this;
+    const { provider_type, provider_id, channel_id, chunks, is_updating } =
+      this;
     const latest_chunk = chunks[0];
-    return { platform_type, team_id, channel_id, latest_chunk, is_updating };
+    return {
+      provider_type,
+      provider_id,
+      channel_id,
+      latest_chunk,
+      is_updating,
+    };
   }
 }
 

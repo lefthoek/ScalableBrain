@@ -1,6 +1,6 @@
 import Slack from "@providers/slack";
 import ChannelRepo from "@stores/channelRepo";
-import AuthLookup from "@stores/authLookup";
+import { AuthLookup } from "@lefthoek/stores";
 import { S3Adapter } from "@lefthoek/adapters";
 import { ServiceEventType } from "@service_types/enums";
 
@@ -13,14 +13,17 @@ const {
 } = process.env;
 
 const mineChannel = async (event: ChannelRepoInitiatedEvent, services: any) => {
-  const { team_id, platform_type, channel_id } = event.detail;
+  const { provider_id, provider_type, channel_id } = event.detail;
   const authLookup = new AuthLookup({ table_name });
-  const { access_token } = await authLookup.get({ team_id, platform_type });
+  const access_token = await authLookup.getAccessToken({
+    provider_id,
+    provider_type,
+  });
   const slack = new Slack({ access_token, signing_secret });
   const adapter = new S3Adapter({ bucket_name });
   const channelRepo = new ChannelRepo({
-    platform_type,
-    team_id,
+    provider_type,
+    provider_id,
     channel_id,
     adapter,
   });

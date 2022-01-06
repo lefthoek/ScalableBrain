@@ -26,4 +26,5 @@ type TeamProvider {
   type: ProviderType!
   id: String!
   name: String!
+  access_token: String!
 }

@@ -1,12 +1,14 @@
 import AWS from "aws-sdk";
-import type { TeamRepoMetaData } from "@service_types/models";
-
-type Credentials = { access_token: string };
-type AuthTeam = Credentials & TeamRepoMetaData;
+import type { AuthLookupData, Maybe } from "@lefthoek/types";
 
 const ddb = new AWS.DynamoDB.DocumentClient();
+type AuthInput = Pick<AuthLookupData, "provider_id" | "provider_type">;
+interface LookupTable<I, T> {
+  get: (input: I) => Promise<Maybe<T>>;
+  write: (team: AuthLookupData) => Promise<AuthLookupData>;
+}
 
-class AuthLookup {
+class AuthLookup implements LookupTable<AuthInput, AuthLookupData> {
   table_name: string;
 
   constructor({ table_name }: { table_name?: string }) {
@@ -16,22 +18,26 @@ class AuthLookup {
     this.table_name = table_name;
   }
 
-  async get({ team_id, platform_type }: TeamRepoMetaData) {
-    const params = {
-      TableName: this.table_name,
-      Key: { team_id, platform_type },
-    };
-    const { Item } = await ddb.get(params).promise();
-    if (!Item && !Item!.access_token) {
+  async getAccessToken(input: AuthInput) {
+    const item = await this.get(input);
+    if (!item) {
       throw new Error("this team does not exist");
     }
-    return Item as AuthTeam;
+    return item.access_token;
   }
 
-  async write({ access_token, ...team }: AuthTeam) {
+  async get({ provider_id, provider_type }: AuthInput) {
+    const params = {
+      TableName: this.table_name,
+      Key: { provider_id, provider_type },
+    };
+    const { Item } = await ddb.get(params).promise();
+    return Item as AuthLookupData | null;
+  }
+
+  async write(team: AuthLookupData) {
     try {
-      const Item = { ...team, access_token };
-      await ddb.put({ TableName: this.table_name, Item }).promise();
+      await ddb.put({ TableName: this.table_name, Item: team }).promise();
       return team;
     } catch (e) {
       console.log(e);
@@ -39,4 +45,4 @@ class AuthLookup {
     }
   }
 }
-export default AuthLookup;
+export { AuthLookup };
