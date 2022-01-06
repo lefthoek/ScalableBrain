@@ -9,7 +9,7 @@ resource "aws_cloudwatch_event_bus" "event_bus" {
 
 resource "aws_dynamodb_table" "auth_lookup_table" {
   name           = local.auth_lookup_table
-  hash_key       = "team_id"
+  hash_key       = "provider_id"
   range_key      = "provider_type"
   read_capacity  = 1
   write_capacity = 1
