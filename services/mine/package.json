@@ -13,6 +13,7 @@
   "dependencies": {
     "@lefthoek/types": "*",
     "@lefthoek/adapters": "*",
+    "@lefthoek/stores": "*",
     "@slack/bolt": "^3.8.1",
     "node-fetch": "^2.6.1"
   },
