@@ -13,7 +13,7 @@
   },
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "graphql-import-node": "^0.0.4"
   },
   "devDependencies": {

@@ -15,7 +15,9 @@
     "@lefthoek/adapters": "*",
     "@lefthoek/stores": "*",
     "@slack/bolt": "^3.8.1",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "graphql": "^16.2.0",
+    "graphql-import-node": "^0.0.4"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.85",
