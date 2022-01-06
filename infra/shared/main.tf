@@ -15,7 +15,7 @@ resource "aws_dynamodb_table" "auth_lookup_table" {
   write_capacity = 1
 
   attribute {
-    name = "team_id"
+    name = "provider_id"
     type = "S"
   }
 
