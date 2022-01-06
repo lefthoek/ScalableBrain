@@ -17,18 +17,19 @@ const {
 export const slack = async (event: SlackOAuthQueryString) => {
   const eventBus = new EventBridge({ handler_name, event_bus_name });
   const authLookup = new AuthLookup({ table_name });
-  const { code } = event.queryStringParameters;
-  const id = uuid();
-  const baseURL = "https://slack.com/api/oauth.v2.access";
-  const params = new URLSearchParams({ team_id: id });
-  const location = `https://zwarmer.com/teams/?${params.toString()}`;
-  const oauthURL = `${baseURL}?client_id=${client_id}&client_secret=${client_secret}&code=${code}`;
 
   try {
+    const baseURL = "https://slack.com/api/oauth.v2.access";
+    const { code } = event.queryStringParameters;
+    const oauthURL = `${baseURL}?client_id=${client_id}&client_secret=${client_secret}&code=${code}`;
     const response = await fetch(oauthURL);
+
     const { access_token, team } = (await response.json()) as SlackOAuthData;
     const { name, id: provider_id } = team;
     const provider_type = ProviderType.Slack;
+
+    const authData = await authLookup.get({ provider_id, provider_type });
+    const id = authData.team_id || uuid();
 
     await authLookup.write({
       provider_id,
@@ -46,6 +47,8 @@ export const slack = async (event: SlackOAuthQueryString) => {
       },
     });
 
+    const params = new URLSearchParams({ team_id: id });
+    const location = `https://zwarmer.com/teams/?${params.toString()}`;
     return {
       statusCode: 301,
       headers: {
