@@ -6,7 +6,7 @@ export type SlackChannelData = {
 };
 
 export type TeamRepoMetaData = {
-  team_id: string;
+  provider_id: string;
   team_name?: string;
   provider_type: ProviderType;
 };

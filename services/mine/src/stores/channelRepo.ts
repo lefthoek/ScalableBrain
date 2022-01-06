@@ -3,7 +3,7 @@ import type { ProviderType, FSAdapter } from "@lefthoek/types";
 
 class ChannelRepo {
   buffer: Record<string, any>[];
-  team_id: string;
+  provider_id: string;
   channel_id: string;
   provider_type: ProviderType;
   adapter: FSAdapter;
@@ -14,14 +14,14 @@ class ChannelRepo {
 
   constructor({
     adapter,
-    team_id,
+    provider_id,
     provider_type,
     channel_id,
     is_updating,
     cluster_length = 100,
   }: {
     adapter: FSAdapter;
-    team_id: string;
+    provider_id: string;
     provider_type: ProviderType;
     is_updating?: boolean;
     cluster_length?: number;
@@ -32,9 +32,9 @@ class ChannelRepo {
     this.cluster_length = cluster_length;
     this.channel_id = channel_id;
     this.provider_type = provider_type;
-    this.team_id = team_id;
+    this.provider_id = provider_id;
     this.is_updating = is_updating;
-    this.path = `${this.team_id}/${this.channel_id}`;
+    this.path = `${this.provider_id}/${this.channel_id}`;
     this.buffer = [];
   }
 
@@ -87,9 +87,10 @@ class ChannelRepo {
   }
 
   async writeMetaData() {
-    const { provider_type, team_id, channel_id, chunks, is_updating } = this;
+    const { provider_type, provider_id, channel_id, chunks, is_updating } =
+      this;
     const data = {
-      team_id,
+      provider_id,
       provider_type,
       is_updating,
       channel_id,
@@ -146,9 +147,16 @@ class ChannelRepo {
   }
 
   async getMetaData() {
-    const { provider_type, team_id, channel_id, chunks, is_updating } = this;
+    const { provider_type, provider_id, channel_id, chunks, is_updating } =
+      this;
     const latest_chunk = chunks[0];
-    return { provider_type, team_id, channel_id, latest_chunk, is_updating };
+    return {
+      provider_type,
+      provider_id,
+      channel_id,
+      latest_chunk,
+      is_updating,
+    };
   }
 }
 

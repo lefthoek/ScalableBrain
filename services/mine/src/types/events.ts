@@ -1,5 +1,4 @@
 import { ServiceEventType } from "./enums";
-import { ProviderType } from "@lefthoek/types";
 import type { Event, Team } from "@lefthoek/types";
 
 import { TeamRepoMetaData, ChannelRepoMetaData } from "./models";

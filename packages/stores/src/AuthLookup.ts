@@ -18,6 +18,14 @@ class AuthLookup implements LookupTable<AuthInput, AuthLookupData> {
     this.table_name = table_name;
   }
 
+  async getAccessToken(input: AuthInput) {
+    const item = await this.get(input);
+    if (!item) {
+      throw new Error("this team does not exist");
+    }
+    return item.access_token;
+  }
+
   async get({ provider_id, provider_type }: AuthInput) {
     const params = {
       TableName: this.table_name,
