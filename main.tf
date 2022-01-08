@@ -81,7 +81,7 @@ module "api" {
     module.shared.event_bus_write_access_policy,
     module.shared.auth_lookup_table_read_access_policy,
     module.shared.auth_lookup_table_write_access_policy,
-
+    module.mine.raw_data_bucket_write_access_policy
   ]
 }
 
