@@ -33,7 +33,7 @@ class TeamRepo implements Store<Team> {
     const team = (await this.adapter.readJSON({
       path,
     })) as Team | null;
-    console.log(team);
+    console.log("T:", team);
     return team;
   }
 }
