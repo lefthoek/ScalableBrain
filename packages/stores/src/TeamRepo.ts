@@ -29,7 +29,6 @@ class TeamRepo implements Store<Team> {
 
   async fetch({ id }: Pick<Team, "id">) {
     const path = TeamRepo.createMetaPath({ id });
-    console.log(path);
     const team = await this.adapter.readJSON({
       path,
     });

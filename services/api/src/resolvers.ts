@@ -14,9 +14,8 @@ const resolvers: Resolvers = {
     providers: async ({ providers }) => providers,
   },
   Query: {
-    team: async (_, args, { teamRepo }) => {
-      console.log(args);
-      return await teamRepo.fetch({ id: args.id });
+    team: async (_, { id }, { teamRepo }) => {
+      return await teamRepo.fetch({ id });
     },
   },
   Subscription: {
