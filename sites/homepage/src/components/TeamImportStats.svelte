@@ -8,6 +8,10 @@
       team(id: $id) {
         id
         name
+        providers {
+          id
+          type
+        }
       }
     }
   `,
@@ -32,14 +36,29 @@
   query(teamData);
 </script>
 
-<h1 class="text-8xl font-serif mb-8 text-skin-base dark:text-skin-inverted">
-  {#if $teamData.data}
-    {JSON.stringify($teamData.data)}
-  {:else}
+{#if $teamData.data}
+  <h1 class="text-8xl font-serif mb-8 text-skin-base dark:text-skin-inverted">
+    {$teamData.data.team.name}
+  </h1>
+  <div>
+    <h2>
+      Lefthoek Id:
+      <span>{$teamData.data.team.id}</span>
+    </h2>
+    <h2>Providers:</h2>
+    {#each $teamData.data.team.providers as { type, id }}
+      <ul>
+        <li>{type}: {id}</li>
+      </ul>
+    {/each}
+  </div>
+{:else}
+  <h1 class="text-4xl font-serif mb-8 text-skin-base dark:text-skin-inverted">
     {team_id}
-  {/if}
-</h1>
+  </h1>
+{/if}
 
+<h2>Messages:</h2>
 {#if !$messages.data}
   <p>No New Messages</p>
 {:else}
