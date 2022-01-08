@@ -39,7 +39,9 @@ class S3Adapter implements FSAdapter {
     const { Body } = await s3
       .getObject({ Bucket: this.bucket_name, Key: path })
       .promise();
+    console.log("B", Body);
     const json = Body ? Body.toString("utf-8") : "{}";
+    console.log("J", Body);
     return JSON.parse(json);
   }
 
