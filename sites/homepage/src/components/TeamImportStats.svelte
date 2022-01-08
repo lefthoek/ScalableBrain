@@ -41,7 +41,7 @@
 </h1>
 
 {#if !$messages.data}
-  <p>No new messages</p>
+  <p>No New Messages</p>
 {:else}
   <ul>
     {#each $messages.data as message}
