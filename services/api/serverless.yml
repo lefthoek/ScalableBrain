@@ -19,6 +19,7 @@ custom:
   function_prefix: ${self:custom.project_name}-${self:custom.service_name}-${opt:stage}
   oauth: ${self:custom.function_prefix}-oauth
   graphql: ${self:custom.function_prefix}-graphql
+  websockets: ${self:custom.function_prefix}-websockets
   bridge: ${self:custom.function_prefix}-bridge
   function_role: ${ssm:/${self:custom.service_parameter_prefix}/roles/function}
   ws_connections_table: ${ssm:/${self:custom.service_parameter_prefix}/tables/websockets_connections}
@@ -60,6 +61,9 @@ functions:
           path: graphql
           method: get
           cors: true
+    environment:
+      HANDLER_NAME: ${self:custom.graphql}
+      TEAM_STORE: ${self:custom.raw_data_bucket}
   websockets:
     handler: dist/index.websockets
     events:
@@ -70,8 +74,7 @@ functions:
       - websocket:
           route: $default
     environment:
-      HANDLER_NAME: ${self:custom.graphql}
-      TEAM_STORE: ${self:custom.raw_data_bucket}
+      HANDLER_NAME: ${self:custom.websockets}
       WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
       WS_SUBSCRIPTIONS_TABLE: ${self:custom.ws_subscriptions_table}
   bridge:
