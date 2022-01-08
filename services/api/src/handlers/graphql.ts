@@ -10,9 +10,6 @@ import { S3Adapter } from "@lefthoek/adapters";
 
 const { TEAM_STORE: bucket_name } = process.env;
 
-const adapter = new S3Adapter({ bucket_name });
-const teamRepo = new TeamRepo({ adapter });
-
 const app = fastify();
 
 app.register(cors, {
@@ -23,9 +20,13 @@ const schema = makeExecutableSchema({
   typeDefs,
 });
 
-const context = () => ({
-  teamRepo,
-});
+const context = () => {
+  const adapter = new S3Adapter({ bucket_name });
+  const teamRepo = new TeamRepo({ adapter });
+  return {
+    teamRepo,
+  };
+};
 
 app.register(mercurius, { schema, resolvers, context });
 
