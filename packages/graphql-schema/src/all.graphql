@@ -8,7 +8,7 @@ enum ProviderType {
 }
 
 type Query {
-  team(team_id: String): Team
+  team(id: String): Team
 }
 
 type Subscription {

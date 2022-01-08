@@ -13,8 +13,10 @@ export interface EventBus<E extends Event> {
   put: (event: E) => Promise<E["detail"]>;
 }
 
-export interface Store<T> {
-  fetch: () => Promise<Maybe<T>>;
+export interface Store<T extends { id: string }> {
+  init: (data: T) => Promise<T>;
+  fetch: (input: Pick<T, "id">) => Promise<Maybe<T>>;
+  write: (data: T) => Promise<T>;
 }
 
 export type Handler<U, T> = (event: U, services?: T) => Promise<U>;

@@ -5,9 +5,13 @@ import fastify from "fastify";
 import mercurius from "mercurius";
 import typeDefs from "@lefthoek/graphql-schema";
 import resolvers from "../resolvers";
-import { TeamStore } from "@lefthoek/stores";
+import { TeamRepo } from "@lefthoek/stores";
+import { S3Adapter } from "@lefthoek/adapters";
 
-const teamStore = new TeamStore();
+const { TEAM_STORE: bucket_name } = process.env;
+
+const adapter = new S3Adapter({ bucket_name });
+const teamRepo = new TeamRepo({ adapter });
 
 const app = fastify();
 
@@ -20,7 +24,7 @@ const schema = makeExecutableSchema({
 });
 
 const context = () => ({
-  teamStore,
+  teamRepo,
 });
 
 app.register(mercurius, { schema, resolvers, context });

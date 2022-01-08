@@ -24,7 +24,7 @@ export type Query = {
 
 
 export type QueryTeamArgs = {
-  team_id: InputMaybe<Scalars['String']>;
+  id: InputMaybe<Scalars['String']>;
 };
 
 export type Subscription = {

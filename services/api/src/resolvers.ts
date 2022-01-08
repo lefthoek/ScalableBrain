@@ -14,7 +14,7 @@ const resolvers: Resolvers = {
     providers: async ({ providers }) => providers,
   },
   Query: {
-    team: async (_, __, { teamStore }) => await teamStore.fetch(),
+    team: async (_, { id }, { teamStore }) => await teamStore.fetch({ id }),
   },
   Subscription: {
     addedTeams: {

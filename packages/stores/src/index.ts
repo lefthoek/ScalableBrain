@@ -1,2 +1,2 @@
-export { TeamStore } from "./TeamStore";
+export { TeamRepo } from "./TeamRepo";
 export { AuthLookup } from "./AuthLookup";
