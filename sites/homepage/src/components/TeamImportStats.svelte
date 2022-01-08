@@ -2,14 +2,17 @@
   export let team_id: string;
   import { operationStore, query, subscription } from "@urql/svelte";
 
-  const teamData = operationStore(`
-    query {
-      team {
+  const teamData = operationStore(
+    `
+    query($id: String!) {
+      team(id: $id) {
         id
         name
       }
     }
-  `);
+  `,
+    { id: team_id }
+  );
 
   const messages = operationStore(`
     subscription {
@@ -38,7 +41,7 @@
 </h1>
 
 {#if !$messages.data}
-  <p>No new messages</p>
+  <p>No New Messages</p>
 {:else}
   <ul>
     {#each $messages.data as message}
