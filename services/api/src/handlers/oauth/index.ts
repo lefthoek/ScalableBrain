@@ -6,6 +6,8 @@ import type { SlackOAuthData } from "@lefthoek/types";
 import type { SlackOAuthQueryString } from "./types";
 import { v4 as uuid } from "uuid";
 
+const { TEAM_AUTHENTICATED } = LefthoekEventType;
+
 const {
   SLACK_CLIENT_SECRET: client_secret,
   SLACK_CLIENT_ID: client_id,
@@ -39,7 +41,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
     });
 
     await eventBus.put({
-      detailType: LefthoekEventType.TEAM_ADDED,
+      detailType: TEAM_AUTHENTICATED,
       detail: {
         id,
         name,

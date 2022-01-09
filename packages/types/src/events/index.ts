@@ -13,6 +13,10 @@ export interface LHEvent extends Event {
   detail: LefthoekEventPayload;
 }
 
+export interface TeamAuthenticatedEvent extends LHEvent {
+  detailType: LefthoekEventType.TEAM_AUTHENTICATED;
+  detail: Team;
+}
 export interface TeamAddedEvent extends LHEvent {
   detailType: LefthoekEventType.TEAM_ADDED;
   detail: Team;

@@ -67,6 +67,7 @@
     "packages/stores",
     "services/api",
     "services/mine",
+    "services/refine",
     "sites/homepage"
   ]
 }

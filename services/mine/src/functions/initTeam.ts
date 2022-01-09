@@ -4,10 +4,9 @@ import type { TeamAddedEvent } from "@lefthoek/types";
 import { ServiceEventType } from "@service_types/enums";
 
 const { RAW_DATA_BUCKET: bucket_name } = process.env;
-
 const { TEAM_REPO_INITIATED } = ServiceEventType;
 
-const initTeam = async (event: TeamAddedEvent) => {
+const initTeam: (event: TeamAddedEvent) => Promise<any> = async (event) => {
   const adapter = new S3Adapter({ bucket_name });
   const teamRepo = new TeamRepo({ adapter });
   const detail = await teamRepo.init(event.detail);

@@ -1,0 +1,31 @@
+{
+  "name": "@lefthoek/services-refine",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Jan Hein Hoogstad",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc && tsc-alias",
+    "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",
+    "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
+  },
+  "dependencies": {
+    "@lefthoek/types": "*",
+    "@lefthoek/adapters": "*",
+    "@lefthoek/stores": "*",
+    "@slack/bolt": "^3.8.1",
+    "node-fetch": "^2.6.1",
+    "graphql": "^16.2.0",
+    "graphql-import-node": "^0.0.4"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.85",
+    "@types/node-fetch": "^2.5.12",
+    "rimraf": "^3.0.2",
+    "serverless": "^2.68.0",
+    "serverless-plugin-monorepo": "^0.11.0",
+    "tsc-alias": "^1.4.2",
+    "typescript": "^4.5.2"
+  }
+}
