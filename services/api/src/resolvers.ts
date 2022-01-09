@@ -19,6 +19,12 @@ const resolvers: Resolvers = {
     },
   },
   Subscription: {
+    systemEvents: {
+      subscribe: subscribe("EVENT_OCCURRED"),
+      resolve: (event: string) => {
+        return JSON.stringify(event);
+      },
+    },
     addedTeams: {
       subscribe: subscribe("TEAM_ADDED"),
       resolve: ({ payload }: { payload: Team }) => {
