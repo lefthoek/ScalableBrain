@@ -18,8 +18,8 @@ const wrapper: (handler: Handler<LefthoekEvent>) => AWSHandler = (handler) => {
 
 const _bridge = async (event: LefthoekEvent) => {
   return subscriptionServer.publish({
-    topic: event.detailType,
-    payload: event.detail,
+    topic: "EVENT_OCCURRED",
+    payload: event,
   });
 };
 
