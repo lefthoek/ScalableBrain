@@ -82,7 +82,7 @@ module "api" {
     module.shared.auth_lookup_table_read_access_policy,
     module.shared.auth_lookup_table_write_access_policy,
     module.mine.raw_data_bucket_read_access_policy,
-    module.mine.knowledge_base_bucket_read_access_policy
+    module.refine.knowledge_base_bucket_read_access_policy
   ]
 }
 
