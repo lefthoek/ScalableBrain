@@ -25,7 +25,8 @@ const resolvers: Resolvers = {
   Subscription: {
     systemEvents: {
       subscribe: subscribe("EVENT_OCCURRED"),
-      resolve: ({ detailType, detail }: LefthoekEvent) => {
+      resolve: ({ payload }: { payload: LefthoekEvent }) => {
+        const { detailType, detail } = payload;
         return { detailType, detail: JSON.stringify(detail) };
       },
     },
