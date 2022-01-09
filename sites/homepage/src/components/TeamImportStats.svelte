@@ -20,15 +20,12 @@
 
   const messages = operationStore(`
     subscription {
-      addedTeams {
-        id
-        name
-      }
+      systemEvents
     }
   `);
 
   const handleSubscription = (messages = [], data: any) => {
-    return [data.addedTeams, ...messages];
+    return [data.systemEvents, ...messages];
   };
 
   subscription(messages, handleSubscription);
@@ -64,7 +61,7 @@
 {:else}
   <ul>
     {#each $messages.data as message}
-      <li>{message.id}: "{message.name}"</li>
+      <li><pre>{JSON.stringify(message, null, 2)}</pre></li>
     {/each}
   </ul>
 {/if}

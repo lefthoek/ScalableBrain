@@ -1,5 +1,5 @@
 import { subscribe } from "graphql-lambda-subscriptions";
-import { Team, Resolvers } from "@lefthoek/types";
+import { Team, Resolvers, LefthoekEvent } from "@lefthoek/types";
 
 const resolvers: Resolvers = {
   TeamProvider: {
@@ -21,8 +21,8 @@ const resolvers: Resolvers = {
   Subscription: {
     systemEvents: {
       subscribe: subscribe("EVENT_OCCURRED"),
-      resolve: (event: string) => {
-        return JSON.stringify(event);
+      resolve: ({ detailType, detail }: LefthoekEvent) => {
+        return { detailType, detail: JSON.stringify(detail) };
       },
     },
     addedTeams: {

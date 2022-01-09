@@ -1,5 +1,10 @@
+type SystemEvent {
+  detailType: String!
+  detail: String!
+}
+
 type Subscription {
   addedTeams: Team!
   updatedTeam(team_id: String!): Team!
-  systemEvents: String!
+  systemEvents: SystemEvent!
 }
