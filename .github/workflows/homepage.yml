@@ -41,7 +41,7 @@ jobs:
       - name: Build Dependencies
         run: echo 'yarn build'
       - name: Build Site
-        run: yarn workspace @lefthoek/homepage build
+        run: yarn workspace @lefthoek/sites-homepage build
       - name: Deploy Site
         uses: reggionick/s3-deploy@v3
         with:
