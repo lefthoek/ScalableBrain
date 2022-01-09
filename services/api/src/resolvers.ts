@@ -2,6 +2,10 @@ import { subscribe } from "graphql-lambda-subscriptions";
 import { Team, Resolvers, LefthoekEvent } from "@lefthoek/types";
 
 const resolvers: Resolvers = {
+  SystemEvent: {
+    detailType: async ({ detailType }) => detailType,
+    detail: async ({ detail }) => detail,
+  },
   TeamProvider: {
     type: async ({ type }) => type,
     name: async ({ name }) => name,
