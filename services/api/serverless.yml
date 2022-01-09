@@ -84,7 +84,8 @@ functions:
           eventBus: ${self:custom.event_bus}
           pattern:
             detail-type:
-              - "*"
+              - TEAM_AUTHENTICATED
+              - TEAM_ADDED
     environment:
       HANDLER_NAME: ${self:custom.bridge}
       WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
