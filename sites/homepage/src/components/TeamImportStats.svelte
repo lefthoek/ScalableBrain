@@ -20,7 +20,10 @@
 
   const messages = operationStore(`
     subscription {
-      systemEvents
+      systemEvents {
+        detailType
+        detail
+      }
     }
   `);
 
