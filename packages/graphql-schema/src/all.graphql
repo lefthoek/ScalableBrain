@@ -14,6 +14,12 @@ type Query {
 type Subscription {
   addedTeams: Team!
   updatedTeam(team_id: String!): Team!
+  systemEvents: SystemEvent!
+}
+
+type SystemEvent {
+  detailType: String!
+  detail: String!
 }
 
 type Team {

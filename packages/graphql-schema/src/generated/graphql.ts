@@ -29,12 +29,18 @@ export type QueryTeamArgs = {
 
 export type Subscription = {
   addedTeams: Team;
+  systemEvents: SystemEvent;
   updatedTeam: Team;
 };
 
 
 export type SubscriptionUpdatedTeamArgs = {
   team_id: Scalars['String'];
+};
+
+export type SystemEvent = {
+  detail: Scalars['String'];
+  detailType: Scalars['String'];
 };
 
 export type Team = {
@@ -125,6 +131,7 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
+  SystemEvent: ResolverTypeWrapper<SystemEvent>;
   Team: ResolverTypeWrapper<Team>;
   TeamProvider: ResolverTypeWrapper<TeamProvider>;
 }>;
@@ -135,6 +142,7 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
   String: Scalars['String'];
   Subscription: {};
+  SystemEvent: SystemEvent;
   Team: Team;
   TeamProvider: TeamProvider;
 }>;
@@ -145,7 +153,14 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
   addedTeams: SubscriptionResolver<ResolversTypes['Team'], "addedTeams", ParentType, ContextType>;
+  systemEvents: SubscriptionResolver<ResolversTypes['SystemEvent'], "systemEvents", ParentType, ContextType>;
   updatedTeam: SubscriptionResolver<ResolversTypes['Team'], "updatedTeam", ParentType, ContextType, RequireFields<SubscriptionUpdatedTeamArgs, 'team_id'>>;
+}>;
+
+export type SystemEventResolvers<ContextType = any, ParentType extends ResolversParentTypes['SystemEvent'] = ResolversParentTypes['SystemEvent']> = ResolversObject<{
+  detail: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  detailType: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type TeamResolvers<ContextType = any, ParentType extends ResolversParentTypes['Team'] = ResolversParentTypes['Team']> = ResolversObject<{
@@ -166,6 +181,7 @@ export type TeamProviderResolvers<ContextType = any, ParentType extends Resolver
 export type Resolvers<ContextType = any> = ResolversObject<{
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
+  SystemEvent: SystemEventResolvers<ContextType>;
   Team: TeamResolvers<ContextType>;
   TeamProvider: TeamProviderResolvers<ContextType>;
 }>;

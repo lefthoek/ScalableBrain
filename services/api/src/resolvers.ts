@@ -1,7 +1,11 @@
 import { subscribe } from "graphql-lambda-subscriptions";
-import { Team, Resolvers } from "@lefthoek/types";
+import { Team, Resolvers, LefthoekEvent } from "@lefthoek/types";
 
 const resolvers: Resolvers = {
+  SystemEvent: {
+    detailType: async ({ detailType }) => detailType,
+    detail: async ({ detail }) => detail,
+  },
   TeamProvider: {
     type: async ({ type }) => type,
     name: async ({ name }) => name,
@@ -19,6 +23,13 @@ const resolvers: Resolvers = {
     },
   },
   Subscription: {
+    systemEvents: {
+      subscribe: subscribe("EVENT_OCCURRED"),
+      resolve: ({ payload }: { payload: LefthoekEvent }) => {
+        const { detailType, detail } = payload;
+        return { detailType, detail: JSON.stringify(detail) };
+      },
+    },
     addedTeams: {
       subscribe: subscribe("TEAM_ADDED"),
       resolve: ({ payload }: { payload: Team }) => {
