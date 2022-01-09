@@ -81,7 +81,8 @@ module "api" {
     module.shared.event_bus_write_access_policy,
     module.shared.auth_lookup_table_read_access_policy,
     module.shared.auth_lookup_table_write_access_policy,
-    module.mine.raw_data_bucket_read_access_policy
+    module.mine.raw_data_bucket_read_access_policy,
+    module.mine.knowledge_base_bucket_read_access_policy
   ]
 }
 
@@ -96,5 +97,16 @@ module "mine" {
     local.lambda_basic_execution_role,
     module.shared.event_bus_write_access_policy,
     module.shared.auth_lookup_table_read_access_policy
+  ]
+}
+
+module "refine" {
+  source           = "./infra/refine"
+  project_name     = local.project_name
+  environment_name = "dev"
+  policies = [
+    local.lambda_basic_execution_role,
+    module.shared.event_bus_write_access_policy,
+    module.mine.raw_data_bucket_read_access_policy
   ]
 }
