@@ -4,6 +4,7 @@
   "main": "index.js",
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc && tsc-alias",
