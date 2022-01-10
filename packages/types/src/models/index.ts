@@ -2,7 +2,7 @@ import {
   Team as TeamGen,
   TeamProvider as TeamProviderGen,
 } from "@lefthoek/graphql-schema";
-import { ProviderType } from "enums";
+import { ProviderType } from "../enums";
 
 export type SlackOAuthData = {
   access_token: string;

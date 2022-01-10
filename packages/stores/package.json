@@ -2,12 +2,8 @@
   "name": "@lefthoek/stores",
   "version": "0.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "prebuild": "rimraf dist"
-  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
   "devDependencies": {
