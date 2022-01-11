@@ -2,28 +2,22 @@
   "name": "@lefthoek/graphql-schema",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "scripts": {
-    "build": "tsc",
     "prestitch": "rimraf dist src/all.graphql src/generated",
     "stitch": "graphql-schema-utilities -s src/**/*.graphql -o src/all.graphql",
-    "prebuild": "yarn stitch && yarn graphql-codegen",
-    "postbuild": "cp src/*.graphql dist"
+    "build": "yarn stitch && yarn graphql-codegen"
   },
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
-  "peerDependencies": {
-    "graphql-import-node": "^0.0.4"
-  },
   "devDependencies": {
-    "@graphql-codegen/typescript": "2.4.1",
-    "@graphql-codegen/urql-introspection": "2.1.0",
-    "@graphql-codegen/typescript-resolvers": "2.4.2",
-    "@graphql-codegen/typescript-operations": "2.2.1",
-    "@graphql-codegen/introspection": "2.1.0",
     "@graphql-codegen/cli": "2.3.0",
-    "graphql-import-node": "^0.0.4",
+    "@graphql-codegen/introspection": "2.1.0",
+    "@graphql-codegen/typescript": "2.4.1",
+    "@graphql-codegen/typescript-operations": "2.2.1",
+    "@graphql-codegen/typescript-resolvers": "2.4.2",
+    "@graphql-codegen/urql-introspection": "2.1.0",
     "graphql-schema-utilities": "^1.1.3",
     "rimraf": "^3.0.2",
     "typescript": "^4.5.4"

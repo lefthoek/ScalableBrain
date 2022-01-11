@@ -5,16 +5,14 @@
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "tsc && tsc-alias",
     "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
   "dependencies": {
     "@graphql-tools/schema": "^8.3.1",
     "@lefthoek/adapters": "*",
-    "@lefthoek/stores": "*",
     "@lefthoek/graphql-schema": "*",
+    "@lefthoek/stores": "*",
     "@lefthoek/types": "*",
     "aws-lambda-fastify": "^2.0.2",
     "fastify": "^3.25.0",
@@ -27,12 +25,17 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@tsconfig/node14": "^1.0.1",
     "@types/aws-lambda": "^8.10.85",
     "@types/uuid": "^8.3.3",
+    "esbuild": "^0.14.11",
+    "parcel-bundler": "^1.12.5",
     "rimraf": "^3.0.2",
     "serverless": "^2.68.0",
+    "serverless-esbuild": "^1.23.3",
+    "serverless-offline": "^8.3.1",
     "serverless-plugin-monorepo": "^0.11.0",
-    "tsc-alias": "^1.4.2",
-    "typescript": "^4.5.2"
+    "serverless-plugin-typescript": "^2.1.0",
+    "typescript": "^4.5.4"
   }
 }

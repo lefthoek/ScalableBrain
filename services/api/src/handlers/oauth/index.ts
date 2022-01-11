@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { URLSearchParams } from "url";
 import { EventBridge } from "@lefthoek/adapters";
 import { AuthLookup } from "@lefthoek/stores";
 import { ProviderType, LefthoekEventType } from "@lefthoek/types";

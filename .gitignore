@@ -146,4 +146,6 @@ terraform.rco
 graphql.schema.json
 /emailTemplates/compiled/*
 .turbo
+**/.esbuild/
+
 

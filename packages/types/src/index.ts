@@ -1,4 +1,4 @@
-export { Maybe } from "@lefthoek/graphql-schema";
+export type { Maybe } from "@lefthoek/graphql-schema";
 export * from "./enums";
 export * from "./models";
 export * from "./events";

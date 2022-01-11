@@ -4,8 +4,13 @@ variablesResolutionMode: "20210326"
 configValidationMode: error
 useDotenv: true
 plugins:
+  - serverless-esbuild
+  - serverless-offline
   - serverless-plugin-monorepo
 custom:
+  esbuild:
+    loader:
+      .graphql: text
   project_name: scalable-brain
   service_name: api
   raw_data_bucket: ${ssm:/${self:custom.project_name}/${opt:stage}/mine/buckets/raw_data}
@@ -39,7 +44,7 @@ provider:
 
 functions:
   oauth:
-    handler: dist/index.slack
+    handler: src/index.slack
     events:
       - httpApi:
           path: /integrations/slack
@@ -51,7 +56,7 @@ functions:
       EVENT_BUS_NAME: ${self:custom.event_bus}
       HANDLER_NAME: ${self:custom.oauth}
   graphql:
-    handler: dist/index.graphql
+    handler: src/index.graphql
     events:
       - http:
           path: graphql
@@ -65,7 +70,7 @@ functions:
       HANDLER_NAME: ${self:custom.graphql}
       TEAM_STORE: ${self:custom.raw_data_bucket}
   websockets:
-    handler: dist/index.websockets
+    handler: src/index.websockets
     events:
       - websocket:
           route: $connect
@@ -78,7 +83,7 @@ functions:
       WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}
       WS_SUBSCRIPTIONS_TABLE: ${self:custom.ws_subscriptions_table}
   bridge:
-    handler: dist/index.bridge
+    handler: src/index.bridge
     events:
       - eventBridge:
           eventBus: ${self:custom.event_bus}

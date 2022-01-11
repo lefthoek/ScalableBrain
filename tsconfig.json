@@ -2,16 +2,21 @@
   "compilerOptions": {
     "module": "commonjs",
     "skipLibCheck": true,
-    "esModuleInterop": true,
     "target": "es2019",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "strict": true,
-    "declaration": true,
     "sourceMap": true,
-    "baseUrl": "./",
-    "rootDir": ".",
-    "outDir": "dist"
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true
   },
   "lib": ["es2018"]
 }
