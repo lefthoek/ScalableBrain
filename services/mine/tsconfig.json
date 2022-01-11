@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@lefthoek/tsconfig/service.json",
   "compilerOptions": {
     "baseUrl": "./src",
     "rootDir": "./src",

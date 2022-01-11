@@ -4,8 +4,13 @@ variablesResolutionMode: "20210326"
 configValidationMode: error
 useDotenv: true
 plugins:
+  - serverless-esbuild
+  - serverless-offline
   - serverless-plugin-monorepo
 custom:
+  esbuild:
+    loader:
+      .graphql: text
   project_name: scalable-brain
   service_name: refine
   service_parameter_prefix: ${self:custom.project_name}/${opt:stage}/${self:custom.service_name}
@@ -29,7 +34,7 @@ provider:
 
 functions:
   initTeam:
-    handler: dist/index.initTeam
+    handler: src/index.initTeam
     events:
       - eventBridge:
           eventBus: ${self:custom.event_bus}

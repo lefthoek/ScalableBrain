@@ -1,0 +1,13 @@
+{
+  "name": "@lefthoek/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "base.json",
+    "service.json"
+  ],
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.1"
+  }
+}

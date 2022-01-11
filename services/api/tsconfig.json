@@ -1,14 +1,8 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@lefthoek/tsconfig/service.json",
   "compilerOptions": {
     "baseUrl": "./src",
     "rootDir": "./src",
-    "outDir": "dist",
-    "paths": {
-      "@service_types/*": ["types/*"],
-      "@adapters/*": ["adapters/*"],
-      "@providers/*": ["providers/*"],
-      "@stores/*": ["stores/*"]
-    }
+    "outDir": "dist"
   }
 }

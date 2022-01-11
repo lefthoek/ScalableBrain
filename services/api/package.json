@@ -5,6 +5,8 @@
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
     "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
@@ -25,7 +27,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@tsconfig/node14": "^1.0.1",
+    "@lefthoek/tsconfig": "*",
     "@types/aws-lambda": "^8.10.85",
     "@types/uuid": "^8.3.3",
     "esbuild": "^0.14.11",
