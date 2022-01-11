@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button/index.svelte";
+import DisplayText from "../components/DisplayText.svelte";
+const redirectUrl =
+  "https://slack.com/oauth/v2/authorize?client_id=1648737748640.2152796719617&scope=channels:history,channels:read,groups:history,groups:read,im:history,im:read,mpim:history,mpim:read,channels:join&user_scope=";
+---
+
+<BaseLayout>
+  <a
+    target="__blank"
+    href={redirectUrl}
+    class="grid group self-center -m-12 text-center"
+  >
+    <DisplayText>
+      <span class="block text-skin-muted dark:text-skin-muted-inverted"
+        ><span
+          class="group-hover:text-skin-primary transition-colors duration-500"
+          >Scale</span
+        > Your</span
+      >
+      <span
+        class="block bg-skin-inverted/20 group-hover:text-skin-muted dark:group-hover:text-skin-muted-inverted group-hover:bg-skin-inverted/10 transition-colors duration-500"
+        >Team's</span
+      >
+      <span
+        class="block group-hover:text-skin-muted dark:group-hover:text-skin-muted-inverted text-skin-primary transition-colors duration-500"
+        >Brain Power</span
+      >
+    </DisplayText>
+  </a>
+</BaseLayout>

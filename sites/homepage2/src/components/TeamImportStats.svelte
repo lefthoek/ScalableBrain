@@ -1,7 +1,7 @@
 <script lang="ts">
   export let team_id: string;
 
-  import { operationStore, query } from "@urql/svelte";
+  import { operationStore, query, subscription } from "@urql/svelte";
 
   const teamData = operationStore(
     `
@@ -18,6 +18,22 @@
   `,
     { id: team_id }
   );
+
+  const messages = operationStore(`
+    subscription {
+      systemEvents {
+        detailType
+        detail
+      }
+    }
+  `);
+
+  const handleSubscription = (messages = [], data: any) => {
+    return [data.systemEvents, ...messages];
+  };
+
+  subscription(messages, handleSubscription);
+
   query(teamData);
 </script>
 
@@ -47,6 +63,24 @@
       >
         {team_id}
       </h1>
+    {/if}
+  </div>
+
+  <div class="space-y-4">
+    <h2 class="text-4xl">Messages</h2>
+    {#if !$messages.data}
+      <p>No New Messages</p>
+    {:else}
+      <ul>
+        {#each $messages.data as message}
+          <li>
+            <span class="block font-semibold">
+              {message.detailType}
+            </span>
+            <pre>{JSON.stringify(message.detail)}</pre>
+          </li>
+        {/each}
+      </ul>
     {/if}
   </div>
 </div>

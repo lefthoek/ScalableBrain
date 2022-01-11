@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --cipria-40: 253 249 251;
+    --cipria-60: 253 247 249;
+    --cipria-80: 252 244 247;
+    --cipria-100: 252 242 245;
+
+    --midnight-40: 173 173 184;
+    --midnight-60: 132 132 148;
+    --midnight-80: 91 91 113;
+    --midnight-100: 50 51 78;
+
+    --brightGreen-40: 210 255 234;
+    --brightGreen-60: 188 255 224;
+    --brightGreen-80: 166 255 214;
+    --brightGreen-100: 144 255 204;
+
+    --skyBlue-40: 201 183 253;
+    --skyBlue-60: 174 147 252;
+    --skyBlue-80: 147 111 251;
+    --skyBlue-100: 120 76 251;
+
+    --lobster-40: 236 189 163;
+    --lobster-60: 227 156 118;
+    --lobster-80: 218 123 72;
+    --lobster-100: 209 91 27;
+
+    --color-primary: var(--brightGreen-100);
+    --color-secondary: var(--skyBlue-100);
+    --color-tertiary: var(--lobster-100);
+    --color-text-base: var(--midnight-100);
+    --color-text-inverted: var(--cipria-100);
+    --color-text-muted: var(--midnight-80);
+    --color-text-muted-inverted: var(--midnight-40);
+    --color-fill: var(--cipria-100);
+    --color-fill-muted: var(--cipria-40);
+    --color-fill-inverted: var(--midnight-100);
+  }
+
+  .theme-light {
+    --color-primary: var(--skyBlue-100);
+    --color-secondary: var(--lobster-100);
+    --color-tertiary: var(--brightGreen-100);
+    --color-text-base: var(--midnight-100);
+    --color-text-inverted: var(--cipria-100);
+    --color-text-muted: var(--midnight-60);
+    --color-fill: var(--cipria-100);
+  }
+  .theme-lobster {
+    --color-text-accent: var(--cipria-100);
+    --color-fill: var(--midnight-100);
+    --color-accent: var(--skyBlue-100);
+    --color-button-accent: var(--lobster-100);
+    --color-button-accent-hover: var(--lobster-80);
+  }
+
+  .theme-cipria {
+    --color-text-accent: var(--lobster-100);
+    --color-fill: var(--midnight-100);
+    --color-accent: var(--cipria-100);
+    --color-button-accent: var(--color-accent);
+    --color-button-accent-hover: var(--cipria-60);
+  }
+
+  .theme-midnight {
+    --color-text-accent: var(--cipria-100);
+    --color-fill: var(--skyBlue-100);
+    --color-accent: var(--midnight-100);
+    --color-button-accent: var(--color-accent);
+    --color-button-accent-hover: var(--midnight-80);
+  }
+
+  @font-face {
+    font-family: "GT Sectra Display";
+    src: url("/fonts/GT Sectra/GT-Sectra-Display-Super-Italic.woff2")
+      format("woff2");
+    font-weight: 900;
+    font-style: super-italic;
+  }
+
+  @font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/fonts/GT Walsheim/GT-Walsheim-Pro-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: "normal";
+  }
+
+  @font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/fonts/GT Walsheim/GT-Walsheim-Pro-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: "normal";
+  }
+
+  @font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/fonts/GT Walsheim/GT-Walsheim-Pro-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: "normal";
+  }
+
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("/fonts/IBM Plex Mono/IBMPlexMono.woff2") format("woff2");
+    font-weight: 400;
+    font-style: "normal";
+  }
+
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("/fonts/IBM Plex Mono/IBMPlexMono-SemiBold.woff2") format("woff2");
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  .btn-midnight {
+    @apply bg-midnight text-cipria;
+  }
+
+  .btn-midnight:hover {
+    @apply bg-midnight-80;
+  }
+
+  .btn-midnight:disabled {
+    @apply bg-midnight-40 text-midnight-60;
+  }
+
+  .btn-cipria {
+    @apply bg-cipria text-lobster;
+  }
+
+  .btn-cipria:hover {
+    @apply bg-cipria-60;
+  }
+
+  .btn-cipria:disabled {
+    @apply bg-cipria text-lobster-60;
+  }
+
+  .btn-brightGreen {
+    @apply bg-brightGreen text-skyBlue;
+  }
+
+  .btn-brightGreen:hover {
+    @apply bg-brightGreen-60;
+  }
+
+  .btn-brightGreen:disabled {
+    @apply bg-brightGreen-40 text-brightGreen-60;
+  }
+
+  .btn-lobster {
+    @apply bg-lobster text-cipria;
+  }
+
+  .btn-lobster:hover {
+    @apply bg-lobster-60;
+  }
+
+  .btn-lobster:disabled {
+    @apply bg-lobster-40 text-lobster-60;
+  }
+
+  .btn-skyBlue {
+    @apply bg-skyBlue text-brightGreen;
+  }
+
+  .btn-skyBlue:hover {
+    @apply bg-skyBlue-60;
+  }
+
+  .btn-skyBlue:disabled {
+    @apply bg-skyBlue-40 text-skyBlue-60;
+  }
+}

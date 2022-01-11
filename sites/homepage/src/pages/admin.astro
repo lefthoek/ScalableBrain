@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Dashboard from "../components/Dashboard.svelte";
+import Admin from "../components/Admin.svelte";
 import WidgetFrame from "../components/WidgetFrame.svelte";
 ---
 
 <BaseLayout>
   <WidgetFrame>
-    <Dashboard client:only>
+    <Admin client:only />
   </WidgetFrame>
 </BaseLayout>
