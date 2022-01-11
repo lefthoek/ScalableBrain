@@ -30,7 +30,11 @@
               <summary class="block font-semibold">
                 {message.detailType}
               </summary>
-              <code>{message.detail}</code>
+              <div>
+                {#each Object.keys(JSON.parse(message.detail)) as key}
+                  <p>{key}: {JSON.parse(message.detail)[key]}</p>
+                {/each}
+              </div>
             </details>
           </li>
         {/each}
