@@ -91,6 +91,7 @@ functions:
             detail-type:
               - TEAM_AUTHENTICATED
               - TEAM_ADDED
+              - TEAM_REPO_INITIATED
     environment:
       HANDLER_NAME: ${self:custom.bridge}
       WS_CONNECTIONS_TABLE: ${self:custom.ws_connections_table}

@@ -9,7 +9,6 @@ const { TEAM_REPO_INITIATED } = ServiceEventType;
 const initTeam: (event: TeamAddedEvent) => Promise<any> = async (event) => {
   const adapter = new S3Adapter({ bucket_name });
   const teamRepo = new TeamRepo({ adapter });
-  console.log("BOOOH");
   const detail = await teamRepo.init(event.detail);
 
   return {

@@ -1,28 +1,27 @@
+import { S3Adapter } from "@lefthoek/adapters";
+import { AuthLookup } from "@lefthoek/stores";
 /**
 import ChannelRepo from "@stores/channelRepo";
-import AuthLookup from "@stores/authLookup";
 import Slack from "@providers/slack";
-import { S3Adapter } from "@lefthoek/adapters";
 import { ServiceEventType } from "@service_types/enums";
 
 */
 import type { TeamRepoInitiatedEvent } from "@service_types/events";
 
-/**
 const {
-  DATALAKE_BUCKET: bucket_name,
+  RAW_DATA_BUCKET: bucket_name,
   SLACK_SIGNING_SECRET: signing_secret,
   AUTH_LOOKUP_TABLE: table_name,
 } = process.env;
-const { CHANNEL_REPO_INITIATED, CHANNEL_REPOS_INITIATED } = ServiceEventType;
-*/
 
-const initChannels = async (event: TeamRepoInitiatedEvent, services: any) => {
-  console.log(event, services);
-  /**
-  const { team_id, platform_type } = event.detail;
+const initChannels = async (event: TeamRepoInitiatedEvent) => {
   const adapter = new S3Adapter({ bucket_name });
   const authLookup = new AuthLookup({ table_name });
+  console.log(event);
+  console.log(adapter, signing_secret, authLookup);
+  return null;
+  /**
+  const { team_id, platform_type } = event.detail;
 
   const { access_token } = await authLookup.get({ team_id, platform_type });
 

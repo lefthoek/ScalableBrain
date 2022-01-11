@@ -49,3 +49,16 @@ functions:
       AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
       HANDLER_NAME: ${self:custom.init_team}
       EVENT_BUS_NAME: ${self:custom.event_bus}
+  initChannels:
+    handler: src/index.initChannels
+    events:
+      - eventBridge:
+          eventBus: ${self:custom.event_bus}
+          pattern:
+            detail-type:
+              - TEAM_REPO_INITIATED
+    environment:
+      RAW_DATA_BUCKET: ${self:custom.raw_data_bucket}
+      AUTH_LOOKUP_TABLE: ${self:custom.auth_lookup_table}
+      HANDLER_NAME: ${self:custom.init_team}
+      EVENT_BUS_NAME: ${self:custom.event_bus}
