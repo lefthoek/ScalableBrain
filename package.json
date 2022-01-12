@@ -15,6 +15,7 @@
           "^build"
         ]
       },
+      "lint": {},
       "dryrun": {
         "dependsOn": [
           "build"
@@ -33,38 +34,19 @@
     "codegen": "graphql-codegen --config codegen.yml",
     "docs": "docsify serve docs",
     "build": "turbo run build",
+    "lint": "turbo run lint",
     "deploy": "turbo run deploy",
     "dryrun": "turbo run deploy"
   },
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.3.0",
-    "@graphql-codegen/introspection": "^2.1.0",
-    "@graphql-codegen/typescript": "^2.4.0",
-    "@graphql-codegen/typescript-document-nodes": "^2.2.0",
-    "@graphql-codegen/typescript-resolvers": "^2.4.1",
-    "@parcel/transformer-graphql": "^2.1.1",
-    "@parcel/transformer-typescript-types": "^2.1.1",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "docsify": "^4.12.1",
-    "eslint": "^8.5.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "graphql": "^16.2.0",
     "husky": "^7.0.4",
     "lehre": "^1.5.0",
-    "remark-cli": "^10.0.0",
-    "remark-html": "^15.0.1",
-    "turbo": "^1.0.24",
-    "typescript": ">=3.0.0"
+    "turbo": "^1.0.24"
   },
   "workspaces": [
-    "packages/tsconfig",
+    "packages/config",
     "packages/graphql-schema",
     "packages/types",
     "packages/adapters",

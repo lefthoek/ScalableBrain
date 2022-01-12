@@ -1,3 +1,8 @@
 {
-  "extends": "@tsconfig/node14/tsconfig.json"
+  "extends": "@lefthoek/config/tsconfig.typecheck.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "outDir": "dist"
+  }
 }

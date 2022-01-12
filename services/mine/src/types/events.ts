@@ -7,12 +7,9 @@ export type ServiceEventPayload =
   | Team
   | TeamRepoMetaData
   | ChannelRepoMetaData
-  | {};
+  | Record<string, unknown>;
 
-export interface SEvent extends Event {
-  detailType: ServiceEventType;
-  detail: ServiceEventPayload;
-}
+export type SEvent = Event<ServiceEventType, ServiceEventPayload>;
 
 export interface TeamRepoInitiatedEvent extends SEvent {
   detailType: ServiceEventType.TEAM_REPO_INITIATED;
@@ -25,12 +22,12 @@ export interface ChannelRawDataUpdatedEvent extends SEvent {
 
 export interface ChannelRepoAlreadyUpdatingEvent extends SEvent {
   detailType: ServiceEventType.CHANNEL_REPO_ALREADY_UPDATING;
-  detail: {};
+  detail: Record<string, unknown>;
 }
 
 export interface ChannelReposInitiatedEvent extends SEvent {
   detailType: ServiceEventType.CHANNEL_REPOS_INITIATED;
-  detail: {};
+  detail: Record<string, unknown>;
 }
 
 export interface ChannelRepoInitiatedEvent extends SEvent {

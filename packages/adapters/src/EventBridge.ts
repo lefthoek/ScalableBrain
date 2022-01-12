@@ -1,7 +1,7 @@
 import { EventBridge as EB } from "aws-sdk";
 import type { EventBus, Event } from "@lefthoek/types";
 
-class EventBridge<T extends Event> implements EventBus<T> {
+class EventBridge<T extends Event<string, unknown>> implements EventBus<T> {
   handler_name: string;
   event_bus_name: string;
   event_bridge: EB;

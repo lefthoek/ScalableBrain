@@ -5,7 +5,9 @@ import type { Handler, LefthoekEvent } from "@lefthoek/types";
 export type Services = { eventBus: EventBridge<LefthoekEvent> };
 const { HANDLER_NAME, EVENT_BUS_NAME } = process.env;
 
-const wrapper: (handler: Handler<any, Services>) => AWSHandler = (handler) => {
+const wrapper: (handler: Handler<LefthoekEvent, Services>) => AWSHandler = (
+  handler
+) => {
   return async (awsEvent, _context, callback) => {
     const detail = awsEvent.detail;
     const detailType = awsEvent["detail-type"];
@@ -32,10 +34,13 @@ const wrapper: (handler: Handler<any, Services>) => AWSHandler = (handler) => {
 };
 
 const wrapServices: (
-  serviceMap: Record<string, Handler<any, Services>>
+  serviceMap: Record<string, Handler<LefthoekEvent, Services>>
 ) => Record<string, AWSHandler> = (serviceMap) => {
-  let entries = Object.entries(serviceMap);
-  let wrappedEntries = entries.map(([key, handler]) => [key, wrapper(handler)]);
+  const entries = Object.entries(serviceMap);
+  const wrappedEntries = entries.map(([key, handler]) => [
+    key,
+    wrapper(handler),
+  ]);
   return Object.fromEntries(wrappedEntries);
 };
 

@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
+    "lint": "eslint . --ext .ts",
     "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
@@ -27,11 +28,10 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@lefthoek/tsconfig": "*",
+    "@lefthoek/config": "*",
     "@types/aws-lambda": "^8.10.85",
     "@types/uuid": "^8.3.3",
     "esbuild": "^0.14.11",
-    "parcel-bundler": "^1.12.5",
     "rimraf": "^3.0.2",
     "serverless": "^2.68.0",
     "serverless-esbuild": "^1.23.3",

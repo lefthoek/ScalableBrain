@@ -36,14 +36,11 @@ class S3Adapter implements FSAdapter {
   }
 
   async readJSON({ path }: { path: string }) {
-    console.log("P", path);
     try {
       const { Body } = await s3
         .getObject({ Bucket: this.bucket_name, Key: path })
         .promise();
-      console.log("B", Body);
       const json = Body ? Body.toString("utf-8") : "{}";
-      console.log("J", Body);
       return JSON.parse(json);
     } catch (e) {
       console.log("e", e);

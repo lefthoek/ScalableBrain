@@ -3,6 +3,7 @@ import ChannelRepo from "@stores/channelRepo";
 import { AuthLookup } from "@lefthoek/stores";
 import { S3Adapter } from "@lefthoek/adapters";
 import { ServiceEventType } from "@service_types/enums";
+import { Services } from "@service_types/index";
 
 import type { ChannelRepoInitiatedEvent } from "@service_types/events";
 
@@ -12,7 +13,10 @@ const {
   AUTH_LOOKUP_TABLE: table_name,
 } = process.env;
 
-const mineChannel = async (event: ChannelRepoInitiatedEvent, services: any) => {
+const mineChannel = async (
+  event: ChannelRepoInitiatedEvent,
+  services: Services
+) => {
   const { provider_id, provider_type, channel_id } = event.detail;
   const authLookup = new AuthLookup({ table_name });
   const access_token = await authLookup.getAccessToken({

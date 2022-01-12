@@ -25,6 +25,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
     const baseURL = "https://slack.com/api/oauth.v2.access";
     const { code } = event.queryStringParameters;
     const oauthURL = `${baseURL}?client_id=${client_id}&client_secret=${client_secret}&code=${code}`;
+
     const response = await fetch(oauthURL);
 
     const { access_token, team } = (await response.json()) as SlackOAuthData;

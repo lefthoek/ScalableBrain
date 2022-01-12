@@ -100,7 +100,7 @@ class Slack {
       const iterator = messages;
       yield* iterator;
     } else {
-      let results = first_page ? messages.slice(0, -1) : messages;
+      const results = first_page ? messages.slice(0, -1) : messages;
       yield* [...results, { type: "CLUSTER BREAK" }];
     }
 

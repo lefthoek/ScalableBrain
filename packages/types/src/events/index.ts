@@ -1,17 +1,14 @@
 import { LefthoekEventType } from "../enums";
 import { Team } from "../models";
 
-export interface Event {
-  detailType: string;
-  detail: any;
+export interface Event<T extends string, U> {
+  detailType: T;
+  detail: U;
 }
 
 export type LefthoekEventPayload = Team;
 
-export interface LHEvent extends Event {
-  detailType: LefthoekEventType;
-  detail: LefthoekEventPayload;
-}
+export type LHEvent = Event<LefthoekEventType, LefthoekEventPayload>;
 
 export interface TeamAuthenticatedEvent extends LHEvent {
   detailType: LefthoekEventType.TEAM_AUTHENTICATED;

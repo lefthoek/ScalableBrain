@@ -12,7 +12,6 @@ class TeamRepo implements Store<Team> {
     try {
       return await this.write(data);
     } catch (e) {
-      console.log(e);
       throw new Error("could not initialize team repo");
     }
   }
@@ -32,7 +31,6 @@ class TeamRepo implements Store<Team> {
     const team = await this.adapter.readJSON({
       path,
     });
-    console.log("T", team);
     return team;
   }
 }

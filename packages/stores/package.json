@@ -6,8 +6,14 @@
   "types": "src/index.ts",
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "watch": "tsc -w"
+  },
   "devDependencies": {
     "@lefthoek/types": "*",
+    "@lefthoek/config": "*",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.4"
   }

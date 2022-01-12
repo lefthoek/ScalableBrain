@@ -6,12 +6,18 @@
   "types": "src/index.ts",
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
-  "devDependencies": {
-    "@lefthoek/types": "*",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "watch": "tsc -w"
   },
   "dependencies": {
     "aws-sdk": "^2.884.0"
+  },
+  "devDependencies": {
+    "@lefthoek/types": "*",
+    "@lefthoek/config": "*",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.4"
   }
 }

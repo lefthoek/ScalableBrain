@@ -2,27 +2,28 @@ import { Handler as AWSHandler } from "aws-lambda";
 import { EventBridge } from "@lefthoek/adapters";
 import type { Handler } from "@lefthoek/types";
 import type { ServiceEvent } from "@service_types/events";
+import type { Services } from "@service_types/index";
 
-export type Services = { eventBus: EventBridge<ServiceEvent> };
 const { HANDLER_NAME, EVENT_BUS_NAME } = process.env;
 
-const wrapper: (handler: Handler<any, Services>) => AWSHandler = (handler) => {
+const wrapper: (handler: Handler<ServiceEvent, Services>) => AWSHandler = (
+  handler
+) => {
   return async (awsEvent, _context, callback) => {
     const detail = awsEvent.detail;
     const detailType = awsEvent["detail-type"];
+
+    const incomingEvent = {
+      detailType,
+      detail,
+    };
 
     const eventBus = new EventBridge<ServiceEvent>({
       handler_name: HANDLER_NAME,
       event_bus_name: EVENT_BUS_NAME,
     });
 
-    const event = await handler(
-      {
-        detailType,
-        detail,
-      },
-      { eventBus }
-    );
+    const event = await handler(incomingEvent, { eventBus });
     if (event) {
       const reply = await eventBus.put(event);
       callback(null, reply);
@@ -33,10 +34,13 @@ const wrapper: (handler: Handler<any, Services>) => AWSHandler = (handler) => {
 };
 
 const wrapServices: (
-  serviceMap: Record<string, Handler<any, Services>>
+  serviceMap: Record<string, Handler<ServiceEvent, Services>>
 ) => Record<string, AWSHandler> = (serviceMap) => {
-  let entries = Object.entries(serviceMap);
-  let wrappedEntries = entries.map(([key, handler]) => [key, wrapper(handler)]);
+  const entries = Object.entries(serviceMap);
+  const wrappedEntries = entries.map(([key, handler]) => [
+    key,
+    wrapper(handler),
+  ]);
   return Object.fromEntries(wrappedEntries);
 };
 

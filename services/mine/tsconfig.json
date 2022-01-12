@@ -1,5 +1,5 @@
 {
-  "extends": "@lefthoek/tsconfig/service.json",
+  "extends": "@lefthoek/config/tsconfig.typecheck.json",
   "compilerOptions": {
     "baseUrl": "./src",
     "rootDir": "./src",

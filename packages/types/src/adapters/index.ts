@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 import type { Event } from "../events";
 import { Maybe } from "@lefthoek/graphql-schema";
 
@@ -9,7 +11,7 @@ export interface FSAdapter {
   readJSON: ({ path }: { path: string }) => Promise<any>;
 }
 
-export interface EventBus<E extends Event> {
+export interface EventBus<E extends Event<string, unknown>> {
   put: (event: E) => Promise<E["detail"]>;
 }
 

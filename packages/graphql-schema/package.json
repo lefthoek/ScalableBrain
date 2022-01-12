@@ -7,7 +7,8 @@
   "scripts": {
     "prestitch": "rimraf dist src/all.graphql src/generated",
     "stitch": "graphql-schema-utilities -s src/**/*.graphql -o src/all.graphql",
-    "build": "yarn stitch && yarn graphql-codegen"
+    "generate": "yarn stitch && yarn graphql-codegen",
+    "build": "tsc"
   },
   "author": "Jan Hein Hoogstad",
   "license": "MIT",

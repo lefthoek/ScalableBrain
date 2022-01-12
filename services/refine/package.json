@@ -6,6 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "eslint . --ext .ts",
     "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",
     "dryrun": "serverless package -s ${SLS_ENVIRONMENT:-dev}"
   },
@@ -19,6 +21,7 @@
     "graphql-import-node": "^0.0.4"
   },
   "devDependencies": {
+    "@lefthoek/config": "*",
     "@types/aws-lambda": "^8.10.85",
     "@types/node-fetch": "^2.5.12",
     "rimraf": "^3.0.2",

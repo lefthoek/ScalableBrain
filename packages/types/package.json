@@ -9,7 +9,13 @@
   "dependencies": {
     "@lefthoek/graphql-schema": "*"
   },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "watch": "tsc -w"
+  },
   "devDependencies": {
+    "@lefthoek/config": "*",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.4"
   }
