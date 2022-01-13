@@ -25,7 +25,8 @@
         "dependsOn": [
           "build"
         ]
-      }
+      },
+      "test": {}
     }
   },
   "scripts": {
@@ -35,6 +36,7 @@
     "docs": "docsify serve docs",
     "build": "turbo run build",
     "lint": "turbo run lint",
+    "test": "turbo run test",
     "deploy": "turbo run deploy",
     "dryrun": "turbo run deploy"
   },

@@ -6,5 +6,20 @@ module.exports = {
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
   ],
-  ignorePatterns: ["**/*.js", "dist/"],
+  overrides: [
+    {
+      env: {
+        jest: true,
+      },
+      files: ["**/__tests__/**/*.[jt]s", "**/?(*.)+(spec|test).[jt]s"],
+      extends: ["plugin:jest/recommended"],
+      rules: {
+        "import/no-extraneous-dependencies": [
+          "off",
+          { devDependencies: ["**/?(*.)+(spec|test).[jt]s"] },
+        ],
+      },
+    },
+  ],
+  ignorePatterns: ["**/*.js", "node_modules", ".turbo", "dist", "coverage"],
 };
