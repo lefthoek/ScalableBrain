@@ -1,6 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
-import type { Event } from "../events";
+import type { GenericEvent } from "../events";
 import { Maybe } from "@lefthoek/graphql-schema";
 
 export interface FSAdapter {
@@ -11,7 +11,7 @@ export interface FSAdapter {
   readJSON: ({ path }: { path: string }) => Promise<any>;
 }
 
-export interface EventBus<E extends Event<string, unknown>> {
+export interface EventBus<E extends GenericEvent> {
   put: (event: E) => Promise<E["detail"]>;
 }
 
@@ -20,5 +20,13 @@ export interface Store<T extends { id: string }> {
   fetch: (input: Pick<T, "id">) => Promise<Maybe<T>>;
   write: (data: T) => Promise<T>;
 }
+import { EventBridge } from "@lefthoek/adapters";
 
-export type Handler<U, T> = (event: U, services?: T) => Promise<U>;
+export type Services<U extends GenericEvent> = {
+  eventBus: EventBridge<U>;
+};
+
+export type Handler<I extends GenericEvent, O extends GenericEvent, S> = (
+  event: I,
+  services?: S
+) => Promise<O>;

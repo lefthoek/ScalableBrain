@@ -5,7 +5,7 @@
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "xbuild": "tsc",
     "watch": "tsc -w",
     "lint": "eslint . --ext .ts",
     "deploy": "serverless deploy -s ${SLS_ENVIRONMENT:-dev}",

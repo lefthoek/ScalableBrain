@@ -6,6 +6,8 @@ export interface Event<T extends string, U> {
   detail: U;
 }
 
+export type GenericEvent = Event<string, unknown>;
+
 export type LefthoekEventPayload = Team;
 
 export type LHEvent = Event<LefthoekEventType, LefthoekEventPayload>;

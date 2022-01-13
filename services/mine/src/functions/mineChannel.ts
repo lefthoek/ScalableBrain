@@ -15,7 +15,7 @@ const {
 
 const mineChannel = async (
   event: ChannelRepoInitiatedEvent,
-  services: Services
+  services: Services<any>
 ) => {
   const { provider_id, provider_type, channel_id } = event.detail;
   const authLookup = new AuthLookup({ table_name });
