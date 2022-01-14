@@ -30,49 +30,52 @@ jest.mock("aws-sdk", () => {
     },
   };
 });
-beforeEach(() => {
-  mockPromise.mockClear();
-});
 
-test("throw without a tablename", () => {
-  expect(() => new AuthLookup({ table_name: "" })).toThrow();
-  expect(() => new AuthLookup({ table_name: "xxxx" })).not.toThrow();
-});
+describe("AuthLookup", () => {
+  beforeEach(() => {
+    mockPromise.mockClear();
+  });
 
-test("get an item", async () => {
-  const authLookup = new AuthLookup({ table_name: "xxx" });
+  test("throw without a tablename", () => {
+    expect(() => new AuthLookup({ table_name: "" })).toThrow();
+    expect(() => new AuthLookup({ table_name: "xxxx" })).not.toThrow();
+  });
 
-  expect(authLookup).toBeDefined();
+  test("get an item", async () => {
+    const authLookup = new AuthLookup({ table_name: "xxx" });
 
-  expect(
-    await authLookup.get({
+    expect(authLookup).toBeDefined();
+
+    expect(
+      await authLookup.get({
+        provider_id: "XXX",
+        provider_type: ProviderType.Slack,
+      })
+    ).toBeTruthy();
+
+    expect(
+      await authLookup.get({
+        provider_id: "YYY",
+        provider_type: ProviderType.Slack,
+      })
+    ).toBeNull();
+
+    expect(mockPromise).toBeCalledTimes(2);
+  });
+
+  test("put an item", async () => {
+    const authLookup = new AuthLookup({ table_name: "xxx" });
+
+    expect(authLookup).toBeDefined();
+
+    const authData = {
+      team_id: "XYX",
       provider_id: "XXX",
       provider_type: ProviderType.Slack,
-    })
-  ).toBeTruthy();
+      access_token: "XXXX",
+    };
+    expect(await authLookup.write(authData)).toBe(authData);
 
-  expect(
-    await authLookup.get({
-      provider_id: "YYY",
-      provider_type: ProviderType.Slack,
-    })
-  ).toBeNull();
-
-  expect(mockPromise).toBeCalledTimes(2);
-});
-
-test("put an item", async () => {
-  const authLookup = new AuthLookup({ table_name: "xxx" });
-
-  expect(authLookup).toBeDefined();
-
-  const authData = {
-    team_id: "XYX",
-    provider_id: "XXX",
-    provider_type: ProviderType.Slack,
-    access_token: "XXXX",
-  };
-  expect(await authLookup.write(authData)).toBe(authData);
-
-  expect(mockPromise).toBeCalledTimes(1);
+    expect(mockPromise).toBeCalledTimes(1);
+  });
 });
