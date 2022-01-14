@@ -35,10 +35,10 @@ class AuthLookup implements LookupTable<AuthInput, AuthLookupData> {
     return Item as AuthLookupData | null;
   }
 
-  async write(team: AuthLookupData) {
+  async write(authData: AuthLookupData) {
     try {
-      await ddb.put({ TableName: this.table_name, Item: team }).promise();
-      return team;
+      await ddb.put({ TableName: this.table_name, Item: authData }).promise();
+      return authData;
     } catch (e) {
       console.log(e);
       throw new Error(JSON.stringify(e));
