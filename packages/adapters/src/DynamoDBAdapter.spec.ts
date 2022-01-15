@@ -11,19 +11,8 @@ jest.mock("aws-sdk", () => {
           put() {
             return { promise: mockPromise };
           },
-          get({ Key: { provider_id } }: { Key: { provider_id: string } }) {
-            const authData = {
-              team_id: "XYX",
-              provider_id: "XXX",
-              provider_type: "SLACK",
-              access_token: "XXXX",
-            };
-            const Item = provider_id === "XXX" ? authData : null;
-            return {
-              promise: mockPromise.mockResolvedValue({
-                Item,
-              }),
-            };
+          get() {
+            return { promise: mockPromise };
           },
         };
       }),
@@ -36,45 +25,50 @@ describe("DynamoDB", () => {
     mockPromise.mockClear();
   });
 
-  it("throw without a tablename", () => {
+  it("throws without a tablename", () => {
     expect(() => new DynamoDBAdapter({ table_name: "" })).toThrow();
     expect(() => new DynamoDBAdapter({ table_name: "xxxx" })).not.toThrow();
   });
 
-  it("get an item", async () => {
+  it("gets an item when it exists", async () => {
     const ddb = new DynamoDBAdapter({ table_name: "xxx" });
-
     expect(ddb).toBeDefined();
+    mockPromise.mockResolvedValue({ Item: "AAA" });
 
     expect(
       await ddb.fetch({
-        provider_id: "XXX",
-        provider_type: ProviderType.Slack,
+        key1: "AAA",
+        key2: "AAA",
       })
     ).toBeTruthy();
+    expect(mockPromise).toBeCalledTimes(1);
+  });
 
+  it("returns null when item doesn't exist", async () => {
+    const ddb = new DynamoDBAdapter({ table_name: "xxx" });
+    expect(ddb).toBeDefined();
+    mockPromise.mockResolvedValue({ Item: null });
     expect(
       await ddb.fetch({
-        provider_id: "YYY",
-        provider_type: ProviderType.Slack,
+        key1: "BBB",
+        key2: "BBB",
       })
     ).toBeNull();
 
-    expect(mockPromise).toBeCalledTimes(2);
+    expect(mockPromise).toBeCalledTimes(1);
   });
 
-  it("put an item", async () => {
+  it("return the item after write", async () => {
     const ddb = new DynamoDBAdapter({ table_name: "xxx" });
 
     expect(ddb).toBeDefined();
 
-    const authData = {
-      team_id: "XYX",
-      provider_id: "XXX",
-      provider_type: ProviderType.Slack,
-      access_token: "XXXX",
+    const data = {
+      key1: "BBB",
+      key2: "BBB",
     };
-    expect(await ddb.write(authData)).toBe(authData);
+
+    expect(await ddb.write(data)).toBe(data);
 
     expect(mockPromise).toBeCalledTimes(1);
   });

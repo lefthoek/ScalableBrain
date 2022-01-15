@@ -1,5 +1,5 @@
 import { LefthoekEventType } from "../enums";
-import { Team } from "../models";
+import { AuthLookupData, Team } from "../models";
 
 export interface Event<T extends string, U> {
   detailType: T;
@@ -8,13 +8,13 @@ export interface Event<T extends string, U> {
 
 export type GenericEvent = Event<string, unknown>;
 
-export type LefthoekEventPayload = Team;
+export type LefthoekEventPayload = Team | AuthLookupData;
 
 export type LHEvent = Event<LefthoekEventType, LefthoekEventPayload>;
 
 export interface TeamAuthenticatedEvent extends LHEvent {
   detailType: LefthoekEventType.TEAM_AUTHENTICATED;
-  detail: Team;
+  detail: AuthLookupData;
 }
 export interface TeamAddedEvent extends LHEvent {
   detailType: LefthoekEventType.TEAM_ADDED;

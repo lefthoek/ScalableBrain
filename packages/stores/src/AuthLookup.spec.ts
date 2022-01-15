@@ -1,5 +1,6 @@
 import { AuthLookup } from "./AuthLookup";
 import { ProviderType } from "@lefthoek/types";
+import { DynamoDBAdapter } from "@lefthoek/adapters";
 
 const mockPromise = jest.fn();
 
@@ -19,13 +20,15 @@ describe("AuthLookup", () => {
   });
 
   it("gets auth data if provider id and provider type exist", async () => {
-    const authLookup = new AuthLookup({ table_name: "xxx" });
+    const adapter = new DynamoDBAdapter({ table_name: "XXX" });
+    const authLookup = new AuthLookup({ adapter });
 
     expect(authLookup).toBeDefined();
 
     const authData = {
       team_id: "XYX",
       provider_id: "XXX",
+      name: "ZZZ",
       provider_type: "SLACK",
       access_token: "XXXX",
     };
@@ -41,7 +44,8 @@ describe("AuthLookup", () => {
   });
 
   it("returns null if provider id and provider type do not exist", async () => {
-    const authLookup = new AuthLookup({ table_name: "xxx" });
+    const adapter = new DynamoDBAdapter({ table_name: "XXX" });
+    const authLookup = new AuthLookup({ adapter });
 
     expect(authLookup).toBeDefined();
 
@@ -58,12 +62,14 @@ describe("AuthLookup", () => {
   });
 
   it("put an item", async () => {
-    const authLookup = new AuthLookup({ table_name: "xxx" });
+    const adapter = new DynamoDBAdapter({ table_name: "XXX" });
+    const authLookup = new AuthLookup({ adapter });
     expect(authLookup).toBeDefined();
 
     const authData = {
       team_id: "XYX",
       provider_id: "XXX",
+      name: "ZZZ",
       provider_type: ProviderType.Slack,
       access_token: "XXXX",
     };

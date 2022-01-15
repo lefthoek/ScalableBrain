@@ -12,9 +12,15 @@ type OutcomingEvent = TeamAddedEvent;
 const initTeam: (event: IncomingEvent) => Promise<OutcomingEvent> = async (
   event
 ) => {
+  const { provider_id, name, team_id, provider_type } = event.detail;
   const adapter = new S3Adapter({ bucket_name });
   const teamRepo = new TeamRepo({ adapter });
-  const detail = await teamRepo.write(event.detail);
+  const team = {
+    id: team_id,
+    name,
+    providers: [{ type: provider_type, id: provider_id, name }],
+  };
+  const detail = await teamRepo.write(team);
 
   return {
     detailType: TEAM_ADDED,

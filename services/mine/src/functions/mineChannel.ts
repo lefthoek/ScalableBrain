@@ -1,7 +1,7 @@
 import Slack from "@providers/slack";
 import ChannelRepo from "@stores/channelRepo";
 import { AuthLookup } from "@lefthoek/stores";
-import { S3Adapter } from "@lefthoek/adapters";
+import { S3Adapter, DynamoDBAdapter } from "@lefthoek/adapters";
 import { ServiceEventType } from "@service_types/enums";
 import { Services } from "@service_types/index";
 
@@ -18,18 +18,19 @@ const mineChannel = async (
   services: Services<any>
 ) => {
   const { provider_id, provider_type, channel_id } = event.detail;
-  const authLookup = new AuthLookup({ table_name });
+  const authAdapter = new DynamoDBAdapter({ table_name });
+  const authLookup = new AuthLookup({ adapter: authAdapter });
   const access_token = await authLookup.getAccessToken({
     provider_id,
     provider_type,
   });
   const slack = new Slack({ access_token, signing_secret });
-  const adapter = new S3Adapter({ bucket_name });
+  const repoAdapter = new S3Adapter({ bucket_name });
   const channelRepo = new ChannelRepo({
     provider_type,
     provider_id,
     channel_id,
-    adapter,
+    adapter: repoAdapter,
   });
 
   const { latest_chunk, is_updating } = await channelRepo.init();

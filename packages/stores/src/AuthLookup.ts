@@ -7,14 +7,8 @@ type AuthInput = Pick<AuthLookupData, IdKeys>;
 class AuthLookup implements Store<AuthLookupData, IdKeys> {
   adapter: DynamoDBAdapter;
 
-  constructor({
-    adapter,
-    table_name,
-  }: {
-    adapter?: DynamoDBAdapter;
-    table_name: string | undefined;
-  }) {
-    this.adapter = adapter || new DynamoDBAdapter({ table_name });
+  constructor({ adapter }: { adapter: DynamoDBAdapter }) {
+    this.adapter = adapter;
   }
 
   async getAccessToken(input: AuthInput) {
@@ -26,11 +20,11 @@ class AuthLookup implements Store<AuthLookupData, IdKeys> {
   }
 
   async fetch(input: AuthInput) {
-    return await this.adapter.fetch(input);
+    return (await this.adapter.fetch(input)) as AuthLookupData | null;
   }
 
   async write(data: AuthLookupData) {
-    return await this.adapter.write(data);
+    return (await this.adapter.write(data)) as AuthLookupData;
   }
 }
 export { AuthLookup };

@@ -1,4 +1,4 @@
-import { S3Adapter } from "@lefthoek/adapters";
+import { S3Adapter, DynamoDBAdapter } from "@lefthoek/adapters";
 import { AuthLookup } from "@lefthoek/stores";
 /**
 import ChannelRepo from "@stores/channelRepo";
@@ -15,10 +15,11 @@ const {
 } = process.env;
 
 const initChannels = async (event: TeamRepoInitiatedEvent) => {
-  const adapter = new S3Adapter({ bucket_name });
-  const authLookup = new AuthLookup({ table_name });
+  const repoAdapter = new S3Adapter({ bucket_name });
+  const authAdapter = new DynamoDBAdapter({ table_name });
+  const authLookup = new AuthLookup({ adapter: authAdapter });
   console.log(event);
-  console.log(adapter, signing_secret, authLookup);
+  console.log(repoAdapter, signing_secret, authLookup);
   return null;
   /**
   const { team_id, platform_type } = event.detail;

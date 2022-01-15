@@ -1,9 +1,5 @@
 import AWS from "aws-sdk";
-import type { AuthLookupData } from "@lefthoek/types";
 const ddb = new AWS.DynamoDB.DocumentClient();
-
-type IdKeys = "provider_id" | "provider_type";
-type AuthInput = Pick<AuthLookupData, IdKeys>;
 
 class DynamoDBAdapter {
   table_name: string;
@@ -14,23 +10,24 @@ class DynamoDBAdapter {
     }
     this.table_name = table_name;
   }
-  async fetch({ provider_id, provider_type }: AuthInput) {
+  async fetch(Key: Record<string, string>) {
     const params = {
       TableName: this.table_name,
-      Key: { provider_id, provider_type },
+      Key,
     };
     const { Item } = await ddb.get(params).promise();
-    return Item as AuthLookupData | null;
+    return Item as Record<string, string> | null;
   }
 
-  async write(data: AuthLookupData) {
+  async write(Item: Record<string, string>) {
     try {
-      await ddb.put({ TableName: this.table_name, Item: data }).promise();
-      return data;
+      await ddb.put({ TableName: this.table_name, Item }).promise();
+      return Item;
     } catch (e) {
       console.log(e);
       throw new Error(JSON.stringify(e));
     }
   }
 }
+
 export { DynamoDBAdapter };

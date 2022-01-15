@@ -15,6 +15,7 @@ export type SlackOAuthData = {
 export type AuthLookupData = {
   provider_id: string;
   team_id: string;
+  name: string;
   access_token: string;
   provider_type: ProviderType;
 };

@@ -50,7 +50,6 @@ export type Team = {
 };
 
 export type TeamProvider = {
-  access_token: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];
   type: ProviderType;
@@ -171,7 +170,6 @@ export type TeamResolvers<ContextType = any, ParentType extends ResolversParentT
 }>;
 
 export type TeamProviderResolvers<ContextType = any, ParentType extends ResolversParentTypes['TeamProvider'] = ResolversParentTypes['TeamProvider']> = ResolversObject<{
-  access_token: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type: Resolver<ResolversTypes['ProviderType'], ParentType, ContextType>;
