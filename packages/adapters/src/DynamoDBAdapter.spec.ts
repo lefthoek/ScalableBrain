@@ -1,19 +1,13 @@
 import { DynamoDBAdapter } from "./DynamoDBAdapter";
-import { ProviderType } from "@lefthoek/types";
 
-const mockPromise = jest.fn();
-
+const mock = jest.fn();
 jest.mock("aws-sdk", () => {
   return {
     DynamoDB: {
       DocumentClient: jest.fn(() => {
         return {
-          put() {
-            return { promise: mockPromise };
-          },
-          get() {
-            return { promise: mockPromise };
-          },
+          put: (args: AWS.DynamoDB.DocumentClient.PutRequest) => mock(args),
+          get: (args: AWS.DynamoDB.DocumentClient.GetItemInput) => mock(args),
         };
       }),
     },
@@ -22,7 +16,7 @@ jest.mock("aws-sdk", () => {
 
 describe("DynamoDB", () => {
   beforeEach(() => {
-    mockPromise.mockClear();
+    mock.mockClear();
   });
 
   it("throws without a tablename", () => {
@@ -33,7 +27,7 @@ describe("DynamoDB", () => {
   it("gets an item when it exists", async () => {
     const ddb = new DynamoDBAdapter({ table_name: "xxx" });
     expect(ddb).toBeDefined();
-    mockPromise.mockResolvedValue({ Item: "AAA" });
+    mock.mockReturnValue({ promise: () => ({ Item: "AAA" }) });
 
     expect(
       await ddb.fetch({
@@ -41,13 +35,13 @@ describe("DynamoDB", () => {
         key2: "AAA",
       })
     ).toBeTruthy();
-    expect(mockPromise).toBeCalledTimes(1);
+    expect(mock).toBeCalledTimes(1);
   });
 
   it("returns null when item doesn't exist", async () => {
     const ddb = new DynamoDBAdapter({ table_name: "xxx" });
     expect(ddb).toBeDefined();
-    mockPromise.mockResolvedValue({ Item: null });
+    mock.mockReturnValue({ promise: () => ({ Item: null }) });
     expect(
       await ddb.fetch({
         key1: "BBB",
@@ -55,7 +49,7 @@ describe("DynamoDB", () => {
       })
     ).toBeNull();
 
-    expect(mockPromise).toBeCalledTimes(1);
+    expect(mock).toBeCalledTimes(1);
   });
 
   it("return the item after write", async () => {
@@ -68,8 +62,9 @@ describe("DynamoDB", () => {
       key2: "BBB",
     };
 
+    mock.mockReturnValue({ promise: () => ({}) });
     expect(await ddb.write(data)).toBe(data);
 
-    expect(mockPromise).toBeCalledTimes(1);
+    expect(mock).toBeCalledTimes(1);
   });
 });

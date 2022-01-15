@@ -5,6 +5,7 @@
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "eslint . --ext .ts",

@@ -1,5 +1,6 @@
 {
   "extends": "@lefthoek/config/tsconfig.typecheck.json",
+  "exclude": ["**/*.spec.ts", "**/*.mock.ts"],
   "compilerOptions": {
     "baseUrl": "./src",
     "rootDir": "./src",

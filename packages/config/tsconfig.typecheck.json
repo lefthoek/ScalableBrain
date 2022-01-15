@@ -1,5 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
+  "exclude": ["**/*.spec.ts", "**/*.mock.ts"],
   "compilerOptions": {
     "emitDeclarationOnly": true,
     "declaration": true

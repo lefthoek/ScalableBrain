@@ -10,6 +10,7 @@
     "@lefthoek/graphql-schema": "*"
   },
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "watch": "tsc -w"

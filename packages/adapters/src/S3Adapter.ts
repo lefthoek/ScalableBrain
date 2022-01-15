@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 import AWS from "aws-sdk";
 
 import type { FSAdapter } from "@lefthoek/types";
@@ -7,7 +9,7 @@ const s3 = new AWS.S3();
 class S3Adapter implements FSAdapter {
   bucket_name: string;
 
-  constructor({ bucket_name }: { bucket_name?: string }) {
+  constructor({ bucket_name }: { bucket_name: string | undefined }) {
     if (!bucket_name) {
       throw new Error("The bucket name must be set in your environment");
     }
@@ -36,15 +38,12 @@ class S3Adapter implements FSAdapter {
   }
 
   async readJSON({ path }: { path: string }) {
-    try {
-      const { Body } = await s3
-        .getObject({ Bucket: this.bucket_name, Key: path })
-        .promise();
-      const json = Body ? Body.toString("utf-8") : "{}";
-      return JSON.parse(json);
-    } catch (e) {
-      console.log("e", e);
-    }
+    const { Body } = await s3
+      .getObject({ Bucket: this.bucket_name, Key: path })
+      .promise();
+
+    const json = Body ? Body.toString("utf-8") : "{}";
+    return JSON.parse(json);
   }
 
   async writeJSON({ path, data }: { path: string; data: any }) {
