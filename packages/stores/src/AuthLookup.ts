@@ -1,48 +1,36 @@
-import AWS from "aws-sdk";
-import type { AuthLookupData, Maybe } from "@lefthoek/types";
+import type { AuthLookupData, Store } from "@lefthoek/types";
+import { DynamoDBAdapter } from "@lefthoek/adapters";
 
-const ddb = new AWS.DynamoDB.DocumentClient();
-type AuthInput = Pick<AuthLookupData, "provider_id" | "provider_type">;
-interface LookupTable<I, T> {
-  get: (input: I) => Promise<Maybe<T>>;
-  write: (team: AuthLookupData) => Promise<AuthLookupData>;
-}
+type IdKeys = "provider_id" | "provider_type";
+type AuthInput = Pick<AuthLookupData, IdKeys>;
 
-class AuthLookup implements LookupTable<AuthInput, AuthLookupData> {
-  table_name: string;
+class AuthLookup implements Store<AuthLookupData, IdKeys> {
+  adapter: DynamoDBAdapter;
 
-  constructor({ table_name }: { table_name?: string }) {
-    if (!table_name) {
-      throw new Error("The table name must be set in your environment");
-    }
-    this.table_name = table_name;
+  constructor({
+    adapter,
+    table_name,
+  }: {
+    adapter?: DynamoDBAdapter;
+    table_name: string | undefined;
+  }) {
+    this.adapter = adapter || new DynamoDBAdapter({ table_name });
   }
 
   async getAccessToken(input: AuthInput) {
-    const item = await this.get(input);
+    const item = await this.adapter.fetch(input);
     if (!item) {
       throw new Error("this team does not exist");
     }
     return item.access_token;
   }
 
-  async get({ provider_id, provider_type }: AuthInput) {
-    const params = {
-      TableName: this.table_name,
-      Key: { provider_id, provider_type },
-    };
-    const { Item } = await ddb.get(params).promise();
-    return Item as AuthLookupData | null;
+  async fetch(input: AuthInput) {
+    return await this.adapter.fetch(input);
   }
 
-  async write(authData: AuthLookupData) {
-    try {
-      await ddb.put({ TableName: this.table_name, Item: authData }).promise();
-      return authData;
-    } catch (e) {
-      console.log(e);
-      throw new Error(JSON.stringify(e));
-    }
+  async write(data: AuthLookupData) {
+    return await this.adapter.write(data);
   }
 }
 export { AuthLookup };

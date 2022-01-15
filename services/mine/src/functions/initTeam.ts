@@ -14,7 +14,7 @@ const initTeam: (event: IncomingEvent) => Promise<OutgoingEvents> = async (
 ) => {
   const adapter = new S3Adapter({ bucket_name });
   const teamRepo = new TeamRepo({ adapter });
-  const detail = await teamRepo.init(event.detail);
+  const detail = await teamRepo.write(event.detail);
 
   return {
     detailType: TEAM_REPO_INITIATED,

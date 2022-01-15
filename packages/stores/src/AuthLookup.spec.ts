@@ -3,69 +3,62 @@ import { ProviderType } from "@lefthoek/types";
 
 const mockPromise = jest.fn();
 
-jest.mock("aws-sdk", () => {
-  return {
-    DynamoDB: {
-      DocumentClient: jest.fn(() => {
-        return {
-          put() {
-            return { promise: mockPromise };
-          },
-          get({ Key: { provider_id } }: { Key: { provider_id: string } }) {
-            const authData = {
-              team_id: "XYX",
-              provider_id: "XXX",
-              provider_type: "SLACK",
-              access_token: "XXXX",
-            };
-            const Item = provider_id === "XXX" ? authData : null;
-            return {
-              promise: mockPromise.mockResolvedValue({
-                Item,
-              }),
-            };
-          },
-        };
-      }),
-    },
-  };
-});
+jest.mock("@lefthoek/adapters", () => ({
+  __esModule: true, // this property makes it work
+  DynamoDBAdapter: function () {
+    return {
+      fetch: mockPromise,
+      write: mockPromise,
+    };
+  },
+}));
 
 describe("AuthLookup", () => {
   beforeEach(() => {
     mockPromise.mockClear();
   });
 
-  test("throw without a tablename", () => {
-    expect(() => new AuthLookup({ table_name: "" })).toThrow();
-    expect(() => new AuthLookup({ table_name: "xxxx" })).not.toThrow();
-  });
-
-  test("get an item", async () => {
+  it("gets auth data if provider id and provider type exist", async () => {
     const authLookup = new AuthLookup({ table_name: "xxx" });
 
     expect(authLookup).toBeDefined();
 
+    const authData = {
+      team_id: "XYX",
+      provider_id: "XXX",
+      provider_type: "SLACK",
+      access_token: "XXXX",
+    };
+    mockPromise.mockResolvedValue(authData);
+
     expect(
-      await authLookup.get({
+      await authLookup.fetch({
         provider_id: "XXX",
         provider_type: ProviderType.Slack,
       })
     ).toBeTruthy();
+    expect(mockPromise).toBeCalledTimes(1);
+  });
+
+  it("returns null if provider id and provider type do not exist", async () => {
+    const authLookup = new AuthLookup({ table_name: "xxx" });
+
+    expect(authLookup).toBeDefined();
+
+    mockPromise.mockResolvedValue(null);
 
     expect(
-      await authLookup.get({
+      await authLookup.fetch({
         provider_id: "YYY",
         provider_type: ProviderType.Slack,
       })
     ).toBeNull();
 
-    expect(mockPromise).toBeCalledTimes(2);
+    expect(mockPromise).toBeCalledTimes(1);
   });
 
-  test("put an item", async () => {
+  it("put an item", async () => {
     const authLookup = new AuthLookup({ table_name: "xxx" });
-
     expect(authLookup).toBeDefined();
 
     const authData = {
@@ -74,8 +67,9 @@ describe("AuthLookup", () => {
       provider_type: ProviderType.Slack,
       access_token: "XXXX",
     };
-    expect(await authLookup.write(authData)).toBe(authData);
 
+    mockPromise.mockResolvedValue(authData);
+    expect(await authLookup.write(authData)).toBe(authData);
     expect(mockPromise).toBeCalledTimes(1);
   });
 });

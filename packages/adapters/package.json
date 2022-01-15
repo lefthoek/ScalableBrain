@@ -9,6 +9,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --ext .ts",
+    "test": "jest",
     "watch": "tsc -w"
   },
   "dependencies": {

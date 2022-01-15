@@ -32,7 +32,7 @@ export const slack = async (event: SlackOAuthQueryString) => {
     const { name, id: provider_id } = team;
     const provider_type = ProviderType.Slack;
 
-    const authData = await authLookup.get({ provider_id, provider_type });
+    const authData = await authLookup.fetch({ provider_id, provider_type });
     const id = authData?.team_id || uuid();
 
     await authLookup.write({

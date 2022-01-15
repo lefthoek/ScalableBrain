@@ -15,9 +15,8 @@ export interface EventBus<E extends GenericEvent> {
   put: (event: E) => Promise<E["detail"]>;
 }
 
-export interface Store<T extends { id: string }> {
-  init: (data: T) => Promise<T>;
-  fetch: (input: Pick<T, "id">) => Promise<Maybe<T>>;
+export interface Store<T, U extends keyof T> {
+  fetch: (input: Pick<T, U>) => Promise<Maybe<T>>;
   write: (data: T) => Promise<T>;
 }
 import { EventBridge } from "@lefthoek/adapters";
