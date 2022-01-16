@@ -38,12 +38,16 @@ class S3Adapter implements FSAdapter {
   }
 
   async readJSON({ path }: { path: string }) {
-    const { Body } = await s3
-      .getObject({ Bucket: this.bucket_name, Key: path })
-      .promise();
+    try {
+      const { Body } = await s3
+        .getObject({ Bucket: this.bucket_name, Key: path })
+        .promise();
 
-    const json = Body ? Body.toString("utf-8") : "{}";
-    return JSON.parse(json);
+      const json = Body ? Body.toString("utf-8") : "{}";
+      return JSON.parse(json);
+    } catch (e) {
+      throw new Error("could not parse json");
+    }
   }
 
   async writeJSON({ path, data }: { path: string; data: any }) {

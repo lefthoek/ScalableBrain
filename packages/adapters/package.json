@@ -10,16 +10,16 @@
     "prebuild": "rimraf dist",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest --verbose",
+    "test": "jest --verbose --silent",
     "watch": "tsc -w"
   },
   "dependencies": {
-    "aws-sdk": "^2.884.0"
+    "aws-sdk": "^2.1058.0"
   },
   "devDependencies": {
     "@lefthoek/types": "*",
     "@lefthoek/config": "*",
     "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
+    "typescript": "^4.5.4"
   }
 }

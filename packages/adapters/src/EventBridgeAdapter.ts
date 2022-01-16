@@ -2,6 +2,7 @@ import { EventBridge as EB } from "aws-sdk";
 import type { EventBus, GenericEvent } from "@lefthoek/types";
 
 const event_bridge = new EB();
+
 class EventBridgeAdapter<T extends GenericEvent> implements EventBus<T> {
   handler_name: string;
   event_bus_name: string;

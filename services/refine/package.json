@@ -17,20 +17,20 @@
     "@lefthoek/adapters": "*",
     "@lefthoek/stores": "*",
     "@slack/bolt": "^3.8.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.1",
     "graphql": "^16.2.0",
     "graphql-import-node": "^0.0.4"
   },
   "devDependencies": {
     "@lefthoek/config": "*",
-    "@types/aws-lambda": "^8.10.85",
-    "@types/node-fetch": "^2.5.12",
+    "@types/aws-lambda": "^8.10.89",
+    "@types/node-fetch": "^3.0.3",
     "rimraf": "^3.0.2",
-    "serverless": "^2.68.0",
+    "serverless": "^2.71.0",
     "serverless-plugin-monorepo": "^0.11.0",
     "serverless-esbuild": "^1.23.3",
     "serverless-offline": "^8.3.1",
-    "tsc-alias": "^1.4.2",
-    "typescript": "^4.5.2"
+    "tsc-alias": "^1.5.0",
+    "typescript": "^4.5.4"
   }
 }
