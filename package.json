@@ -30,7 +30,6 @@
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
     "codegen": "graphql-codegen --config codegen.yml",
     "docs": "docsify serve docs",
