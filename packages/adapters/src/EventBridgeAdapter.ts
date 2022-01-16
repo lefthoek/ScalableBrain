@@ -1,17 +1,17 @@
 import { EventBridge as EB } from "aws-sdk";
-import type { EventBus, Event } from "@lefthoek/types";
+import type { EventBus, GenericEvent } from "@lefthoek/types";
 
-class EventBridge<T extends Event<string, unknown>> implements EventBus<T> {
+const event_bridge = new EB();
+class EventBridgeAdapter<T extends GenericEvent> implements EventBus<T> {
   handler_name: string;
   event_bus_name: string;
-  event_bridge: EB;
 
   constructor({
     handler_name,
     event_bus_name,
   }: {
-    handler_name?: string;
-    event_bus_name?: string;
+    handler_name: string | undefined;
+    event_bus_name: string | undefined;
   }) {
     if (!handler_name) {
       throw new Error("The handler name needs to be set in your environment");
@@ -23,7 +23,6 @@ class EventBridge<T extends Event<string, unknown>> implements EventBus<T> {
 
     this.handler_name = handler_name;
     this.event_bus_name = event_bus_name;
-    this.event_bridge = new EB();
   }
 
   async put({ detailType, detail }: T) {
@@ -35,14 +34,14 @@ class EventBridge<T extends Event<string, unknown>> implements EventBus<T> {
       EventBusName: this.event_bus_name,
       Detail,
     };
-    const reply = await this.event_bridge
+    const reply = await event_bridge
       .putEvents({
         Entries: [event],
       })
       .promise();
-    console.log(this.handler_name, reply);
+    console.log("INFO", this.handler_name, reply);
     return detail;
   }
 }
 
-export { EventBridge };
+export { EventBridgeAdapter };

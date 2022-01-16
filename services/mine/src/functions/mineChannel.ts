@@ -3,7 +3,8 @@ import ChannelRepo from "@stores/channelRepo";
 import { AuthLookup } from "@lefthoek/stores";
 import { S3Adapter, DynamoDBAdapter } from "@lefthoek/adapters";
 import { ServiceEventType } from "@service_types/enums";
-import { Services } from "@service_types/index";
+import { ServiceEvent } from "@service_types/events";
+import { Services } from "@lefthoek/types";
 
 import type { ChannelRepoInitiatedEvent } from "@service_types/events";
 
@@ -15,7 +16,7 @@ const {
 
 const mineChannel = async (
   event: ChannelRepoInitiatedEvent,
-  services: Services<any>
+  services: Services<ServiceEvent>
 ) => {
   const { provider_id, provider_type, channel_id } = event.detail;
   const authAdapter = new DynamoDBAdapter({ table_name });

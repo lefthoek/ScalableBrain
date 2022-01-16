@@ -1,5 +1,5 @@
 import { Handler as AWSHandler } from "aws-lambda";
-import { EventBridge } from "@lefthoek/adapters";
+import { EventBridgeAdapter } from "@lefthoek/adapters";
 import type { Handler, Services } from "@lefthoek/types";
 import type { GenericEvent } from "@lefthoek/types";
 
@@ -17,7 +17,7 @@ function serviceHandlerWrapper<I extends GenericEvent, O extends GenericEvent>(
       detail,
     } as unknown as I;
 
-    const eventBus = new EventBridge<O>({
+    const eventBus = new EventBridgeAdapter<O>({
       handler_name: HANDLER_NAME,
       event_bus_name: EVENT_BUS_NAME,
     });

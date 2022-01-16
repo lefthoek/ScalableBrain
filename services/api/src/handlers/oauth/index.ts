@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { URLSearchParams } from "url";
-import { EventBridge, DynamoDBAdapter } from "@lefthoek/adapters";
+import { EventBridgeAdapter, DynamoDBAdapter } from "@lefthoek/adapters";
 import { AuthLookup } from "@lefthoek/stores";
 import { ProviderType, LefthoekEventType } from "@lefthoek/types";
 import type { SlackOAuthData } from "@lefthoek/types";
@@ -18,7 +18,7 @@ const {
 } = process.env;
 
 export const slack = async (event: SlackOAuthQueryString) => {
-  const eventBus = new EventBridge({ handler_name, event_bus_name });
+  const eventBus = new EventBridgeAdapter({ handler_name, event_bus_name });
   const authAdapter = new DynamoDBAdapter({ table_name });
   const authLookup = new AuthLookup({ adapter: authAdapter });
 

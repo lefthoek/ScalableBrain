@@ -1,7 +1,7 @@
 import { ServiceEventType } from "./enums";
 import type { Event, Team } from "@lefthoek/types";
-
 import { TeamRepoMetaData, ChannelRepoMetaData } from "./models";
+
 export type ServiceEventPayload =
   | Team
   | TeamRepoMetaData

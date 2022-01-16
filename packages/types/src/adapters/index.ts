@@ -19,10 +19,9 @@ export interface Store<T, U extends keyof T> {
   fetch: (input: Pick<T, U>) => Promise<Maybe<T>>;
   write: (data: T) => Promise<T>;
 }
-import { EventBridge } from "@lefthoek/adapters";
 
 export type Services<U extends GenericEvent> = {
-  eventBus: EventBridge<U>;
+  eventBus: EventBus<U>;
 };
 
 export type Handler<I extends GenericEvent, O extends GenericEvent, S> = (
