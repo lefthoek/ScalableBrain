@@ -10,7 +10,7 @@
     "prebuild": "rimraf dist",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest",
+    "test": "jest --verbose",
     "watch": "tsc -w"
   },
   "devDependencies": {

@@ -18,7 +18,7 @@ class TeamRepo implements Store<Team, "id"> {
       });
       return team;
     } catch (e) {
-      throw new Error("could not initialize team repo");
+      throw new Error("could not write team repo");
     }
   }
 
