@@ -10,7 +10,6 @@ const resolvers: Resolvers = {
     type: async ({ type }) => type,
     name: async ({ name }) => name,
     id: async ({ id }) => id,
-    access_token: async () => "NONE OF YOUR BUSINESS",
   },
   Team: {
     name: async ({ name }) => name,
