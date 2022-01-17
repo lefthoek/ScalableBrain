@@ -1,16 +1,5 @@
 import { EventBridgeAdapter } from "./EventBridgeAdapter";
 
-const mock = jest.fn();
-jest.mock("aws-sdk", () => {
-  return {
-    EventBridge: jest.fn(() => {
-      return {
-        putEvents: (args: AWS.EventBridge.PutEventsRequest) => mock(args),
-      };
-    }),
-  };
-});
-
 describe("EventBridge", () => {
   beforeEach(() => {
     mock.mockClear();
@@ -51,4 +40,16 @@ describe("EventBridge", () => {
       ],
     });
   });
+});
+
+const mock = jest.fn();
+
+jest.mock("aws-sdk", () => {
+  return {
+    EventBridge: jest.fn(() => {
+      return {
+        putEvents: (args: AWS.EventBridge.PutEventsRequest) => mock(args),
+      };
+    }),
+  };
 });

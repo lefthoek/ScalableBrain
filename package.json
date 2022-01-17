@@ -51,6 +51,7 @@
     "packages/graphql-schema",
     "packages/types",
     "packages/adapters",
+    "packages/wrappers",
     "packages/stores",
     "services/api",
     "services/mine",

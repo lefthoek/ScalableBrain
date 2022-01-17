@@ -1,18 +1,5 @@
 import { S3Adapter } from "./S3Adapter";
 
-const mock = jest.fn();
-jest.mock("aws-sdk", () => {
-  return {
-    S3: jest.fn(() => {
-      return {
-        putObject: (args: AWS.S3.PutObjectRequest) => mock(args),
-        deleteObject: (args: AWS.S3.DeleteObjectRequest) => mock(args),
-        getObject: (args: AWS.S3.GetObjectRequest) => mock(args),
-      };
-    }),
-  };
-});
-
 describe("S3", () => {
   beforeEach(() => {
     mock.mockClear();
@@ -92,4 +79,18 @@ describe("S3", () => {
       })
     ).rejects.toThrow();
   });
+});
+
+const mock = jest.fn();
+
+jest.mock("aws-sdk", () => {
+  return {
+    S3: jest.fn(() => {
+      return {
+        putObject: (args: AWS.S3.PutObjectRequest) => mock(args),
+        deleteObject: (args: AWS.S3.DeleteObjectRequest) => mock(args),
+        getObject: (args: AWS.S3.GetObjectRequest) => mock(args),
+      };
+    }),
+  };
 });

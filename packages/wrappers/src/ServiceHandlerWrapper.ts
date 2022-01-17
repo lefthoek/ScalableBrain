@@ -1,5 +1,5 @@
 import { Handler as AWSHandler } from "aws-lambda";
-import { EventBridgeAdapter } from "./EventBridgeAdapter";
+import { EventBridgeAdapter } from "@lefthoek/adapters";
 import type { Handler, Services, GenericEvent } from "@lefthoek/types";
 
 const { HANDLER_NAME, EVENT_BUS_NAME } = process.env;

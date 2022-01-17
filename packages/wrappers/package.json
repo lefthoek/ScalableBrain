@@ -1,5 +1,5 @@
 {
-  "name": "@lefthoek/adapters",
+  "name": "@lefthoek/wrappers",
   "version": "0.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -17,9 +17,15 @@
     "aws-sdk": "^2.1058.0"
   },
   "devDependencies": {
-    "@lefthoek/types": "*",
+    "@babel/preset-typescript": "^7.16.7",
     "@lefthoek/config": "*",
+    "@lefthoek/types": "*",
     "rimraf": "^3.0.2",
     "typescript": "^4.5.4"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-typescript"
+    ]
   }
 }

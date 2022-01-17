@@ -2,21 +2,9 @@ import { AuthLookup } from "./AuthLookup";
 import { ProviderType } from "@lefthoek/types";
 import { DynamoDBAdapter } from "@lefthoek/adapters";
 
-const mockPromise = jest.fn();
-
-jest.mock("@lefthoek/adapters", () => ({
-  __esModule: true, // this property makes it work
-  DynamoDBAdapter: function () {
-    return {
-      fetch: mockPromise,
-      write: mockPromise,
-    };
-  },
-}));
-
 describe("AuthLookup", () => {
   beforeEach(() => {
-    mockPromise.mockClear();
+    mock.mockClear();
   });
 
   it("gets auth data if provider id and provider type exist", async () => {
@@ -32,7 +20,7 @@ describe("AuthLookup", () => {
       provider_type: "SLACK",
       access_token: "XXXX",
     };
-    mockPromise.mockResolvedValue(authData);
+    mock.mockResolvedValue(authData);
 
     expect(
       await authLookup.fetch({
@@ -40,7 +28,7 @@ describe("AuthLookup", () => {
         provider_type: ProviderType.Slack,
       })
     ).toBeTruthy();
-    expect(mockPromise).toBeCalledTimes(1);
+    expect(mock).toBeCalledTimes(1);
   });
 
   it("returns null if provider id and provider type do not exist", async () => {
@@ -49,7 +37,7 @@ describe("AuthLookup", () => {
 
     expect(authLookup).toBeDefined();
 
-    mockPromise.mockResolvedValue(null);
+    mock.mockResolvedValue(null);
 
     expect(
       await authLookup.fetch({
@@ -58,7 +46,7 @@ describe("AuthLookup", () => {
       })
     ).toBeNull();
 
-    expect(mockPromise).toBeCalledTimes(1);
+    expect(mock).toBeCalledTimes(1);
   });
 
   it("put an item", async () => {
@@ -74,8 +62,20 @@ describe("AuthLookup", () => {
       access_token: "XXXX",
     };
 
-    mockPromise.mockResolvedValue(authData);
+    mock.mockResolvedValue(authData);
     expect(await authLookup.write(authData)).toBe(authData);
-    expect(mockPromise).toBeCalledTimes(1);
+    expect(mock).toBeCalledTimes(1);
   });
 });
+
+const mock = jest.fn();
+
+jest.mock("@lefthoek/adapters", () => ({
+  __esModule: true, // this property makes it work
+  DynamoDBAdapter: function () {
+    return {
+      fetch: mock,
+      write: mock,
+    };
+  },
+}));

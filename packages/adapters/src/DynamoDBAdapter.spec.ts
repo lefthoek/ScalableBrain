@@ -1,19 +1,5 @@
 import { DynamoDBAdapter } from "./DynamoDBAdapter";
 
-const mock = jest.fn();
-jest.mock("aws-sdk", () => {
-  return {
-    DynamoDB: {
-      DocumentClient: jest.fn(() => {
-        return {
-          put: (args: AWS.DynamoDB.DocumentClient.PutRequest) => mock(args),
-          get: (args: AWS.DynamoDB.DocumentClient.GetItemInput) => mock(args),
-        };
-      }),
-    },
-  };
-});
-
 describe("DynamoDB", () => {
   beforeEach(() => {
     mock.mockClear();
@@ -67,4 +53,19 @@ describe("DynamoDB", () => {
 
     expect(mock).toBeCalledTimes(1);
   });
+});
+
+const mock = jest.fn();
+
+jest.mock("aws-sdk", () => {
+  return {
+    DynamoDB: {
+      DocumentClient: jest.fn(() => {
+        return {
+          put: (args: AWS.DynamoDB.DocumentClient.PutRequest) => mock(args),
+          get: (args: AWS.DynamoDB.DocumentClient.GetItemInput) => mock(args),
+        };
+      }),
+    },
+  };
 });

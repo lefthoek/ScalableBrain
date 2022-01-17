@@ -2,20 +2,7 @@ import { TeamRepo } from "./TeamRepo";
 import { S3Adapter } from "@lefthoek/adapters";
 import { ProviderType } from "@lefthoek/types";
 
-const mock = jest.fn();
-
-jest.mock("@lefthoek/adapters", () => ({
-  __esModule: true, // this property makes it work
-  S3Adapter: function () {
-    return {
-      readJSON: mock,
-      writeJSON: mock,
-      touch: mock,
-    };
-  },
-}));
-
-describe("AuthLookup", () => {
+describe("TeamRepo", () => {
   beforeEach(() => {
     mock.mockClear();
   });
@@ -52,5 +39,20 @@ describe("AuthLookup", () => {
       path: "XYZ/meta.json",
       data: teamData,
     });
+
+    expect(mock).toBeCalledTimes(2);
   });
 });
+
+const mock = jest.fn();
+
+jest.mock("@lefthoek/adapters", () => ({
+  __esModule: true, // this property makes it work
+  S3Adapter: function () {
+    return {
+      readJSON: mock,
+      writeJSON: mock,
+      touch: mock,
+    };
+  },
+}));
