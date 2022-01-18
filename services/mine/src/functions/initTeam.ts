@@ -1,4 +1,5 @@
-import { S3Adapter, serviceHandlerWrapper } from "@lefthoek/adapters";
+import { S3Adapter } from "@lefthoek/adapters";
+import { serviceHandlerWrapper } from "@lefthoek/wrappers";
 import { TeamRepo } from "@lefthoek/stores";
 import { TeamAddedEvent, TeamRepoInitiatedEvent } from "@service_types/events";
 import { ServiceEventType } from "@service_types/enums";
