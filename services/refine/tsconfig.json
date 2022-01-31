@@ -3,7 +3,7 @@
   "exclude": ["**/*.spec.ts", "**/*.mock.ts"],
   "compilerOptions": {
     "baseUrl": "./src",
-    "rootDir": "./src",
+    "rootDirs": ["./src", "./serverless"],
     "outDir": "dist",
     "paths": {
       "@service_types/*": ["types/*"],
