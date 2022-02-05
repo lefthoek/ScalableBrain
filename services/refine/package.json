@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@lefthoek/config": "*",
+    "@lefthoek/serverless-config": "*",
     "@serverless/typescript": "^3.0.0",
     "@types/aws-lambda": "^8.10.89",
     "@types/node-fetch": "^3.0.3",

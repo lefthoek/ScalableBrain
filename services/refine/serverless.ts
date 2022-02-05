@@ -1,19 +1,13 @@
 import type { AWS } from "@serverless/typescript";
 
-import provider from "./serverless/provider";
-import custom from "./serverless/custom";
-import functions from "./serverless/functions";
+import { plugins, provider, custom, functions } from "./serverless/index";
 
 const serverlessConfiguration: AWS = {
   service: "scalable-brain-refine",
   frameworkVersion: "3",
   configValidationMode: "error",
   useDotenv: true,
-  plugins: [
-    "serverless-esbuild",
-    "serverless-offline",
-    "serverless-plugin-monorepo",
-  ],
+  plugins,
   provider,
   custom,
   functions,

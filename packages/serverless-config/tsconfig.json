@@ -1,0 +1,8 @@
+{
+  "extends": "@lefthoek/config/tsconfig.typecheck.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "outDir": "dist"
+  }
+}

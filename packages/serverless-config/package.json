@@ -1,14 +1,11 @@
 {
-  "name": "@lefthoek/types",
+  "name": "@lefthoek/serverless-config",
   "version": "0.0.0",
-  "description": "",
+  "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
   "author": "Jan Hein Hoogstad",
   "license": "MIT",
-  "dependencies": {
-    "@lefthoek/graphql-schema": "*"
-  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc",
@@ -16,7 +13,9 @@
     "watch": "tsc -w"
   },
   "devDependencies": {
+    "@serverless/typescript": "^3.0.0",
     "@lefthoek/config": "*",
+    "@lefthoek/types": "*",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.4"
   }
